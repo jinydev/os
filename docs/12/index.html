@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--SEO--><title>Learn PHP</title><!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            img {
+                max-width:100%;
+            }
+        </style>
+
+        <link rel="stylesheet" href="/assets/highlight.css">
+        <link rel="stylesheet" href="/assets/style.css">
+
+
+        <!--에드센스-->
+        <script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+        <style>
+            /*
+            h1  a {
+                color: black;
+            }
+            h1 a:hover {
+                color: blue;
+                text-decoration: none;
+            }
+
+            h2  a {
+                color: black;
+            }
+            h2 a:hover {
+                color: blue;
+                text-decoration: none;
+            }
+
+            h3  a {
+                color: black;
+            }
+            h3 a:hover {
+                color: blue;
+                text-decoration: none;
+            }
+
+            h4  a {
+                color: black;
+            }
+            h4 a:hover {
+                color: blue;
+                text-decoration: none;
+            }
+            */
+
+
+        </style>
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+    	<a class="navbar-brand" href="/">운영체제</a>
+    	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    		<span class="navbar-toggler-icon"></span>
+    	</button>
+    	<div class="collapse navbar-collapse" id="navbarResponsive">
+    		<ul class="navbar-nav ml-auto">
+				<!--
+					<li class="nav-item">
+        			<a class="nav-link" href="/php">소개</a>
+        		</li>
+        		<li class="nav-item active">
+        			<a class="nav-link" href="/setup">설치</a>
+        		</li>
+        		<li class="nav-item">
+        			<a class="nav-link" href="/basic">기본문법</a>
+				</li>
+				<li class="nav-item">
+        			<a class="nav-link" href="/function">함수</a>
+				</li>
+				<li class="nav-item">
+        			<a class="nav-link" href="/oop">객체지향</a>
+        		</li>
+				-->
+    			
+        	</ul>
+    	</div>
+    </div>
+  </nav><!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron mb-0">
+    <div class="container">
+      <div class="row">
+        <h1 class="display-3">운영체제</h1>
+        <p>운영체제를 학습합니다.</p>
+      </div>
+    </div>
+</div>
+
+<div class="bg-light">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-light">
+                <li class="breadcrumb-item"><a href="/">Home</a></li></ol>    
+        </nav>
+    </div>
+</div>
+  
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+			<main role="main">
+                <section>
+                    <h1 id="파일-시스템">파일 시스템</h1>
+
+<h2 id="학습목표">학습목표</h2>
+
+<ul>
+  <li>파일 시스템의 기능과 구조를 기술할 수 있다.</li>
+  <li>파일 시스템의 논리적인 구조와 물리적인 구조를 설명할 수 있다.</li>
+  <li>파일 시스템이 보조 기억장치에서 자유공간을 관리하고 할당하는 방식을 설명할 수 있다.</li>
+</ul>
+
+<h2 id="학습내용">학습내용</h2>
+
+<ul>
+  <li><a href="01">파일 시스템</a></li>
+  <li><a href="02">파일의 저장공간 할당</a></li>
+  <li><a href="03">파일 보호</a></li>
+  <li><a href="04">파일 접근 실습</a></li>
+</ul>
+
+<h2 id="퀴즈로-확인하기">퀴즈로 확인하기</h2>
+
+<h2 id="정리하기">정리하기</h2>
+
+<ul>
+  <li>파일 시스템이란 사용자들이 생성, 저장, 사용하는 파일을 관리하는 기능을 담당하는 운영체제의 일부분이다.</li>
+  <li>
+    <p>파일이란 정보들의 집합에 이름을 부여한 추상적인 데이터 유형이고, 디렉터리는 파일의 관리를 용이하도록 그룹별 저장 공간을 제공하는 구분된 공간이다.</p>
+  </li>
+  <li>파일 시스템은 여러 가지 논리적인 구조가 가능하며, 1단계/2단계 디렉터리, 트리구조 디랙터리, 비순환 그래프 디렉터리, 일반 그래프 디렉터리로 구분할 수 있다.</li>
+  <li>
+    <p>파일 시스템은 사용자가 빠르고 쉽게 이용하도록 물리적인 구조를 정의하는데, 여기에는 <code class="language-plaintext highlighter-rouge">연속할당</code>,<code class="language-plaintext highlighter-rouge">연결할당</code>,<code class="language-plaintext highlighter-rouge">색인할당</code>등의 기법이 있다.</p>
+  </li>
+  <li>파일 시스템은 보조기억 장치상에서 미사용 중인 자유공간을 효율적으로 관리함으로써 필요 시에 빠르게 할당할 수 있다.</li>
+  <li>
+    <p>파일은 주요 정보 저장 수단이므로 보회되며 이를 위하여 파일에 대한 접근은 읽기, 쓰기, 실행 등의 접근 유형에 따라서 별도로 통제한다.</p>
+  </li>
+  <li>파일 기술자는 열린 파일을 나타내는 정수이며 해당 파일에 대한 연산을 수행한다.</li>
+  <li>
+    <p>파일 기술자 중에서 0,1,2번은 각각 표준 입력(STDIN), 표준출력(STDOUT),표준오류(STDERR)로 예약되어 있다.</p>
+  </li>
+  <li>기본적으로 파일을 열고 닫는 동작을 위해서 open(), close() 함수를 이용하고, 파일의 내용을 읽거나 쓰기 위해서 read(), write() 함수를 사용한다.</li>
+</ul>
+
+
+                </section>
+			</main>
+			
+			<!--구글 애드센스-->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-format="fluid"
+                data-ad-layout-key="-fb+5w+4e-db+86"
+                data-ad-client="ca-pub-3321560028329475"
+                data-ad-slot="6043271504"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3">
+			<aside><ul class="list-group">
+    <li class="list-group-item"><a href="/01">운영체제 개요</a></li>
+    <li class="list-group-item"><a href="/02">컴퓨터 시스템 구조</a></li>
+    <li class="list-group-item"><a href="/03">프로세스</a></li>
+    <li class="list-group-item"><a href="/04">스레드</a></li>
+    <li class="list-group-item"><a href="/05">프로세스 상호배제</a></li>
+    <li class="list-group-item"><a href="/06">프로세스 교착상태</a></li>
+    <li class="list-group-item"><a href="/07">CPU 스케쥴링</a></li>
+   
+    <li class="list-group-item"><a href="/08">프로세스간 통신</a></li>
+    <li class="list-group-item"><a href="/09">메모리 관리</a></li>
+    <li class="list-group-item"><a href="/10">가상메모리</a></li>
+    <li class="list-group-item"><a href="/11">파일시스템</a></li>
+    <li class="list-group-item"><a href="/12">대용량 저장장치</a></li>
+    <li class="list-group-item"><a href="/13">입출력 시스템</a></li>
+    <li class="list-group-item"><a href="/14">입출력 시스템</a></li>
+    
+</ul>
+
+
+
+</aside>			
+			
+			<!--구글 애드센스2-->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-format="fluid"
+                data-ad-layout-key="-ef+6k-30-ac+ty"
+                data-ad-client="ca-pub-3321560028329475"
+                data-ad-slot="7661682925"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            
+        </div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+
+        <!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    </body>
+
+</html>

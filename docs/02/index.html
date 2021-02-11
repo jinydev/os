@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--SEO--><title>Learn PHP</title><!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            img {
+                max-width:100%;
+            }
+        </style>
+
+        <link rel="stylesheet" href="/assets/highlight.css">
+        <link rel="stylesheet" href="/assets/style.css">
+
+
+        <!--에드센스-->
+        <script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+        <style>
+            /*
+            h1  a {
+                color: black;
+            }
+            h1 a:hover {
+                color: blue;
+                text-decoration: none;
+            }
+
+            h2  a {
+                color: black;
+            }
+            h2 a:hover {
+                color: blue;
+                text-decoration: none;
+            }
+
+            h3  a {
+                color: black;
+            }
+            h3 a:hover {
+                color: blue;
+                text-decoration: none;
+            }
+
+            h4  a {
+                color: black;
+            }
+            h4 a:hover {
+                color: blue;
+                text-decoration: none;
+            }
+            */
+
+
+        </style>
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+    	<a class="navbar-brand" href="/">운영체제</a>
+    	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    		<span class="navbar-toggler-icon"></span>
+    	</button>
+    	<div class="collapse navbar-collapse" id="navbarResponsive">
+    		<ul class="navbar-nav ml-auto">
+				<!--
+					<li class="nav-item">
+        			<a class="nav-link" href="/php">소개</a>
+        		</li>
+        		<li class="nav-item active">
+        			<a class="nav-link" href="/setup">설치</a>
+        		</li>
+        		<li class="nav-item">
+        			<a class="nav-link" href="/basic">기본문법</a>
+				</li>
+				<li class="nav-item">
+        			<a class="nav-link" href="/function">함수</a>
+				</li>
+				<li class="nav-item">
+        			<a class="nav-link" href="/oop">객체지향</a>
+        		</li>
+				-->
+    			
+        	</ul>
+    	</div>
+    </div>
+  </nav><!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron mb-0">
+    <div class="container">
+      <div class="row">
+        <h1 class="display-3">운영체제</h1>
+        <p>운영체제를 학습합니다.</p>
+      </div>
+    </div>
+</div>
+
+<div class="bg-light">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-light">
+                <li class="breadcrumb-item"><a href="/">Home</a></li></ol>    
+        </nav>
+    </div>
+</div>
+  
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+			<main role="main">
+                <section>
+                    <h2 id="컴퓨터-시스템-구조">컴퓨터 시스템 구조</h2>
+
+<h2 id="지난주-복습">지난주 복습</h2>
+
+<ul>
+  <li>운영체제란 사람요자와 하드웨어의 중간에 위치하여 응용 프로그램의 실행을 제어하고, 컴퓨터 자원을 효율적으로 관리하며, 입출력 제어 및 데이터 관리 서비스를 제공함</li>
+  <li>운영체제로 인하여 사용자는 편리한 환경을 제공받고 시스템 전체적으로는 성능을 향상시킴</li>
+  <li>운영체제는 메모리 관리, 프로세스 관리, 주변장치 관리, 파일관리, 시스템 보호 기능, 네트워킹 및 명령 해석기 등과 같은 다양한 기능을 제공함</li>
+  <li>
+    <p>응용 프로그램은 시스템 호출을 통하여 운영체제의 기능을 이용함</p>
+  </li>
+  <li>초창기 컴퓨터는 운영체제가 없었으나, 점차 일괄처리 시스템, 다중 프로그래밍, 다중 처리시스템, 시분할 시스템, 실시간 시스템 등과 같이 복잡한 운영체제로 발전함</li>
+  <li>운영체제의 기능 요구 사항에 따라서 단일/모노리틱(모듈)구조, 계층 구조, 마이크로 커널구조 형태로 설계하고 있음</li>
+</ul>
+
+<h2 id="학습목표">학습목표</h2>
+
+<ul>
+  <li>컴퓨터 시스템을 구성하는 주요 장치의 동작원리 및 특성에 대해서 설명할 수 있다.</li>
+  <li>프로그램의 기본 단위인 명령어의 구성과 동작에 대해서 설명할 수 있다.</li>
+  <li>입출력 장치의 핵심 원리인 인터럽트와 DMA 메커니즘의 장단점을 설명할 수 있다.</li>
+</ul>
+
+<h2 id="학습내용">학습내용</h2>
+<hr />
+<ul>
+  <li><a href="01">컴퓨터 시스템의 구성</a></li>
+  <li><a href="02">컴퓨터 시스템의 동작</a></li>
+  <li><a href="03">우분투 시스템의 사용 실습</a></li>
+</ul>
+
+<h2 id="퀴즈로-확인하기">퀴즈로 확인하기</h2>
+
+<h2 id="정리하기">정리하기</h2>
+
+<ul>
+  <li>컴퓨터 시스템은 프로세서, 메모리, 입출력 주변장치, 그리고 버스로 구성된다.</li>
+  <li>폰 노이먼 방식의 컴퓨터 구조는 내장 프로그램 방식을 채택하여 현대 컴퓨터 구조의 근간이 되었다.</li>
+  <li>
+    <p>마이크로프로세서는 레지스터 연산장치, 제어장치로 구성된다.</p>
+  </li>
+  <li>시스템 버스는 컴퓨터 내부/외부의 컴포넌트간의 제어정보 혹은 데이터 전달을 위한 공통 자원이다.</li>
+  <li>
+    <p>입출력 주변장치는 컴퓨터와 사용자를 연결해 주는 역할을 수행한다.</p>
+  </li>
+  <li>입출력 주변 장치를 사용하면서 프로세서가 직접 주변장치를 감시하는 <code class="language-plaintext highlighter-rouge">폴링방식</code>을 사용할 수 있지만, 프로세서의 부하를 줄이기 위해서 인터럽트 방식과 DMA 방식을 사용한다.</li>
+  <li>
+    <p>프로세서가 명령어를 수행하는 과정은 평령어 인출, 명령어 해독, 피연산자 인출, 명령어 실행, 결과 저장의 순서로 수행된다.</p>
+  </li>
+  <li>프로세서는 명령어 구성 방식에 따라서 CISC와 RISC로 구분된다.</li>
+  <li>사용자가 특정 프로그램 언어로 작성한 프로그램을 컴파일러를 이용하여 컴퓨터가 사용할 수 있는 코드로 변환해 준다.</li>
+</ul>
+
+
+                </section>
+			</main>
+			
+			<!--구글 애드센스-->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-format="fluid"
+                data-ad-layout-key="-fb+5w+4e-db+86"
+                data-ad-client="ca-pub-3321560028329475"
+                data-ad-slot="6043271504"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3">
+			<aside><ul class="list-group">
+    <li class="list-group-item"><a href="/01">운영체제 개요</a></li>
+    <li class="list-group-item"><a href="/02">컴퓨터 시스템 구조</a></li>
+    <li class="list-group-item"><a href="/03">프로세스</a></li>
+    <li class="list-group-item"><a href="/04">스레드</a></li>
+    <li class="list-group-item"><a href="/05">프로세스 상호배제</a></li>
+    <li class="list-group-item"><a href="/06">프로세스 교착상태</a></li>
+    <li class="list-group-item"><a href="/07">CPU 스케쥴링</a></li>
+   
+    <li class="list-group-item"><a href="/08">프로세스간 통신</a></li>
+    <li class="list-group-item"><a href="/09">메모리 관리</a></li>
+    <li class="list-group-item"><a href="/10">가상메모리</a></li>
+    <li class="list-group-item"><a href="/11">파일시스템</a></li>
+    <li class="list-group-item"><a href="/12">대용량 저장장치</a></li>
+    <li class="list-group-item"><a href="/13">입출력 시스템</a></li>
+    <li class="list-group-item"><a href="/14">입출력 시스템</a></li>
+    
+</ul>
+
+
+
+</aside>			
+			
+			<!--구글 애드센스2-->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-format="fluid"
+                data-ad-layout-key="-ef+6k-30-ac+ty"
+                data-ad-client="ca-pub-3321560028329475"
+                data-ad-slot="7661682925"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            
+        </div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+
+        <!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    </body>
+
+</html>
