@@ -1,0 +1,41 @@
+---
+layout: default
+title: "8주차: 전반기 기술 점검 및 중간고사"
+---
+
+<div align='center' style='margin: 30px 0;'>
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="100" fill="white" font-size="28" font-family="monospace" text-anchor="middle">OS Midterm</text></svg>
+</div>
+
+# 8주차: 전반기 기술 점검 및 중간고사
+
+
+![OS Core Architecture](/Users/hojin/.gemini/antigravity/brain/28d2e8ff-2bf4-4b06-8f22-23880f1f7300/ai_os_08.png)
+<br>
+
+
+
+## 1. 운영체제 전반기 아키텍처 복습
+
+[실전 심화 렉처]
+7주 차까지 우리는 시스템 콜의 하부 경로, 프로세스와 스레드의 본질적 파이프라인, 거대한 가상 메모리 맵과 페이지 폴트 메커니즘, 디스크 I/O가 얽히는 Inode와 트리 구조까지 전반적 아키텍처를 통과해 왔습니다!
+현대 클라우드 서버 장비를 이해하기 위한 가장 강력한 기반이 다져진 것입니다.
+이번 중간고사 점검은 단순 문법이나 암기를 위한 것이 아닙니다. 주어진 에러 스트림을 읽고 OS 어느 계층(CPU L1 캐싱 미스인지, 디스크 블록 할당 지연인지, 커널 권한 탈락인지)에서 병목이 발생했는가 직관적으로 추적하는 체질 개선에 포커스를 맞춥니다.
+
+---
+
+<div align='center' style='margin: 30px 0;'>
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="100" fill="#E81123" font-size="24" font-family="monospace" text-anchor="middle">Summary Assessment</text></svg>
+</div>
+
+## [평가 안내] 중간고사 이론-실기 병합 평가
+
+OS의 커널 층, 가상 메모리 공간 계산, CFS 스케줄러 지연율 및 inode 생성 원리가 핵심 문항으로 출제됩니다. 터미널에서의 `top`, `strace` 분석 스크린샷 판독이 동반됩니다.
+
+<div align='center' style='margin: 30px 0;'>
+  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="65" fill="#00FF00" font-size="18" font-family="monospace" text-anchor="middle">Review 1~7 Weeks</text></svg>
+</div>
+
+## [리포팅] 시스템 장애 복서 케이스 리뷰
+
+실전 데드락, 메모리 캐시 미스 등을 디버깅했던 과제를 복기하며 엔지니어 뇌 구조를 형성합니다.

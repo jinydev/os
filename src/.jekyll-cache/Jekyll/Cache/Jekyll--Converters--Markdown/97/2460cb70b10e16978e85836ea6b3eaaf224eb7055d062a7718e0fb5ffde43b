@@ -1,0 +1,37 @@
+I"f<h1 id="2주차-명령-프롬프트cmd와-dos-명령어의-부활">2주차: 명령 프롬프트(CMD)와 DOS 명령어의 부활</h1>
+
+<p><img src="/Users/hojin/.gemini/antigravity/brain/28d2e8ff-2bf4-4b06-8f22-23880f1f7300/ai_window_02.png" alt="OS Core Architecture" />
+<br /></p>
+
+<ul>
+  <li><strong>대주제</strong>: 명령 프롬프트(CMD)와 DOS 명령어의 부활</li>
+  <li><strong>세부학습목표</strong>: GUI 마우스를 버리고, 현재까지도 위력을 발휘하는 쉘인 CMD 환경에서 필수 DOS 명령어들을 다듬어 낸다.</li>
+</ul>
+
+<h4 id="-2-1-명령-프롬프트-엔진">📌 2-1. 명령 프롬프트 엔진</h4>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">cmd.exe</code> 프로세스의 한계 및 작동 원리</li>
+  <li>배치 스크립트(<code class="language-plaintext highlighter-rouge">.bat</code>)의 문법 체계</li>
+</ol>
+
+<h4 id="-2-2-클래식-dos-명령어-실전">📌 2-2. 클래식 DOS 명령어 실전</h4>
+<ol>
+  <li>디렉토리 탐색기: <code class="language-plaintext highlighter-rouge">dir</code>, <code class="language-plaintext highlighter-rouge">cd</code>, <code class="language-plaintext highlighter-rouge">mkdir</code>, <code class="language-plaintext highlighter-rouge">tree</code></li>
+  <li>파일 복사/이동 종결자: <code class="language-plaintext highlighter-rouge">copy</code>, <code class="language-plaintext highlighter-rouge">xcopy</code>, <code class="language-plaintext highlighter-rouge">robocopy</code> 의 성능 차이</li>
+  <li>네트워킹과 포트 점검: <code class="language-plaintext highlighter-rouge">ipconfig</code>, <code class="language-plaintext highlighter-rouge">ping</code>, <code class="language-plaintext highlighter-rouge">tracert</code>, <code class="language-plaintext highlighter-rouge">netstat -ano</code></li>
+  <li>프로세스 제어: <code class="language-plaintext highlighter-rouge">tasklist</code>, <code class="language-plaintext highlighter-rouge">taskkill</code></li>
+</ol>
+
+<hr />
+
+<hr />
+
+<h2 id="심화-렉처-전통을-지배하는-도스-명령어">[심화 렉처] 전통을 지배하는 도스 명령어</h2>
+
+<p>아직도 윈도우 서버 스크립트에는 Unix <code class="language-plaintext highlighter-rouge">ls</code> 가 아니라 <code class="language-plaintext highlighter-rouge">dir</code> 이 박혀 있습니다. 이전의 레거시 DOS 명령어를 모르면 구형 유지보수가 불가능합니다.
+<code class="language-plaintext highlighter-rouge">mkdir</code> 과 디렉토리 파괴(<code class="language-plaintext highlighter-rouge">rmdir /s /q</code>), 그리고 빠른 파일 복사 로직인 <code class="language-plaintext highlighter-rouge">xcopy</code> 나 단선 네트워크 서버 백업 전술인 <code class="language-plaintext highlighter-rouge">robocopy</code> 를 체감해야 합니다.</p>
+
+<h2 id="심화-렉처-권력의-제어">[심화 렉처] 권력의 제어</h2>
+
+<p>당신의 컴퓨터 포트를 누가 갉아먹고 있는지 알아내려면 <code class="language-plaintext highlighter-rouge">netstat -ano</code> 와 <code class="language-plaintext highlighter-rouge">tasklist</code> 로 PID를 추적해야 합니다. 멈춰버린 프로세스를 터미널에서 즉시 폭파시키는 <code class="language-plaintext highlighter-rouge">taskkill /F /PID 2043</code> 은 모든 윈도우 엔지니어의 핵심 스킬입니다.</p>
+:ET

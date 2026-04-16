@@ -1,0 +1,14 @@
+main:
+  - title: 기타(Others) 및 프레임워크
+    url: /others/01_dos_era/
+    subitems:
+      - title: 1주 차 - DOS의 시대
+        url: /others/01_dos_era/
+      - title: 2주 차 - OS/2와 데스크탑 전쟁
+        url: /others/02_os2_wars/
+      - title: 3주 차 - 솔라리스(Solaris)와 유닉스
+        url: /others/03_solaris_unix/
+      - title: 4주 차 - 모바일 리눅스와 RTOS
+        url: /others/04_mobile_rtos/
+      - title: 5주 차 - 프레임워크 vs 운영체제
+        url: /others/05_frameworks/

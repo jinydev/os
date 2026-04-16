@@ -1,0 +1,54 @@
+---
+layout: default
+title: "11주차: 가상화와 클라우드 OS (하이퍼바이저·K8s 개요)"
+---
+
+<div align='center' style='margin: 30px 0;'>
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="60" fill="white" font-size="20" font-family="monospace" text-anchor="middle">Type 1 Bare Metal (KVM/ESXi)</text><text x="300" y="130" fill="white" font-size="20" font-family="monospace" text-anchor="middle">Type 2 Hosted (VirtualBox)</text></svg>
+</div>
+
+# 11주차: 가상화와 클라우드 OS (하이퍼바이저·K8s 개요)
+
+
+![OS Core Architecture](/Users/hojin/.gemini/antigravity/brain/28d2e8ff-2bf4-4b06-8f22-23880f1f7300/ai_os_11.png)
+<br>
+
+
+
+
+## 1. 하드웨어 가상화와 하이퍼바이저 링 레벨
+
+[실전 심화 렉처]
+컨테이너가 리눅스 내의 프로세스 꼼수라면, 완전한 이종 커널 간의 동기화(맥북 안에서 MS 윈도우 커널 데우스 실행)는 물리 하드웨어 가상화 장비인 Type-1 패링 기능(Hypervisor)이 없으면 절대 성립하지 않습니다.
+Intel VT-x 나 AMD-V 같은 CPU 전용 가상화 명령어 세트가 부팅부터 Ring -1 레벨(커널보다 더 밑바닥 특권층)로 개입하여 게스트 OS의 모든 메모리 간섭 현상 페이지 폴트를 중간에서 꿀꺽 집어삼키고 몰래 하드웨어 처리를 대리수행(Shadow Paging & EPC) 시켜 줍니다. AWS 클라우드 KVM 기반 무수한 가상 서버도 이렇게 하드웨어 CPU 특권 명령의 은폐된 트릭으로 유지됩니다.
+
+## 2. 쿠버네티스(Kubernetes) 오케스트레이터의 철학
+
+[실전 심화 렉처]
+컨테이너가 10개일 때는 도커 데우스 배포가 먹히지만, 1만 대의 클러스터 장비에 수작업은 자살 행위입니다.
+쿠버네티스(K8s)는 OS를 대규모로 추상화한 '메타-운영체제 플랫폼'입니다. 서버 노드 하나가 갑자기 화재로 소실되면 마스터 제어 노드가 즉각 수명을 다한 컨테이너(Pod)의 목숨을 판별하고 인근 정상 노드에 렉처 없이 즉각 부활(Auto-Healing/Replication)시켜버립니다.
+이 모든 인프라스트럭처 제어 구조는 "결과적으로 목표치 3대의 파드가 돌아야 한다"고 종이에 써두는(Declarative, 선언적 메커니즘) yaml 문서의 지속 제어 아키텍처에서 비롯됩니다.
+
+## 3. Serverless와 마이크로-VM 아키텍처 (Firecracker)
+
+[실전 심화 렉처]
+AWS Lambda 처럼 사용자가 1초만 켰다 끄는 코드를 돌릴 때 거대한 리눅스 VM을 돌리는 것은 미친 낭비입니다.
+현대 클라우드 벤더는 KVM 런타임을 극도로 뼈대만 남기어 150밀리초 만에 부팅시키는 '초경량 가상머신(Micro-VM)'을 오픈소스로 만들어버렸습니다(Firecracker 등). 보안 때문에 컨테이너 격리만으로는 불안한 퍼블릭 클라우드 한계를 뛰어넘어 컨테이너의 가벼움과 VM의 강철 보안 격리를 동시에 쟁취해버린 현대 클라우드 네이티브 메커니즘을 경험하십시오.
+
+---
+
+<div align='center' style='margin: 30px 0;'>
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><circle cx="300" cy="100" r="50" fill="none" stroke="#E81123" stroke-width="4"/><circle cx="300" cy="100" r="20" fill="#0078D7"/><text x="300" y="180" fill="#00FF00" font-size="18" font-family="monospace" text-anchor="middle">K8s: Node -> Pod -> Container</text></svg>
+</div>
+
+## [전공 심화] 하이퍼바이저 링(Ring) -1 패러다임
+
+OS 커널이 Ring 0 특권 레벨을 지배할 때, 그 커널 모여앉아 가짜 하드웨어를 분배해주는 또 다른 황제가 하이퍼바이저입니다. Type1 계층의 KVM과 최신 AMD-V/VT-x 하드웨어 지원 가상화 덕택에 클라우드 서버 VM들은 거의 물리 서버와 유사한(99.9%) 속도를 자랑할 수 있게 되었습니다.
+
+<div align='center' style='margin: 30px 0;'>
+  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="65" fill="#E81123" font-size="18" font-family="monospace" text-anchor="middle">Immutable Infrastructure Principle</text></svg>
+</div>
+
+## [전공 심화] 쿠버네티스(K8s) 행성 관제탑
+
+만약 1,000대의 서버와 1만 개의 도커 컨테이너가 있다면 어떻게 네트워크를 연결하고 트래픽을 분산할까요? 구글의 내재 인프라 제어기가 오픈소스로 풀린 쿠베네티스는 모든 컨테이너들을 팟(Pod)으로 묶고 도커가 아닌 '전체 클라우드 행성 OS'의 레벨로 인프라를 추상화시켜 버리는 스케일링 엔진입니다.

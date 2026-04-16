@@ -1,0 +1,63 @@
+---
+layout: default
+title: "1주차: 운영체제란 무엇인가 (현대 OS의 역할과 구조)"
+---
+
+<div align='center' style='margin: 30px 0;'>
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><rect x="50" y="40" width="100" height="120" fill="#005A9E" rx="5"/><text x="100" y="105" fill="white" font-size="20" font-family="monospace" text-anchor="middle">Apps</text><path d="M 160 100 L 240 100" stroke="#00FF00" stroke-width="4"/><rect x="250" y="40" width="100" height="120" fill="#E81123" rx="5"/><text x="300" y="105" fill="white" font-size="20" font-family="monospace" text-anchor="middle">OS Kernel</text><path d="M 360 100 L 440 100" stroke="#00FF00" stroke-width="4"/><rect x="450" y="40" width="100" height="120" fill="#333" rx="5"/><text x="500" y="105" fill="white" font-size="18" font-family="monospace" text-anchor="middle">Hardware</text></svg>
+</div>
+
+# 1주차: 운영체제란 무엇인가 (현대 OS의 역할과 구조)
+
+
+![OS Core Architecture](/Users/hojin/.gemini/antigravity/brain/28d2e8ff-2bf4-4b06-8f22-23880f1f7300/ai_os_01.png)
+<br>
+
+
+
+
+## 1. 운영체제의 핵심 역할 파고들기
+
+[실전 심화 렉처] 
+많은 초보자들이 착각하는 것은 '운영체제 = 윈도우 UI 화면'이라고 생각하는 점입니다. 하지만 시니어 엔지니어링 레벨에서 바라보는 OS는 **[추상화, 자원 중재, 권한 제어]** 시스템의 집약체입니다.
+가장 먼저 여러분은 링 모델(Ring Model)과 커널(Kernel)이라는 용어를 체득해야 합니다.
+모든 사용자 애플리케이션(브라우저, 게임, 파이썬 스크립트)은 Ring 3(User Mode)에서 동작합니다. 하지만 이들은 절대 물리적 메모리나 하드디스크에 직접 데이터를 쓸 수 없습니다. 모든 하드웨어 제어는 Ring 0(Kernel Mode)가 독점하며, 우리는 반드시 OS에게 '문서를 프린트해 주세요', '네트워크로 패킷을 보내주세요'라고 부탁(System Call)해야만 합니다.
+
+이러한 강력한 격리(Isolation)와 추상화(Abstraction)가 없다면, 크롬 브라우저에 오류가 날 때마다 컴퓨터는 완전히 블루스크린을 띄우거나 전원이 차단되었을 것입니다.
+
+## 2. 현대 OS 생태계와 커널 분석
+
+[실전 심화 렉처]
+우리가 다루는 서버 대부분은 Linux입니다. Linux는 '모놀리식 커널(Monolithic Kernel)'입니다. 모든 기능이 커널 메모리에 올라가 있어 매우 빠르지만, 드라이버 하나가 충돌하면 전체 커널 패닉을 일으킬 수 있는 구조입니다.
+반면 임베디드 단의 QNX(자동차 OS) 등은 '마이크로커널(Microkernel)'을 씁니다. 커널 영역에는 최소한의 통신 모듈만 두고 나머지 파일 시스템 등은 유저 스페이스로 내려 안정성을 극대화한 설계입니다. MacOS(XNU)나 Windows NT는 두 가지 장점을 섞은 하이브리드 커널입니다.
+
+엔지니어라면 현재 내 커널이 어떻게 구축되어 있는지 파라미터를 읽을 줄 알아야 합니다.
+```bash
+$ uname -r
+$ dmesg | head -n 10
+```
+위 명령어를 통해 부팅 시 커널이 메모리에 어떻게 적재되고 어떤 모듈들을 초기화했는지 살펴보십시오.
+
+## 3. UNIX 철학과 다중 사용자(Multi-User)
+
+[실전 심화 렉처]
+단순히 "계정이 여러 개다"를 넘어서, OS가 스레드 풀과 메모리 주소 공간을 어떻게 철저히 격리(Isolation)하는지 시각화해야 합니다.
+`who`, `w`, `last` 명령어는 단순 로그인 로그가 아닙니다. 현재 터미널 환경이 어떤 `pts` 포트에 매핑되어 SSH 데몬(sshd)에 의해 어떻게 TTY를 포크(fork)했는지 구조를 보여줍니다.
+
+---
+
+<div align='center' style='margin: 30px 0;'>
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><circle cx="300" cy="100" r="80" fill="none" stroke="#0078D7" stroke-width="4"/><circle cx="300" cy="100" r="40" fill="#0078D7"/><text x="300" y="105" fill="white" font-size="14" font-family="monospace" text-anchor="middle">Kernel Mode</text><text x="300" y="195" fill="#00FF00" font-size="16" font-family="monospace" text-anchor="middle">Ring 3 (User) vs Ring 0 (Kernel)</text></svg>
+</div>
+
+## [전공 심화] 운영체제 패러다임 시스템의 추상화
+
+하드웨어는 결국 0과 1의 전기 신호일 뿐입니다. 운영체제(OS)의 가장 위대한 발명은 이 전선을 '파일'이라는 개념으로, 트랜지스터 연산을 '프로세스'라는 개념으로 논리적으로 감싸 올렸다는 것입니다. 우리가 마우스로 클릭을 하거나 파이썬으로 `print`를 치는 모든 순간이 이 거대한 추상화 계층(Abstraction Layer)의 중재를 거쳐 하드웨어로 전달됩니다.
+
+<div align='center' style='margin: 30px 0;'>
+  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="65" fill="#00FF00" font-size="20" font-family="monospace" text-anchor="middle">Monolithic Kernel vs Microkernel</text></svg>
+</div>
+
+## [전공 심화] 멀티유저와 권한 분리의 기원
+
+Unix가 탄생한 1970년대, 컴퓨터는 집 한 채만 한 크기의 메인프레임이었습니다. 수백 명의 연구원이 모니터(터미널)만 연결해 하나의 CPU 자원을 시분할(Time-Sharing)하여 사용해야 했기에, 내가 남의 파일을 지우지 못하도록 하는 '유저 권한 식별(UID)' 메커니즘이 OS 설계의 가장 기저에 하드코딩되었습니다.

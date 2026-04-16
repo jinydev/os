@@ -1,0 +1,14 @@
+I"T<h1 id="4주차-멀티-버전-매니저-1-nodejs--python">4주차: 멀티 버전 매니저 1 (Node.js &amp; Python)</h1>
+
+<p><br /></p>
+
+<h2 id="1-nvm--fnm-런타임-독립-체계">1. NVM / FNM 런타임 독립 체계</h2>
+
+<p>[실전 심화 렉처]
+여러분이 <code class="language-plaintext highlighter-rouge">sudo npm install -g</code> 로 깐 적이 있다면 당장 맥을 포맷해야 합니다! NVM(Node Version Manager)이나 초고속 Rust 패키징 매니저 FNM은 여러분의 홈 폴더 하위에 버전별 노드를 다운받아 벽을 칩니다.</p>
+
+<h2 id="2-pyenv와-python의-지옥-탈출기">2. Pyenv와 Python의 지옥 탈출기</h2>
+
+<p>[실전 심화 렉처]
+기본 설치된 <code class="language-plaintext highlighter-rouge">python3</code>는 맥 내부 시스템 구동을 위해 존재합니다. <code class="language-plaintext highlighter-rouge">pyenv</code> 를 도입하여 파이썬 인터프리터 자체를 가로채기(Shim) 하십시오. 그리고 반드시 <code class="language-plaintext highlighter-rouge">venv</code> 로 샌드박스를 구축해야 합니다.</p>
+:ET

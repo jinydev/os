@@ -1,0 +1,14 @@
+I"7<h1 id="3주차-powershell-객체-셸-시스템">3주차: PowerShell 객체 셸 시스템</h1>
+
+<p><br /></p>
+
+<h2 id="1-powershell-객체의-셸">1. PowerShell: 객체의 셸</h2>
+
+<p>[실전 심화 렉처]
+리눅스가 텍스트 기반이라면, PowerShell 동작은 닷넷(C#) 객체 파이프라인 형태입니다. 시스템 오브젝트 속성을 타겟팅하여 활용 가능합니다.</p>
+
+<h2 id="2-windows-패키지-관리자">2. Windows 패키지 관리자</h2>
+
+<p>[실전 심화 렉처]
+<code class="language-plaintext highlighter-rouge">winget install</code> 단 한 줄이 패키지들을 백그라운드로 싹 처리해 버립니다. 독립 관리툴인 <code class="language-plaintext highlighter-rouge">Scoop</code> 체계를 이용하여 노드 등을 격리 관리하는 수법도 필수입니다.</p>
+:ET

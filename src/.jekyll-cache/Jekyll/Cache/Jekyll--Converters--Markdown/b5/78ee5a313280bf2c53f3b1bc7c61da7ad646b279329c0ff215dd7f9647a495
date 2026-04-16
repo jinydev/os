@@ -1,0 +1,40 @@
+I"z<div align="center" style="margin: 30px 0;">
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10" /><text x="300" y="100" fill="white" font-size="28" font-family="monospace" text-anchor="middle">OS Final Showcase</text></svg>
+</div>
+
+<h1 id="14주차-시스템-마스터-최종-검증">14주차: 시스템 마스터 최종 검증</h1>
+
+<p><img src="/Users/hojin/.gemini/antigravity/brain/28d2e8ff-2bf4-4b06-8f22-23880f1f7300/ai_os_14.png" alt="OS Core Architecture" />
+<br /></p>
+
+<h2 id="1-운영체제-커리큘럼-아키텍처-대통합">1. 운영체제 커리큘럼 아키텍처 대통합</h2>
+
+<p>[실전 심화 렉처]
+단 14주의 밀도 있는 거대한 여행 동안 수고하셨습니다.
+우리는 시스템 콜(System Call)이라는 문을 열어 C 레벨 척수를 찔렀고, 프로세스 트리 모델링 및 스케줄러, 그리고 무자비한 가상 메모리와 Page Fault 디스크 메커니즘을 융합시켜 현대 소프트웨어가 CPU·메모리·디스크 공간에서 어떠한 방식으로 서바이벌 경쟁을 하고 통제받는지 총체적인 메커니즘 트리를 구축했습니다.
+나아가 이 모든 것을 Docker 컨테이너 레벨업 규격에 가두어 다중 클라우드로 무자비하게 자동 배포해버리는 현대 테크 엔지니어링의 무자비한 스케일과 파괴력을 온몸으로 겪어냈습니다.</p>
+
+<h2 id="2-딥-드라이빙-설계-프로젝트와-평가">2. 딥 드라이빙 설계 프로젝트와 평가</h2>
+
+<p>[실전 심화 렉처]
+이번 종합 정리 챕터의 핵심은 “여러분이 스스로 설계한 아키텍처 시스템 코드가 어떻게 OS 각 단계의 검열 및 제어망을 맞이하고 이를 최적화 돌파하는지”의 흐름을 직접 마스터 도식화 프레젠테이션하는 단계입니다.
+시스템 OOM 이슈를 방어하는 모니터링 임계점, 락 켄텐션(Lock Contention) 경감을 위한 CoW 패턴 설계 구조 개편 분석 리포트들을 피어 리뷰(Peer Review)하며 백엔드 1% 엔지니어 인프라 엔지니어로 거듭나는 최종 퀄리티 인증을 완료하십시오. 여러분은 이제 인문학적 문법 언어 코더가 아니라 “기계를 지배하는” 진정한 시스템 엔지니어입니다.</p>
+
+<hr />
+
+<div align="center" style="margin: 30px 0;">
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10" /><circle cx="300" cy="100" r="60" fill="none" stroke="#0078D7" stroke-width="6" /><text x="300" y="105" fill="#00FF00" font-size="20" font-family="monospace" text-anchor="middle">Team Build</text></svg>
+</div>
+
+<h2 id="평가-안내-기말고사-최종-종합-발표">[평가 안내] 기말고사 최종 종합 발표</h2>
+
+<p>리눅스 시스템 콜 파이프라인부터 클러스터 서버 오케스트레이팅을 통제하는 전반적인 개념 시험입니다. 배운 내용을 바탕으로 5,000만 트래픽의 서비스를 이끄는 인프라스트럭처 청사진을 발표합니다.</p>
+
+<div align="center" style="margin: 30px 0;">
+  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10" /><text x="300" y="65" fill="#E81123" font-size="18" font-family="monospace" text-anchor="middle">Road to Site Reliability Engineering</text></svg>
+</div>
+
+<h2 id="총괄-회고-인프라-전문가의-방향성">[총괄 회고] 인프라 전문가의 방향성</h2>
+
+<p>14주 전, 컴퓨터의 터미널 명령어조차 막막했던 관점에서 현존 클라우드 기반 아키텍처의 기저 메커니즘을 심해 끝까지 추적하는 힘을 갖추었습니다. 앞으로 남은 Linux Foundation 자격 인증과 고급 백엔드 개발자 파이프라인의 진출 활로를 개척하기를 기원합니다.</p>
+:ET

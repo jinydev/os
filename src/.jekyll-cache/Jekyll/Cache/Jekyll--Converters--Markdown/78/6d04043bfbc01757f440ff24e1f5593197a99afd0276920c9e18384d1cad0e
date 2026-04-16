@@ -1,0 +1,14 @@
+I"<h1 id="6주차-로컬-웹-서버-셋업-nginx-로컬도메인">6주차: 로컬 웹 서버 셋업 (Nginx, 로컬도메인)</h1>
+
+<p><br /></p>
+
+<h2 id="1-nginx-웹-서버-커널">1. Nginx 웹 서버 커널</h2>
+
+<p>[실전 심화 렉처]
+Nginx 는 싱글 스레드 Event-Driven 워커 구조로 접속을 제어합니다. 로컬에 brew 로 nginx 를 설치하면 <code class="language-plaintext highlighter-rouge">8080</code> 포트로 뜹니다.</p>
+
+<h2 id="2-로컬-도메인etchosts-해킹">2. 로컬 도메인(/etc/hosts) 해킹</h2>
+
+<p>[실전 심화 렉처]
+<code class="language-plaintext highlighter-rouge">/etc/hosts</code> 파일의 <code class="language-plaintext highlighter-rouge">127.0.0.1 mysite.test</code> 레코드는 맥 내부 DNS를 기만합니다. 나아가 <code class="language-plaintext highlighter-rouge">mkcert</code> 툴을 통해 루트 인증서를 발급하여 <code class="language-plaintext highlighter-rouge">https</code> 인프라를 로컬에서 구동하면 실서버 디버깅 환경이 완성됩니다.</p>
+:ET

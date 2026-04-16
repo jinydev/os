@@ -1,0 +1,9 @@
+I"G<h1 id="5주차-vs-code-하이브리드-리모트-개발체계">5주차: VS Code 하이브리드 리모트 개발체계</h1>
+
+<p><br /></p>
+
+<h2 id="1-vs-code의-remote-매직">1. VS Code의 Remote 매직</h2>
+
+<p>[실전 심화 렉처]
+파이썬이나 노드를 윈도우에 깔지 마세요. 무조건 WSL2 리눅스 파티션 내부에 복제하십시오! 터미널에서 <code class="language-plaintext highlighter-rouge">code .</code> 을 입력하면 마법이 일어납니다. VS Code 껍데기만 윈도우에 나오고, 연산 코어는 리눅스에서 돌아갑니다.</p>
+:ET

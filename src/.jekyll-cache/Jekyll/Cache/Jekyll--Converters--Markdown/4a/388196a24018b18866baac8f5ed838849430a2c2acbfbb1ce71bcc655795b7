@@ -1,0 +1,9 @@
+I"j<h1 id="6주차-괴물-터미널-windows-terminal">6주차: 괴물 터미널, Windows Terminal</h1>
+
+<p><br /></p>
+
+<h2 id="1-터미널-엔진의-진화-windows-terminal">1. 터미널 엔진의 진화, Windows Terminal</h2>
+
+<p>[실전 심화 렉처]
+과거 <code class="language-plaintext highlighter-rouge">cmd</code> 창은 렌더링이 극한으로 느리고 글자 깨짐이 빈번했습니다. 마소가 오픈소스화한 <code class="language-plaintext highlighter-rouge">Windows Terminal</code> 앱은 프로그램 심장부에 GPU 가속 텍스트 엔진을 지니고 압도적 속도를 냅니다. 설정인 <code class="language-plaintext highlighter-rouge">settings.json</code> 스크립트를 건드려 우분투(WSL), PowerShell 프로파일링을 관리하고 하나의 윈도우 프레임에 다중 분할 창(Split Panes) 구조를 맵핑시킵니다.</p>
+:ET

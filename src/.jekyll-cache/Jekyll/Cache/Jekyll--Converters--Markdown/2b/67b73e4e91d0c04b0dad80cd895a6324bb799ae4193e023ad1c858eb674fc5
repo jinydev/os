@@ -1,0 +1,22 @@
+I"<h1 id="5주-차---프레임워크-vs-운영체제">5주 차 - 프레임워크 vs 운영체제</h1>
+
+<div align="center" style="margin: 30px 0;">
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10" /><rect x="50" y="40" width="120" height="120" fill="#333" rx="5" /><text x="110" y="105" fill="#00FF00" font-size="20" font-family="monospace" text-anchor="middle">OS</text><path d="M 180 100 L 250 100" stroke="#E81123" stroke-width="4" /><rect x="250" y="60" width="100" height="80" fill="#E81123" rx="5" /><text x="300" y="105" fill="white" font-size="16" font-family="monospace" text-anchor="middle">Runtime</text><path d="M 360 100 L 430 100" stroke="#0078D7" stroke-width="4" /><rect x="430" y="40" width="120" height="120" fill="#005A9E" rx="5" /><text x="490" y="105" fill="white" font-size="20" font-family="monospace" text-anchor="middle">App</text></svg>
+</div>
+
+<h2 id="전공-심화-jvm과-v8-엔진의-유사-os-행위">[전공 심화] JVM과 V8 엔진의 유사 OS 행위</h2>
+
+<p>현대 개발 생태계에서 프로그래머는 윈도우나 리눅스 커널 API를 직접 호출하지 않습니다. Java의 JVM 생태계나 Node.js의 V8 엔진이 하단 OS의 스레드 관리 역학관계를 가리고 독자적인 가비지 컬렉터(Garbage Collector)와 메모리 힙 블록을 통제합니다. 이는 논리적으로 OS 위에 또 다른 계층의 OS를 올려둔 형국입니다.</p>
+
+<div align="center" style="margin: 30px 0;">
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10" /><circle cx="300" cy="100" r="60" fill="none" stroke="#00FF00" stroke-width="4" /><text x="300" y="105" fill="#00FF00" font-size="24" font-family="monospace" text-anchor="middle">JVM / V8</text></svg>
+</div>
+
+<h2 id="전공-심화-일렉트론electron과-크로스-플랫폼의-한계">[전공 심화] 일렉트론(Electron)과 크로스 플랫폼의 한계</h2>
+
+<p>Slack, VS Code, Discord는 모두 일렉트론 프레임워크 위에서 돕니다. 앱마다 Chromium 브라우저와 Node.js 엔진(가상 OS 세트)을 통째로 패키징하기에 RAM 소모량이 극심해집니다. 개발의 속도(Cross-Platform)를 얻는 대신 하드웨어 자원을 무자비하게 소비하는 ‘프레임워크 비대화 현상’에 대해 토론하며 5주 차 커리큘럼을 마무리합니다.</p>
+
+<div align="center" style="margin: 30px 0;">
+  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10" /><text x="300" y="65" fill="#E81123" font-size="18" font-family="monospace" text-anchor="middle">Operating System is just the Bottom Frame</text></svg>
+</div>
+:ET

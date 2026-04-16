@@ -1,0 +1,9 @@
+I"y<h1 id="4주차-wsl2-windows-하이퍼바이저와-리눅스-커널">4주차: WSL2 (Windows 하이퍼바이저와 리눅스 커널)</h1>
+
+<p><br /></p>
+
+<h2 id="1-wsl2-진정한-마이크로-하이퍼바이저">1. WSL2: 진정한 마이크로 하이퍼바이저</h2>
+
+<p>[실전 심화 렉처]
+MS는 시스템콜을 번역하던 WSL1을 버리고 진짜 초경량 Hyper-V 리눅스 커널을 띄워버렸습니다. 윈도우의 C 드라이브가 리눅스 <code class="language-plaintext highlighter-rouge">/mnt/c/</code>에 등장하고 그 반대로도 공유되는 하이브리드 아키텍처입니다. (경로공유 매직)</p>
+:ET

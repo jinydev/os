@@ -1,0 +1,26 @@
+---
+layout: default
+title: '2주 차 - OS/2와 데스크탑 전쟁'
+---
+
+# 2주 차 - OS/2와 데스크탑 전쟁
+
+<div align='center' style='margin: 30px 0;'>
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><rect x="100" y="60" width="150" height="80" fill="#0078D7" rx="5"/><text x="175" y="105" fill="white" font-size="20" font-family="monospace" text-anchor="middle">Windows 3.1</text><text x="300" y="105" fill="white" font-size="24" font-family="monospace" text-anchor="middle">VS</text><rect x="350" y="60" width="150" height="80" fill="#E81123" rx="5"/><text x="425" y="105" fill="white" font-size="20" font-family="monospace" text-anchor="middle">IBM OS/2</text></svg>
+</div>
+
+## [전공 심화] 선점형(Preemptive) vs 협력형(Cooperative) 멀티태스킹
+
+초기 윈도우는 응용 프로그램이 스스로 CPU 권한을 양보해야만 다른 창이 움직이는 '협력형'태스킹의 한계에 봉착했습니다. 반면 IBM이 Microsoft와 합작했던 OS/2는 하드웨어 인터럽트로 CPU를 빼앗는 완벽한 '선점형' 스케줄링을 데스크탑에 가져왔습니다.
+
+<div align='center' style='margin: 30px 0;'>
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><circle cx="300" cy="100" r="60" fill="#333"/><text x="300" y="105" fill="#00FF00" font-size="18" font-family="monospace" text-anchor="middle">Preemptive</text><text x="300" y="125" fill="#00FF00" font-size="18" font-family="monospace" text-anchor="middle">Multitasking</text></svg>
+</div>
+
+## [전공 심화] 기술의 우위가 시장의 승리를 의미하지 않는다
+
+아무리 OS/2가 HPFS 시스템과 완벽한 x86 보호 모드(Protected Mode)를 구현했더라도, 무거운 시스템 요구 사양과 하드웨어 드라이버 생태계의 부족으로 Windows 95에게 시장을 내주고 말았습니다. 운영체제가 하드웨어 호환성과 써드파티 API 생태계를 장악하지 못했을 때 발생하는 몰락의 역사를 조명합니다.
+
+<div align='center' style='margin: 30px 0;'>
+  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="65" fill="#E81123" font-size="18" font-family="monospace" text-anchor="middle">HPFS (High Performance File System)</text></svg>
+</div>

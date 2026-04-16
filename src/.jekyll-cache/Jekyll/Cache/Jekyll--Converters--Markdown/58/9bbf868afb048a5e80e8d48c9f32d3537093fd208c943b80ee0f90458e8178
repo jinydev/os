@@ -1,0 +1,46 @@
+I"K<div align="center">
+  <img src="img/toon1.png" width="70%" style="border-radius: 10px; margin-bottom: 20px;" alt="Mac Splash" />
+</div>
+
+<div align="center" style="margin: 30px 0;">
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10" /><rect x="150" y="60" width="100" height="80" fill="#333" rx="5" /><text x="200" y="105" fill="#E81123" font-size="16" font-family="monospace" text-anchor="middle">.zshenv</text><path d="M 260 100 L 340 100" stroke="#00FF00" stroke-width="4" marker-end="url(#a)" /><rect x="350" y="60" width="100" height="80" fill="#0078D7" rx="5" /><text x="400" y="105" fill="white" font-size="16" font-family="monospace" text-anchor="middle">.zprofile</text><defs><marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#00FF00" /></marker></defs></svg>
+</div>
+
+<h1 id="2주차-터미널과-zsh-완벽-제어-oh-my-zsh">2주차: 터미널과 zsh 완벽 제어 (Oh-My-Zsh)</h1>
+
+<p><br /></p>
+
+<h2 id="1-셸shell-아키텍처의-혁명-zsh">1. 셸(Shell) 아키텍처의 혁명, zsh</h2>
+
+<p>[실전 심화 렉처]
+과거 수십 년간 기본은 <code class="language-plaintext highlighter-rouge">bash</code> 였습니다. 하지만 라이센스 이슈(GPLv3)와 더 뛰어난 자동완성을 위해 Apple 은 <code class="language-plaintext highlighter-rouge">zsh</code> 로 전격 이주했습니다.
+<code class="language-plaintext highlighter-rouge">.zshrc</code> 스크립트는 단순한 설정이 아닙니다. 매번 새 터미널 창을 띄울 때마다 부팅 시퀀스처럼 이 코드가 순차 해석(Eval)되며 <code class="language-plaintext highlighter-rouge">PATH</code> 라는 환경변수를 누적시킵니다.</p>
+
+<h2 id="2-oh-my-zsh의-플러그인-생태계-집중해부">2. Oh-My-Zsh의 플러그인 생태계 집중해부</h2>
+
+<p>[실전 심화 렉처]
+커맨드라인의 색상과 Git 브랜치 상태 표시는 예쁘게 보이려는 장식이 아니라, ‘내가 지금 Main 브랜치 서버를 박살 낼 위험이 있는가’를 시각적으로 방어하는 인디케이터입니다.
+<code class="language-plaintext highlighter-rouge">zsh-autosuggestions</code> 로 과거 명령어를 자동완성하고, 파일 시스템을 <code class="language-plaintext highlighter-rouge">ls</code> 대신 <code class="language-plaintext highlighter-rouge">fzf</code>의 초고속 인덱싱으로 이동해야 합니다.</p>
+
+<hr />
+
+<div align="center">
+  <img src="img/toon2.png" width="70%" style="border-radius: 10px; margin-bottom: 20px;" alt="Mac Concept" />
+</div>
+
+<div align="center" style="margin: 30px 0;">
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10" /><text x="300" y="100" fill="#00FF00" font-size="20" font-family="monospace" text-anchor="middle">~ % mkdir dev &amp;&amp; cd $_</text></svg>
+</div>
+
+<h2 id="심화-렉처-z-셸-zsh-파이프라인의-진정성">[심화 렉처] Z 셸 (Zsh) 파이프라인의 진정성</h2>
+
+<p>애플은 카탈리나(Catalina) 버전부터 기본 셸을 bash에서 zsh로 변경했습니다. 라이선스(GPLv3) 이슈도 있었지만, 프롬프트의 동적 변화, 우측 정렬 커서 제어, 내장 자동완성 등 현대 개발자들이 요구하는 생산성 툴링이 기본 탑재되어 있기 때문입니다. zsh의 플러그인(oh-my-zsh)을 통해 git 브랜치의 상태를 실시간 체크하는 비동기 프롬프트를 구성해 봅니다.</p>
+
+<div align="center" style="margin: 30px 0;">
+  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10" /><text x="300" y="65" fill="#E81123" font-size="18" font-family="monospace" text-anchor="middle">export PATH=/usr/local/bin:$PATH</text></svg>
+</div>
+
+<h2 id="심화-렉처-환경-변수의-런타임-제어-체계">[심화 렉처] 환경 변수의 런타임 제어 체계</h2>
+
+<p><code class="language-plaintext highlighter-rouge">.zprofile</code> (로그인 셸), <code class="language-plaintext highlighter-rouge">.zshrc</code> (비로그인 인터랙티브 셸) 의 호출 순서를 정확히 모르면 PATH 덮어쓰기 지옥에 빠집니다. 명령어 입력 시, 메모리 캐시에 해시(hashed)된 <code class="language-plaintext highlighter-rouge">$PATH</code> 디렉토리 목록을 차례대로 탐색하는 원리를 학습하여 <code class="language-plaintext highlighter-rouge">command not found</code> 절망에서 빠져나옵니다.</p>
+:ET

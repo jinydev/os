@@ -1,0 +1,26 @@
+---
+layout: default
+title: '4주 차 - 모바일 리눅스와 RTOS'
+---
+
+# 4주 차 - 모바일 리눅스와 RTOS
+
+<div align='center' style='margin: 30px 0;'>
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><rect x="250" y="80" width="100" height="40" fill="#E81123" rx="5"/><text x="300" y="105" fill="white" font-size="16" font-family="monospace" text-anchor="middle">RTOS</text><path d="M 250 100 L 150 100" stroke="#00FF00" stroke-width="4"/><path d="M 350 100 L 450 100" stroke="#00FF00" stroke-width="4"/><text x="150" y="125" fill="#00FF00" font-size="12" font-family="monospace" text-anchor="middle">Hard Real-time</text><text x="450" y="125" fill="#00FF00" font-size="12" font-family="monospace" text-anchor="middle">Soft Real-time</text></svg>
+</div>
+
+## [전공 심화] 데드라인(Deadline)을 어기면 사람이 죽는다: RTOS
+
+자동차 에어백이나 심박 조율기(Pacemaker)는 윈도우 스케줄러처럼 백그라운드 바이러스 검사를 하느라 일을 미루면 대형 참사가 발생합니다. 밀리세컨드(ms) 단위의 응답 시간을 확정적(Deterministic)으로 보장하는 RTOS(Real-Time Operating System)의 선점 규칙과 우선순위 역전(Priority Inversion) 방어 회로를 파악합니다.
+
+<div align='center' style='margin: 30px 0;'>
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><circle cx="300" cy="100" r="50" fill="#0078D7"/><text x="300" y="105" fill="white" font-size="16" font-family="monospace" text-anchor="middle">Android</text><text x="300" y="180" fill="gray" font-size="14" font-family="monospace" text-anchor="middle">AOSP Framework + Linux Kernel</text></svg>
+</div>
+
+## [전공 심화] 모바일 운영체제의 파편화와 AOSP
+
+심비안(Symbian), 삼성의 바다(Bada) 및 타이젠(Tizen)을 거쳐 모바일 시장은 구글이 던진 안드로이드 오프소스 프로젝트(AOSP)로 천하 통일되었습니다. 하단부는 변조된 리눅스 커널, 상단부는 자바 달빅(Dalvik)/ART 가상머신을 돌리는 이 거대한 이중 구조가 어떻게 스마트폰의 배터리를 아끼고(Doze Mode) 보안을 격리하는지 이해합니다.
+
+<div align='center' style='margin: 30px 0;'>
+  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="65" fill="#E81123" font-size="18" font-family="monospace" text-anchor="middle">Symbian, Bada, Tizen History</text></svg>
+</div>

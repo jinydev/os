@@ -1,0 +1,26 @@
+---
+layout: default
+title: '3주 차 - 솔라리스(Solaris)와 유닉스'
+---
+
+# 3주 차 - 솔라리스(Solaris)와 유닉스
+
+<div align='center' style='margin: 30px 0;'>
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><rect x="50" y="50" width="120" height="100" fill="#E81123" rx="5"/><text x="110" y="105" fill="white" font-size="20" font-family="monospace" text-anchor="middle">SunOS</text><path d="M 180 100 L 260 100" stroke="#00FF00" stroke-width="4"/><rect x="270" y="50" width="100" height="100" fill="#5C2D91" rx="5"/><text x="320" y="105" fill="white" font-size="18" font-family="monospace" text-anchor="middle">Solaris</text><path d="M 380 100 L 440 100" stroke="#00FF00" stroke-width="4"/><rect x="450" y="50" width="120" height="100" fill="#0078D7" rx="5"/><text x="510" y="105" fill="white" font-size="16" font-family="monospace" text-anchor="middle">illumos/Open</text></svg>
+</div>
+
+## [전공 심화] Z 파일 시스템(ZFS)의 압도적인 아키텍처
+
+Sun Microsystems가 만들어낸 ZFS는 단순한 파티션 포맷이 아닙니다. 볼륨 매니저(LVM)와 파일 시스템이 하나로 융합되어, 디스크가 고장나도 체크썸(Checksum) 기반의 자가 치유(Self-Healing)를 수행하며, Copy-on-Write 방식의 순간 스냅샷을 만들어냅니다. 오늘날 기업용 스토리지의 궁극적 목표 지점입니다.
+
+<div align='center' style='margin: 30px 0;'>
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><circle cx="300" cy="100" r="70" fill="none" stroke="#00FF00" stroke-width="6"/><text x="300" y="105" fill="#00FF00" font-size="32" font-family="monospace" text-anchor="middle">ZFS</text></svg>
+</div>
+
+## [전공 심화] DTrace와 서비스 중단 없는 관측(Observability)
+
+서버가 라이브로 돌고 있는 운영 환경에서, 프로세스를 멈추지 않고 시스템 콜과 메모리 누수 현상을 추적하려면 어떻게 할까요? 솔라리스가 남긴 최고의 유산인 DTrace 기술은 커널 내부와 유저 런타임에 동적인 프루브(Probe) 포인트들을 심고, 이를 실시간 대시보드로 뽑아내는 eBPF 기술의 영적 아버지입니다.
+
+<div align='center' style='margin: 30px 0;'>
+  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="65" fill="#E81123" font-size="18" font-family="monospace" text-anchor="middle">DTrace: Dynamic Tracing in Production</text></svg>
+</div>

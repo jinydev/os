@@ -1,0 +1,31 @@
+I"(<h1 id="6주차-터미널의-혁신-windows-terminal">6주차: 터미널의 혁신, Windows Terminal</h1>
+
+<p><img src="/Users/hojin/.gemini/antigravity/brain/28d2e8ff-2bf4-4b06-8f22-23880f1f7300/ai_window_06.png" alt="OS Core Architecture" />
+<br /></p>
+
+<ul>
+  <li><strong>대주제</strong>: 터미널의 혁신, Windows Terminal</li>
+  <li><strong>세부학습목표</strong>: 고전적인 파란 창과 검은 창을 합쳐 21세기에 걸맞은 GPU 가속 터미널을 구축한다.</li>
+</ul>
+
+<h4 id="-6-1-gpu-하드웨어-가속-terminal">📌 6-1. GPU 하드웨어 가속 Terminal</h4>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">conhost.exe</code> 를 버리다. Windows Terminal 엔진 아키텍처</li>
+  <li><code class="language-plaintext highlighter-rouge">settings.json</code> 설정 프로그래밍</li>
+</ol>
+
+<h4 id="-6-2-다중-쉘-융합-구성">📌 6-2. 다중 쉘 융합 구성</h4>
+<ol>
+  <li>CMD, PowerShell, Git Bash, WSL 을 하나의 윈도우 앱 탭으로 묶어버리기</li>
+  <li>폰트(Cascadia Code, D2Coding) 및 컬러 테마 맵핑</li>
+  <li>분할 화면 (Split Pane) 생산성 실습</li>
+</ol>
+
+<hr />
+
+<hr />
+
+<h2 id="심화-렉처-터미널-엔진의-진화-windows-terminal">[심화 렉처] 터미널 엔진의 진화, Windows Terminal</h2>
+
+<p>과거 <code class="language-plaintext highlighter-rouge">cmd</code> 창은 렌더링이 극한으로 느렸습니다. 마소가 만든 <code class="language-plaintext highlighter-rouge">Windows Terminal</code> 은 코어에 GPU 가속 텍스트 엔진을 지니고 압도적 속도를 냅니다. <code class="language-plaintext highlighter-rouge">settings.json</code> 스크립트를 건드려 우분투(WSL) 콘솔 창을 병합하고 단축키로 다중 분할 창(Split Panes) 작업을 시뮬레이션 합니다.</p>
+:ET

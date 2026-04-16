@@ -1,0 +1,14 @@
+I"Z<h1 id="4주차-환경-변수environment-variables와-경로path">4주차: 환경 변수(Environment Variables)와 경로(PATH)</h1>
+
+<p><br /></p>
+
+<h2 id="1-터미널의-동맥-망-환경-변수-environment-variables">1. 터미널의 동맥 망, 환경 변수 (Environment Variables)</h2>
+
+<p>[실전 심화 렉처]
+<code class="language-plaintext highlighter-rouge">python -V</code> 를 쳤는데 반응이 없다면 당황하지 마십시오. 터미널은 당신이 입력한 명령어를 오직 <code class="language-plaintext highlighter-rouge">PATH</code> 라는 환경 변수의 세미콜론(<code class="language-plaintext highlighter-rouge">;</code>) 구분으로 이루어진 디렉토리 목록 안에서 순서대로 찾을 뿐입니다.</p>
+
+<h2 id="2-변수-조작과-오염-방지망">2. 변수 조작과 오염 방지망</h2>
+
+<p>[실전 심화 렉처]
+패키지를 이것저것 깔아 <code class="language-plaintext highlighter-rouge">C:/Windows/</code> 까지 침범당한 시스템 PATH 라우팅을 복구하십시오. 시스템 속성(GUI)에서 사용자 변수와 전역 시스템 변수의 우선순위 스코프를 분리하고, 터미널 세션 1회성 램 상속 변수 선언 방식인 <code class="language-plaintext highlighter-rouge">set MY_KEY=val</code> 아키텍처를 이해하는 것이 이번 주차의 핵심 과제입니다.</p>
+:ET

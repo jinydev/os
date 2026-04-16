@@ -1,0 +1,90 @@
+main:
+- subitems:
+  - title: 📋 학습 시작/개요
+    url: /mac/01_intro/
+  - title: 1. macOS, 단순한 예쁜 껍데기가 아니다
+    url: /mac/01_intro/#1-macos-단순한-예쁜-껍데기가-아니다
+  - title: 2. 생산성의 극대화
+    url: /mac/01_intro/#2-생산성의-극대화
+  title: '1주차: macOS의 기원과 터미널 기초 (Darwin, 단축키)'
+  url: /mac/01_intro/
+- subitems:
+  - title: 📋 학습 시작/개요
+    url: /mac/02_terminal/
+  - title: 1. 셸(Shell) 아키텍처의 혁명, zsh
+    url: /mac/02_terminal/#1-셸shell-아키텍처의-혁명-zsh
+  - title: 2. Oh-My-Zsh의 플러그인 생태계 집중해부
+    url: /mac/02_terminal/#2-oh-my-zsh의-플러그인-생태계-집중해부
+  title: '2주차: 터미널과 zsh 완벽 제어 (Oh-My-Zsh)'
+  url: /mac/02_terminal/
+- subitems:
+  - title: 📋 학습 시작/개요
+    url: /mac/03_homebrew/
+  - title: 1. Homebrew 시스템의 기적과 Cellar
+    url: /mac/03_homebrew/#1-homebrew-시스템의-기적과-cellar
+  - title: 2. Brew Cask와 셋업 자동화
+    url: /mac/03_homebrew/#2-brew-cask와-셋업-자동화
+  title: '3주차: 패키지 관리자 혁명 (Homebrew 아키텍처)'
+  url: /mac/03_homebrew/
+- subitems:
+  - title: 📋 학습 시작/개요
+    url: /mac/04_nodejs_python/
+  - title: 1. NVM / FNM 런타임 독립 체계
+    url: /mac/04_nodejs_python/#1-nvm-fnm-런타임-독립-체계
+  - title: 2. Pyenv와 Python의 지옥 탈출기
+    url: /mac/04_nodejs_python/#2-pyenv와-python의-지옥-탈출기
+  title: '4주차: 멀티 버전 매니저 1 (Node.js & Python)'
+  url: /mac/04_nodejs_python/
+- subitems:
+  - title: 📋 학습 시작/개요
+    url: /mac/05_php_java/
+  - title: 1. PHP와 Ruby 환경 (rbenv, shivam)
+    url: /mac/05_php_java/#1-php와-ruby-환경-rbenv-shivam
+  - title: 2. Java SDKMAN! 통제 시스템
+    url: /mac/05_php_java/#2-java-sdkman-통제-시스템
+  title: '5주차: 멀티 버전 매니저 2 (PHP, Ruby, Java)'
+  url: /mac/05_php_java/
+- subitems:
+  - title: 📋 학습 시작/개요
+    url: /mac/06_nginx/
+  - title: 1. Nginx 웹 서버 커널
+    url: /mac/06_nginx/#1-nginx-웹-서버-커널
+  - title: 2. 로컬 도메인(/etc/hosts) 해킹
+    url: /mac/06_nginx/#2-로컬-도메인etchosts-해킹
+  title: '6주차: 로컬 웹 서버 셋업 (Nginx, 로컬도메인)'
+  url: /mac/06_nginx/
+- subitems:
+  - title: 📋 학습 시작/개요
+    url: /mac/07_mysql/
+  - title: 1. MySQL 엔진 터미널 셋업
+    url: /mac/07_mysql/#1-mysql-엔진-터미널-셋업
+  title: '7주차: RDBMS 1 (MySQL 셋업 및 보안)'
+  url: /mac/07_mysql/
+- subitems:
+  - title: 📋 학습 시작/개요
+    url: /mac/08_services/
+  - title: 1. Launchd 데몬과 Brew Services
+    url: /mac/08_services/#1-launchd-데몬과-brew-services
+  title: '8주차: 백그라운드 제어 (Brew Services, launchd)'
+  url: /mac/08_services/
+- subitems:
+  - title: 📋 학습 시작/개요
+    url: /mac/09_pgsql/
+  - title: 1. PostgreSQL - 객체 관계형 심층 전개
+    url: /mac/09_pgsql/#1-postgresql---객체-관계형-심층-전개
+  title: '9주차: RDBMS 2 (PostgreSQL)'
+  url: /mac/09_pgsql/
+- subitems:
+  - title: 📋 학습 시작/개요
+    url: /mac/10_arm/
+  - title: 1. Apple Silicon 시대와 가상화
+    url: /mac/10_arm/#1-apple-silicon-시대와-가상화
+  title: '10주차: Apple Silicon과 Docker 가상화'
+  url: /mac/10_arm/
+- subitems:
+  - title: 📋 학습 시작/개요
+    url: /mac/11_final/
+  - title: 1. 백엔드 생태계 완성 검토
+    url: /mac/11_final/#1-백엔드-생태계-완성-검토
+  title: '11~14주차: 인프라 설계 종합'
+  url: /mac/11_final/
