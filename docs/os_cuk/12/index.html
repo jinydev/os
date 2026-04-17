@@ -1,0 +1,100 @@
+<h1 id="12강-파일-시스템과-디스크-관리-file-system">12강. 파일 시스템과 디스크 관리 (File System)</h1>
+
+<h2 id="-학습-목표">🎯 학습 목표</h2>
+
+<ol>
+  <li><strong>디렉터리 모델 진화</strong>: 트리 구조에서 시작하여, 비순환 그래프로 발전하며 파일을 시스템 레벨에서 어떻게 ‘공유’하는지 원리를 파악한다.</li>
+  <li><strong>리눅스/유닉스 i-node 시스템</strong>: 거대한 용량의 파일들이 물리적 디스크에 흩어져 있어도, 단 몇 킬로바이트의 i-node 캐시만으로 데이터를 완벽히 찾아내는 인덱스 구조를 이해한다.</li>
+  <li><strong>디스크 블록 할당 기법</strong>: 연속 할당(단편화 유발), 연결 할당(접근 속도 저하), 색인 할당(오버헤드)의 트레이드오프를 철저히 분석한다.</li>
+  <li><strong>저수준 API 제어</strong>: <code class="language-plaintext highlighter-rouge">open()</code>, <code class="language-plaintext highlighter-rouge">read()</code>, <code class="language-plaintext highlighter-rouge">write()</code>, 그리고 파일의 오프셋을 이리저리 이동시키는 제어기인 <code class="language-plaintext highlighter-rouge">lseek()</code> C언어 시스템 콜 함수의 직접적인 원리를 파악한다.</li>
+</ol>
+
+<p><br /><br /></p>
+
+<h2 id="1-파일과-디렉터리의-논리적-계층">1. 파일과 디렉터리의 논리적 계층</h2>
+
+<p>초창기 단순 계층(Flat)이었던 디렉터리는 트리(Tree) 구조로 발전하여 사용자를 분리시켰습니다. 그러나 트리 구조의 맹점은 특정 라이브러리(ex <code class="language-plaintext highlighter-rouge">shared.c</code>)를 양쪽 사용자가 동시에 접근하고 싶을 때 <strong>무조건 파일을 2배로 복사</strong>해야만 한다는 것이었습니다.</p>
+
+<p>이를 타파한 현대 운영체제의 모델이 바로 <strong>비순환 일반 그래프(Acyclic Graph) 디렉터리</strong>입니다.</p>
+
+<p><img src="./img/os12_directory_structure.svg" alt="디렉터리 구조 비교" /></p>
+
+<p><strong>하드 링크(Hard Link)</strong>와 <strong>소프트 링크(Soft Link, 바로가기)</strong>를 통해, 하나의 물리적인 파일(Data)을 여러 디렉터리의 포인터가 가리킬 수 있게 되어 용량 낭비 없는 데이터 공유 체계가 완성되었습니다.</p>
+
+<p><br /><br /></p>
+
+<h2 id="2-모든-것의-목차-unix-i-node-index-node-배열">2. 모든 것의 목차, UNIX i-node (Index Node) 배열</h2>
+
+<p>사용자는 “a.txt”와 같은 ‘이름’으로 파일을 찾지만, 리눅스 시스템 커널은 무조건 <strong>i-node 번호</strong>로 파일을 판별합니다. 파일 1개당 1개의 고유한 i-node가 생성되며, 이는 파일이 저장된 수많은 디스크 섹터들을 찾아가는 “비밀 지도” 역할을 합니다.</p>
+
+<p><img src="./img/os12_inode_architecture.svg" alt="UNIX i-node 아키텍처" /></p>
+
+<p>i-node 맵핑 체계의 위대한 점은 <strong>파일 크기에 따라 탐색 깊이가 동적으로 달라진다</strong>는 것입니다.</p>
+<ul>
+  <li>십 몇 킬로바이트의 작은 파일은 i-node의 <strong>직접 블록(Direct Block)</strong>만 읽어 즉시 탐색합니다. (가장 빠름)</li>
+  <li>파일이 1GB, 100GB 단위로 커지면, i-node는 <strong>이중, 삼중 간접 블록(Triple Indirect Block)</strong> 포인팅 체계를 작동시켜 광활한 주소 배열 공간을 무한대로 확장해 나갑니다.</li>
+</ul>
+
+<p><br /><br /></p>
+
+<h2 id="3-물리적-디스크-블록-할당-방식-allocation">3. 물리적 디스크 블록 할당 방식 (Allocation)</h2>
+
+<p>디스크라는 거대한 원판에 실제 데이터의 바이트들을 어떤 규칙으로 심을 것인가? 이는 파일 시스템 설계의 최대 난제였습니다.</p>
+
+<p><img src="./img/os12_file_allocation.svg" alt="블록 할당 방식 비교" /></p>
+
+<ol>
+  <li><strong>연속 할당 (Contiguous)</strong>: 카세트테이프처럼 비어있는 일자리를 찾아 순서대로 파일을 기록합니다. 디스크 헤더가 한 번만 움직이면 되므로 매우 빠르지만, 파일을 삭제하고 나면 생기는 구멍(외부 단편화) 때문에 시스템 수명이 다가올수록 파일을 기록할 수 없게 되는 끔찍한 부작용이 있습니다.</li>
+  <li><strong>연결 할당 (Linked Protocol / FAT)</strong>: 블록 안에 “다음 블록이 어딘지” 가리키는 꼬리표를 달아 디스크 전역에 파일을 흩뿌립니다. 단편화는 완벽히 해결하지만, 파일의 중간 지점을 읽고 싶을 때 1번부터 차례차례 기차를 타야 하므로 탐색 시간(Seek Time) 지연율이 극단적입니다. MS-DOS의 FAT 파일 시스템이 이 방식입니다.</li>
+  <li><strong>색인 할당 (Indexed)</strong>: 특정 블록 하나를 전체를 주소록(색인 블록)으로 희생시킵니다. 흩뿌려진 데이터들을 순식간에 다이렉트 엑세스 할 수 있으며, 현대 UNIX의 i-node가 기반으로 하는 체제입니다.</li>
+</ol>
+
+<p><br /><br /></p>
+
+<h2 id="4-빈-공간-free-space-관리-기법">4. 빈 공간 (Free Space) 관리 기법</h2>
+
+<p>디스크에서 “어디가 비어있는가?”를 관리해야 즉각적인 할당이 가능합니다.</p>
+
+<p><img src="./img/os12_free_space_mgmt.svg" alt="빈 공간 관리 기법" /></p>
+
+<p>시스템 프로그래밍 차원에서는 모든 디스크 섹터를 <strong>0(빈 공간)과 1(사용 중)</strong>이라는 비트 배열로 축약하여 메모리에 올려버리는 <strong>비트 벡터(Bit Vector)</strong> 방식이 연산 속도가 가장 빠릅니다.</p>
+
+<p><br /><br /></p>
+
+<h2 id="5-c언어-시스템-프로그래밍과-파일-포인터-lseek">5. C언어 시스템 프로그래밍과 파일 포인터 (lseek)</h2>
+
+<p>파일 시스템은 결국 개발자가 C언어 시스템 콜로 다뤄야 합니다. UNIX 계열은 파일을 열면 언제나 <strong>파일 지정자(File Descriptor, fd)</strong>라는 정수를 반환(0:표준입력, 1:표준출력, 2:표준에러)하며, 커널 내부에 “내가 이 파일의 어디까지 읽었는지” 나타내는 <strong>Offset Pointer</strong>를 유지합니다.</p>
+
+<p>이 offset을 인위적으로 옮겨 파일의 중간부터 데이터를 조작할 수 있도록 돕는 매우 강력한 함수가 <code class="language-plaintext highlighter-rouge">lseek()</code> 입니다.</p>
+
+<p><img src="./img/os12_file_pointer.svg" alt="lseek 포인터 제어" /></p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">"system_config.txt"</span><span class="p">,</span> <span class="n">O_RDWR</span><span class="p">);</span>  <span class="c1">// 읽기/쓰기 권한으로 파일 오픈</span>
+    
+    <span class="c1">// 파일의 맨 끝(SEEK_END)으로 Offset을 즉시 이동</span>
+    <span class="c1">// 리턴값 pos 는 그 자체로 현재 파일의 총 크기(Byte)가 됨을 활용할 수 있다.</span>
+    <span class="kt">off_t</span> <span class="n">file_size</span> <span class="o">=</span> <span class="n">lseek</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SEEK_END</span><span class="p">);</span> 
+    
+    <span class="c1">// 다시 파일의 정중앙으로 워프하여 특정 데이터를 오버라이트한다</span>
+    <span class="n">lseek</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">file_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">SEEK_SET</span><span class="p">);</span>
+    <span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="s">"Hacked"</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+    
+    <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /><br /></p>
+
+<h2 id="-정리하기">📝 정리하기</h2>
+
+<ul>
+  <li>파일 시스템의 디렉터리 모델은 공간 낭비를 없애는 공유 차원의 <strong>비순환 그래프 레이어</strong>로 진화해 왔다.</li>
+  <li>디스크 단위를 효율적으로 관리하기 위한 논쟁, <strong>연속(단편화) vs 연결(느림) vs 색인(현대적)</strong> 의 할당 방식은 메모리 페이징과 궤를 같이 한다.</li>
+  <li>UNIX 철학의 정수로 불리는 <strong>i-node 트리 아키텍처</strong>는 아무리 거대한 파일이어도 메타데이터 캐싱의 이점을 극대화시켜준다.</li>
+  <li>개발자는 <code class="language-plaintext highlighter-rouge">lseek(), open()</code> 등의 시스템 콜을 통해 이 복잡한 체계를 단 몇 줄의 포인터 제어만으로 손쉽게 통제할 수 있다.</li>
+</ul>

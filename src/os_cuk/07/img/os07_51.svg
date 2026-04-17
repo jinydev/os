@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 450" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --axis: #34495e;
+        --p1: #1565c0;
+        --p2: #1976d2;
+        --p3: #2196f3;
+        --p4: #42a5f5;
+        --p5: #64b5f6;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --axis: #bdc3c7;
+          --p1: #3f51b5;
+          --p2: #5c6bc0;
+          --p3: #7986cb;
+          --p4: #9fa8da;
+          --p5: #c5cae9;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 18px; font-weight: bold; }
+      .desc { font-weight: normal; font-size: 16px; fill: var(--text); }
+      .title { font-size: 24px; }
+      .gantt-bg { fill: var(--p2); stroke: var(--bg); stroke-width: 2; }
+      .axis { stroke: var(--axis); stroke-width: 2; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text title" text-anchor="middle">비선점형 SJF 스케줄링의 예 (Non-Preemptive Shortest Job First)</text>
+
+  <!-- Source Table Mapping -->
+  <text x="50" y="80" class="text" text-anchor="start">도착: P1(0), P2(1), P3(2), P4(3), P5(4)</text>
+  <text x="50" y="110" class="text" text-anchor="start">실행: P1(10), P2(28), P3(6), P4(4), P5(14)</text>
+
+  <text x="50" y="140" class="text" text-anchor="start" fill="#e74c3c">특징: 끝날때까지 안뺏김. 먼저 도착한 놈이 끝나면, 그 시점 큐에 있는 놈 중 '가장 짧은' 놈 선택.</text>
+
+  <!-- SJF Gantt Box -->
+  <!-- Timeline Start = 0 -->
+  <text x="100" y="270" class="text" text-anchor="middle">0</text>
+  
+  <!-- P1 (0 to 10) -> First Arrival, cannot preempt -->
+  <rect x="100" y="160" width="100" height="80" class="gantt-bg" fill="var(--p1)"/>
+  <text x="150" y="205" class="text" fill="#fff" text-anchor="middle" font-size="22">P1</text>
+  <text x="200" y="270" class="text" text-anchor="middle">10</text>
+
+  <!-- At time 10, Wait Queue: P2(28), P3(6), P4(4), P5(14). Shortest is P4(4). -->
+  <!-- P4 (10 to 14) -> Length = 4 -->
+  <rect x="200" y="160" width="40" height="80" class="gantt-bg" fill="var(--p4)"/>
+  <text x="220" y="205" class="text" fill="#fff" text-anchor="middle" font-size="18">P4</text>
+  <text x="240" y="270" class="text" text-anchor="middle">14</text>
+
+  <!-- At time 14, Wait Queue: P2(28), P3(6), P5(14). Shortest is P3(6). -->
+  <!-- P3 (14 to 20) -> Length = 6 -->
+  <rect x="240" y="160" width="60" height="80" class="gantt-bg" fill="var(--p3)"/>
+  <text x="270" y="205" class="text" fill="#fff" text-anchor="middle" font-size="22">P3</text>
+  <text x="300" y="270" class="text" text-anchor="middle">20</text>
+
+  <!-- At time 20, Wait Queue: P2(28), P5(14). Shortest is P5(14). -->
+  <!-- P5 (20 to 34) -> Length = 14 -->
+  <rect x="300" y="160" width="140" height="80" class="gantt-bg" fill="var(--p5)"/>
+  <text x="370" y="205" class="text" fill="#fff" text-anchor="middle" font-size="22">P5</text>
+  <text x="440" y="270" class="text" text-anchor="middle">34</text>
+
+  <!-- At time 34, Wait Queue: P2(28). Shortest is P2(28). -->
+  <!-- P2 (34 to 62) -> Length = 28 -->
+  <rect x="440" y="160" width="280" height="80" class="gantt-bg" fill="var(--p2)"/>
+  <text x="580" y="205" class="text" fill="#fff" text-anchor="middle" font-size="22">P2</text>
+  <text x="720" y="270" class="text" text-anchor="middle">62</text>
+
+
+  <!-- Metrics Box -->
+  <rect x="50" y="320" width="900" height="100" fill="transparent" stroke="var(--axis)" stroke-width="2"/>
+  
+  <text x="80" y="350" class="text">반환시간 (완료 - 도착)</text>
+  <text x="80" y="380" class="desc">P1: 10, P2: 61, P3: 18, P4: 11, P5: 30 (평균: 26.0)</text>
+
+  <text x="500" y="350" class="text">대기시간</text>
+  <text x="500" y="380" class="desc">P1: 0, P2: 33, P3: 12, P4: 7, P5: 16 (평균: 13.6)</text>
+
+</svg>

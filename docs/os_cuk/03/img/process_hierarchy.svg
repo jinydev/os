@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" fill="none">
+    <defs>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap');
+            text { font-family: 'Inter', sans-serif; }
+            .proc { rx: 16; stroke-width: 3; }
+        </style>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#0F172A"/>
+            <stop offset="100%" stop-color="#1E293B"/>
+        </linearGradient>
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#10B981"/>
+        </marker>
+        <marker id="arrow2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#F59E0B"/>
+        </marker>
+        <filter id="shadow">
+            <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity="0.3"/>
+        </filter>
+    </defs>
+
+    <rect width="900" height="500" rx="20" fill="url(#bg)"/>
+    <text x="450" y="50" fill="#F8FAFC" font-size="26" font-weight="800" text-anchor="middle" letter-spacing="1">PROCESS CREATION: FORK() &amp; EXEC()</text>
+
+    <!-- Parent Process Node -->
+    <g transform="translate(150, 100)" filter="url(#shadow)">
+        <rect width="180" height="150" fill="#1E3A8A" stroke="#3B82F6" class="proc"/>
+        <text x="90" y="35" fill="#DBEAFE" font-size="20" font-weight="800" text-anchor="middle">Parent (PID: 100)</text>
+        <rect x="20" y="55" width="140" height="30" rx="4" fill="#1E40AF"/>
+        <text x="90" y="75" fill="#93C5FD" font-size="12" font-weight="600" text-anchor="middle">Code: bash</text>
+        <rect x="20" y="95" width="140" height="30" rx="4" fill="#1E40AF"/>
+        <text x="90" y="115" fill="#93C5FD" font-size="12" font-weight="600" text-anchor="middle">Data: (variables)</text>
+    </g>
+
+    <path d="M 330 175 L 470 175" stroke="#10B981" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+    <rect x="360" y="145" width="80" height="25" rx="6" fill="#047857"/>
+    <text x="400" y="162" fill="#D1FAE5" font-size="14" font-weight="800" text-anchor="middle">fork()</text>
+
+    <!-- Child Created via Fork -->
+    <g transform="translate(500, 100)" filter="url(#shadow)">
+        <rect width="180" height="150" fill="#065F46" stroke="#10B981" class="proc" stroke-dasharray="8"/>
+        <text x="90" y="35" fill="#D1FAE5" font-size="20" font-weight="800" text-anchor="middle">Child (PID: 101)</text>
+        <rect x="20" y="55" width="140" height="30" rx="4" fill="#064E3B"/>
+        <text x="90" y="75" fill="#6EE7B7" font-size="12" font-weight="600" text-anchor="middle">Code: bash (Clone)</text>
+        <rect x="20" y="95" width="140" height="30" rx="4" fill="#064E3B"/>
+        <text x="90" y="115" fill="#6EE7B7" font-size="12" font-weight="600" text-anchor="middle">Data: (Clone)</text>
+    </g>
+    
+    <text x="590" y="80" fill="#10B981" font-size="14" font-weight="600" text-anchor="middle">Exact memory duplicate formed</text>
+
+    <path d="M 590 250 L 590 310" stroke="#F59E0B" stroke-width="4" fill="none" marker-end="url(#arrow2)"/>
+    <rect x="610" y="270" width="80" height="25" rx="6" fill="#B45309"/>
+    <text x="650" y="287" fill="#FEF3C7" font-size="14" font-weight="800" text-anchor="middle">exec()</text>
+
+    <!-- Overwritten via Exec -->
+    <g transform="translate(500, 330)" filter="url(#shadow)">
+        <rect width="180" height="150" fill="#9D174D" stroke="#EC4899" class="proc"/>
+        <text x="90" y="35" fill="#FCE7F3" font-size="20" font-weight="800" text-anchor="middle">Child (PID: 101)</text>
+        <rect x="20" y="55" width="140" height="30" rx="4" fill="#831843"/>
+        <text x="90" y="75" fill="#F9A8D4" font-size="12" font-weight="600" text-anchor="middle">Code: ./a.out (New)</text>
+        <rect x="20" y="95" width="140" height="30" rx="4" fill="#831843"/>
+        <text x="90" y="115" fill="#F9A8D4" font-size="12" font-weight="600" text-anchor="middle">Data: (New space)</text>
+    </g>
+
+    <text x="730" y="405" fill="#EC4899" font-size="14" font-weight="600" text-anchor="start">Replaces internal state</text>
+    <text x="730" y="425" fill="#EC4899" font-size="14" font-weight="600" text-anchor="start">with complete new binary</text>
+
+    <path d="M 240 250 L 240 400 L 480 400" stroke="#64748B" stroke-width="2" fill="none" stroke-dasharray="4"/>
+    <text x="240" y="420" fill="#94A3B8" font-size="12" font-weight="600" text-anchor="middle">wait() to reap exit status</text>
+
+</svg>

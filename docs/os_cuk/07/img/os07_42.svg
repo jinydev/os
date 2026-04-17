@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 450" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --axis: #34495e;
+        --line: #2980b9;
+        --box: #3f51b5;
+        --highlight: #e74c3c;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --axis: #bdc3c7;
+          --line: #3498db;
+          --box: #5c6bc0;
+          --highlight: #ff7675;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 20px; font-weight: bold; }
+      .desc { font-weight: normal; font-size: 16px; fill: var(--text); }
+      .title { font-size: 24px; }
+      .axis { stroke: var(--axis); stroke-width: 4; fill: none; marker-end: url(#arrowhead); }
+      .dashed { stroke: var(--axis); stroke-width: 2; stroke-dasharray: 6 6; fill: none; }
+      .measure { stroke: var(--axis); stroke-width: 2; fill: none; marker-start: url(#bar); marker-end: url(#arrowhead); }
+      .measure-double { stroke: var(--axis); stroke-width: 2; fill: none; marker-start: url(#arrowhead-rev); marker-end: url(#arrowhead); }
+      .tag-box { fill: var(--box); stroke: none; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--axis)"/>
+    </marker>
+    <marker id="arrowhead-rev" markerWidth="10" markerHeight="7" refX="1" refY="3.5" orient="auto">
+      <polygon points="10 0, 0 3.5, 10 7" fill="var(--axis)"/>
+    </marker>
+    <marker id="bar" markerWidth="4" markerHeight="20" refX="2" refY="10" orient="auto">
+      <rect x="0" y="0" width="4" height="20" fill="var(--axis)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text title" text-anchor="middle">스케줄링의 선택 기준: 시간 측정 (Metrics)</text>
+
+  <!-- Timeline -->
+  <path d="M 100 150 L 900 150" class="axis" stroke="var(--line)"/>
+  <text x="880" y="180" class="text">시간</text>
+
+  <!-- Markers -->
+  <!-- Arrival -->
+  <path d="M 150 130 L 150 400" class="dashed"/>
+  <text x="150" y="120" class="text" text-anchor="middle" fill="var(--line)">도착</text>
+
+  <!-- Execution Start -->
+  <path d="M 300 130 L 300 400" class="dashed"/>
+  <text x="300" y="120" class="text" text-anchor="middle" fill="var(--line)">실행 시간</text>
+
+  <!-- First Output -->
+  <path d="M 450 130 L 450 400" class="dashed"/>
+  <text x="450" y="120" class="text" text-anchor="middle" fill="var(--line)">첫 번째 출력</text>
+
+  <!-- Execution End -->
+  <path d="M 750 130 L 750 400" class="dashed"/>
+  <text x="750" y="120" class="text" text-anchor="middle" fill="var(--line)">실행 종료</text>
+
+  <!-- Metrics -->
+  
+  <!-- Waiting Time (Arrival to Exec Start) -->
+  <rect x="180" y="200" width="100" height="40" class="tag-box"/>
+  <text x="230" y="228" class="text" fill="#fff" text-anchor="middle">대기시간</text>
+  <path d="M 150 220 L 180 220" stroke="var(--axis)" stroke-width="2" marker-start="url(#arrowhead-rev)"/>
+  <path d="M 280 220 L 300 220" stroke="var(--axis)" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Execution Time (Exec Start to Exec End) -->
+  <rect x="520" y="200" width="100" height="40" class="tag-box"/>
+  <text x="570" y="228" class="text" fill="#fff" text-anchor="middle">실행 시간</text>
+  <path d="M 300 220 L 520 220" stroke="var(--axis)" stroke-width="2" marker-start="url(#arrowhead-rev)"/>
+  <path d="M 620 220 L 750 220" stroke="var(--axis)" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Response Time (Arrival to First Output) -->
+  <rect x="250" y="280" width="100" height="40" class="tag-box" fill="var(--highlight)"/>
+  <text x="300" y="308" class="text" fill="#fff" text-anchor="middle">응답 시간</text>
+  <path d="M 150 300 L 250 300" stroke="var(--axis)" stroke-width="2" marker-start="url(#arrowhead-rev)"/>
+  <path d="M 350 300 L 450 300" stroke="var(--axis)" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Turn-around Time (Arrival to Exec End) -->
+  <rect x="400" y="360" width="100" height="40" class="tag-box"/>
+  <text x="450" y="388" class="text" fill="#fff" text-anchor="middle">반환 시간</text>
+  <path d="M 150 380 L 400 380" stroke="var(--axis)" stroke-width="2" marker-start="url(#arrowhead-rev)"/>
+  <path d="M 500 380 L 750 380" stroke="var(--axis)" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+</svg>

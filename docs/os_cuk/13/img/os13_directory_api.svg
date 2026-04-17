@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 450" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --call: #e67e22;
+        --box: #bdc3c7;
+        --code: #27ae60;
+        --line: #7f8c8d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --call: #d35400;
+          --box: #34495e;
+          --code: #2ecc71;
+          --line: #95a5a6;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-weight: bold; font-size: 18px; }
+      .text-sm { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 14px; font-weight: normal; }
+      .title { font-size: 26px; }
+      .func-box { fill: var(--call); rx: 15; }
+      .sys-box { fill: transparent; stroke: var(--text); stroke-width: 2; rx:5;}
+      .arrow { stroke: var(--line); stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+      <polygon points="0 0, 6 2, 0 4" fill="var(--line)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text title" text-anchor="middle">디렉터리 파일 시스템 호출 흐름 (Directory API)</text>
+
+  <!-- Step 1 -->
+  <rect x="150" y="100" width="200" height="40" class="func-box"/>
+  <text x="250" y="126" class="text" fill="#fff" text-anchor="middle">DIR* opendir(path)</text>
+
+  <rect x="100" y="200" width="300" height="150" class="sys-box" fill="#f8f9fa"/>
+  <text x="250" y="230" class="text" fill="var(--text)" text-anchor="middle">Kernel Directory Stream</text>
+  <text x="250" y="260" class="text-sm" text-anchor="middle">OS 메모리 상에 디렉터리 포인터 유지</text>
+  <path d="M 250 140 L 250 200" class="arrow"/>
+  
+  <text x="350" y="170" class="text-sm" fill="var(--line)">디렉터리 포인터 획득</text>
+
+  <!-- Step 2 -->
+  <rect x="550" y="100" width="250" height="40" class="func-box"/>
+  <text x="675" y="126" class="text" fill="#fff" text-anchor="middle">struct dirent* readdir(dir)</text>
+  
+  <path d="M 350 200 Q 550 200 650 140" class="arrow"/>
+  <text x="380" y="200" class="text-sm" fill="var(--line)">요청</text>
+
+  <rect x="550" y="220" width="250" height="130" class="sys-box" fill="#ecf0f1"/>
+  <text x="675" y="250" class="text" fill="var(--text)" text-anchor="middle">dirent 구조체 반환</text>
+  
+  <text x="675" y="280" class="text-sm" font-family="monospace" text-anchor="middle">inode_number : 104231</text>
+  <text x="675" y="310" class="text-sm" font-family="monospace" text-anchor="middle">file_name : "index.html"</text>
+  
+  <path d="M 675 140 L 675 220" class="arrow"/>
+  
+  <text x="750" y="180" class="text-sm" fill="var(--line)">반환(Return)</text>
+
+  <!-- Explanation -->
+  <text x="500" y="420" class="text" text-anchor="middle">UNIX 환경에서는 "디렉터리도 결국 하나의 파일"로 취급된다.</text>
+  <text x="500" y="440" class="text-sm" text-anchor="middle">단지 평문 텍스트가 아닌, 그 하위의 [파일 이름 - i-node 번호] 매핑 리스트가 적혀있을 뿐이다.</text>
+</svg>

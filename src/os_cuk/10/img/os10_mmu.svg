@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --box: #34495e;
+        --cpu: #e74c3c;
+        --mmu: #f39c12;
+        --ram: #27ae60;
+        --line: #7f8c8d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --box: #4a6278;
+          --cpu: #ff7675;
+          --mmu: #f1c40f;
+          --ram: #2ecc71;
+          --line: #95a5a6;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-weight: bold; font-size: 20px; }
+      .title { font-size: 28px; }
+      .cpu-box { fill: var(--cpu); rx: 10; }
+      .mmu-box { fill: var(--mmu); rx: 10; }
+      .ram-box { fill: var(--ram); rx: 10; }
+      .addr-box { fill: var(--bg); stroke: var(--text); stroke-width: 2; rx: 5; }
+      .arrow { stroke: var(--line); stroke-width: 4; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--line)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="50" class="text title" text-anchor="middle">MMU (Memory Management Unit) 주소 변환</text>
+
+  <!-- CPU -->
+  <rect x="100" y="150" width="150" height="100" class="cpu-box"/>
+  <text x="175" y="208" class="text" fill="#fff" text-anchor="middle" font-size="28">CPU</text>
+
+  <!-- Logical Address -->
+  <path d="M 250 200 L 390 200" class="arrow"/>
+  <rect x="270" y="160" width="100" height="30" class="addr-box"/>
+  <text x="320" y="182" class="text" text-anchor="middle" font-size="16">346</text>
+  <text x="320" y="140" class="text" font-size="18" text-anchor="middle">논리 주소</text>
+
+  <!-- MMU -->
+  <rect x="400" y="120" width="200" height="160" class="mmu-box"/>
+  <text x="500" y="160" class="text" fill="#fff" text-anchor="middle" font-size="24">MMU</text>
+  
+  <rect x="420" y="180" width="160" height="30" class="addr-box"/>
+  <text x="500" y="202" class="text" text-anchor="middle" font-size="16">Relocation Reg</text>
+  <rect x="420" y="220" width="160" height="30" class="addr-box"/>
+  <text x="500" y="242" class="text" text-anchor="middle" font-size="16">14000</text>
+  <text x="400" y="238" class="text" fill="#fff" font-size="28">+</text>
+
+  <!-- Physical Address -->
+  <path d="M 600 200 L 740 200" class="arrow"/>
+  <rect x="620" y="160" width="100" height="30" class="addr-box"/>
+  <text x="670" y="182" class="text" text-anchor="middle" font-size="16">14346</text>
+  <text x="670" y="140" class="text" font-size="18" text-anchor="middle">물리 주소</text>
+
+  <!-- Memory -->
+  <rect x="750" y="100" width="150" height="200" class="ram-box"/>
+  <text x="825" y="140" class="text" fill="#fff" text-anchor="middle" font-size="24">물리 메모리</text>
+  <rect x="750" y="190" width="150" height="20" fill="var(--bg)" opacity="0.3"/>
+  <text x="825" y="205" class="text" fill="#fff" text-anchor="middle" font-size="16">주소 14346 접근</text>
+
+</svg>

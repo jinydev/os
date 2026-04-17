@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --queue: #5c6bc0;
+        --cpu: #2980b9;
+        --disk: #1abc9c;
+        --line: #7f8c8d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --queue: #3f51b5;
+          --cpu: #3498db;
+          --disk: #16a085;
+          --line: #b2bec3;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 20px; font-weight: bold; }
+      .title { font-size: 24px; }
+      .queue-box { fill: var(--queue); stroke: #fff; stroke-width: 2; }
+      .cpu-ellipse { fill: var(--cpu); stroke: #fff; stroke-width: 2; }
+      .disk-cyl { fill: var(--disk); stroke: #fff; stroke-width: 2; }
+      .arrow { stroke: var(--line); stroke-width: 4; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--line)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text title" text-anchor="middle">다각적 큐잉 도표 (Queueing Diagram)</text>
+
+  <!-- Disk/Job Queue -->
+  <path d="M 120 180 Q 170 160 220 180 L 220 260 Q 170 280 120 260 Z" class="disk-cyl"/>
+  <path d="M 120 180 Q 170 200 220 180" stroke="#fff" stroke-width="2" fill="none"/>
+  <text x="170" y="230" class="text" fill="#fff" text-anchor="middle">디스크</text>
+
+  <!-- Ready Queue -->
+  <rect x="280" y="190" width="160" height="50" class="queue-box"/>
+  <text x="360" y="223" class="text" fill="#fff" text-anchor="middle">준비 큐</text>
+
+  <!-- CPU -->
+  <ellipse cx="650" cy="215" rx="70" ry="60" class="cpu-ellipse"/>
+  <text x="650" y="210" class="text" fill="#fff" text-anchor="middle" font-size="28">CPU</text>
+  <text x="650" y="240" class="text" fill="#fff" text-anchor="middle">프로세서</text>
+
+  <!-- IO Device & Queue -->
+  <ellipse cx="320" cy="330" rx="60" ry="45" class="cpu-ellipse"/>
+  <text x="320" y="325" class="text" fill="#fff" text-anchor="middle">입출력</text>
+  <text x="320" y="350" class="text" fill="#fff" text-anchor="middle">장치</text>
+
+  <rect x="430" y="305" width="160" height="50" class="queue-box"/>
+  <text x="510" y="338" class="text" fill="#fff" text-anchor="middle">입출력장치 큐</text>
+
+  <rect x="430" y="380" width="160" height="40" class="queue-box" fill="var(--cpu)"/>
+  <text x="510" y="408" class="text" fill="#fff" text-anchor="middle">자식 생성</text>
+
+  <rect x="430" y="435" width="160" height="40" class="queue-box" fill="var(--cpu)"/>
+  <text x="510" y="463" class="text" fill="#fff" text-anchor="middle">인터럽트 발생</text>
+
+
+  <!-- Edges -->
+  <path d="M 220 215 L 270 215" class="arrow"/>
+  <path d="M 440 215 L 570 215" class="arrow"/>
+
+  <!-- CPU -> End -->
+  <path d="M 720 215 L 850 215" class="arrow"/>
+  <text x="880" y="223" class="text" text-anchor="middle">종료</text>
+
+  <!-- Bus Lines returning from CPU -->
+  <!-- Main Backbone -->
+  <path d="M 720 215 L 750 215 L 750 455" stroke="var(--line)" stroke-width="4" fill="none"/>
+  
+  <!-- IO Branch -->
+  <path d="M 750 330 L 600 330" class="arrow"/>
+  <text x="650" y="320" class="text" text-anchor="middle">입출력 요청</text>
+
+  <!-- Time Exceeded Branch -->
+  <path d="M 750 360 L 250 360 L 250 215 L 270 215" class="arrow"/>
+  <text x="650" y="385" class="text" text-anchor="middle">할당 시간 초과</text>
+
+  <!-- Child Fork Branch -->
+  <path d="M 750 400 L 600 400" class="arrow"/>
+  <text x="650" y="420" class="text" text-anchor="middle">자식 생성</text>
+
+  <!-- Interrupt Branch -->
+  <path d="M 750 455 L 600 455" class="arrow"/>
+  <text x="650" y="445" class="text" text-anchor="middle">인터럽트 대기</text>
+
+
+  <!-- Post conditions back to Ready Queue -->
+  <path d="M 430 400 L 250 400" stroke="var(--line)" stroke-width="4" fill="none"/>
+  <path d="M 430 455 L 250 455" stroke="var(--line)" stroke-width="4" fill="none"/>
+  <path d="M 260 330 L 250 330" stroke="var(--line)" stroke-width="4" fill="none"/>
+
+</svg>

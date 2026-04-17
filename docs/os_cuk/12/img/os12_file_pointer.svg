@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --box: #bdc3c7;
+        --offset: #e74c3c;
+        --api: #3498db;
+        --grid: #7f8c8d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --box: #34495e;
+          --offset: #ff7675;
+          --api: #2980b9;
+          --grid: #95a5a6;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', monospace; font-weight: bold; font-size: 20px; }
+      .text-sm { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 14px; font-weight: normal; }
+      .title { font-size: 26px; font-family: 'Inter', sans-serif;}
+      .data-box { fill: transparent; stroke: var(--grid); stroke-width: 2; rx: 4;}
+      .arrow { stroke: var(--offset); stroke-width: 4; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+      <polygon points="0 0, 6 2, 0 4" fill="var(--offset)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text title" text-anchor="middle">시스템 콜: 파일 접근 포인터와 lseek 함수</text>
+
+  <!-- Base File string mock -->
+  <rect x="200" y="100" width="600" height="50" class="data-box"/>
+  <text x="250" y="132" class="text" letter-spacing="15">A B C D E F G H I J K L</text>
+  
+  <text x="200" y="80" class="text-sm" fill="var(--grid)">Offset: 0</text>
+  <text x="780" y="80" class="text-sm" fill="var(--grid)" text-anchor="end">EOF</text>
+
+  <!-- Initial State pointer -->
+  <path d="M 400 230 L 400 170" class="arrow"/>
+  <text x="400" y="250" class="text-sm" fill="var(--offset)" text-anchor="middle">현재 읽기/쓰기 포인터 (CUR)</text>
+
+  <!-- lseek command 1 -->
+  <rect x="50" y="270" width="280" height="40" fill="var(--api)" rx="5"/>
+  <text x="190" y="296" class="text" fill="#fff" font-size="16" text-anchor="middle">lseek(fd, -2, SEEK_CUR)</text>
+  <path d="M 390 220 L 330 220 L 330 170" class="arrow" stroke-dasharray="3"/>
+  <text x="290" y="195" class="text-sm" fill="var(--offset)">-2 이동</text>
+
+  <!-- lseek command 2 -->
+  <rect x="360" y="270" width="280" height="40" fill="var(--api)" rx="5"/>
+  <text x="500" y="296" class="text" fill="#fff" font-size="16" text-anchor="middle">lseek(fd, 3, SEEK_SET)</text>
+  <path d="M 220 220 L 300 220 L 300 170" class="arrow" stroke-dasharray="3"/>
+  <text x="230" y="240" class="text-sm" fill="var(--offset)">맨앞(0) 기준 +3 이동</text>
+
+  <!-- lseek command 3 -->
+  <rect x="670" y="270" width="280" height="40" fill="var(--api)" rx="5"/>
+  <text x="810" y="296" class="text" fill="#fff" font-size="16" text-anchor="middle">lseek(fd, -1, SEEK_END)</text>
+  <path d="M 780 220 L 740 220 L 740 170" class="arrow" stroke-dasharray="3"/>
+  <text x="760" y="200" class="text-sm" fill="var(--offset)">맨끝(EOF) 기준 -1 이동</text>
+
+</svg>

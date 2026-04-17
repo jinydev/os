@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" fill="none">
+    <defs>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap');
+            text { font-family: 'Inter', sans-serif; }
+        </style>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#0F172A"/>
+            <stop offset="100%" stop-color="#1E293B"/>
+        </linearGradient>
+        <linearGradient id="cuGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#C2410C"/>
+            <stop offset="100%" stop-color="#7C2D12"/>
+        </linearGradient>
+        <linearGradient id="aluGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#0369A1"/>
+            <stop offset="100%" stop-color="#0C4A6E"/>
+        </linearGradient>
+        <linearGradient id="regGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#047857"/>
+            <stop offset="100%" stop-color="#064E3B"/>
+        </linearGradient>
+        <filter id="shadow">
+            <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.4"/>
+        </filter>
+        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#94A3B8"/>
+        </marker>
+    </defs>
+
+    <rect width="900" height="500" rx="20" fill="url(#bg)"/>
+
+    <!-- Main CPU Outer Border -->
+    <rect x="50" y="50" width="800" height="400" rx="30" fill="transparent" stroke="#334155" stroke-dasharray="10 10" stroke-width="4"/>
+    <text x="450" y="85" fill="#E2E8F0" font-size="22" font-weight="800" text-anchor="middle" letter-spacing="3">MICROPROCESSOR (CPU) STRUCTURE</text>
+
+    <!-- Processors Internal Buses-->
+    <path d="M 450 140 L 450 420" stroke="#475569" stroke-width="6" stroke-dasharray="4"/>
+    <text x="495" y="430" fill="#94A3B8" font-size="14" font-weight="600">Internal Bus</text>
+
+    <!-- Control Unit -->
+    <g transform="translate(100, 150)" filter="url(#shadow)">
+        <rect width="280" height="250" rx="16" fill="url(#cuGrad)" stroke="#F97316" stroke-width="2"/>
+        <text x="140" y="45" fill="#FFFFFF" font-size="20" font-weight="800" text-anchor="middle">Control Unit (CU)</text>
+        <text x="140" y="85" fill="#FED7AA" font-size="14" font-weight="400" text-anchor="middle">Fetches and decodes instructions.</text>
+        <text x="140" y="115" fill="#FED7AA" font-size="14" font-weight="400" text-anchor="middle">Generates timing and</text>
+        <text x="140" y="135" fill="#FED7AA" font-size="14" font-weight="400" text-anchor="middle">control signals.</text>
+    </g>
+
+    <!-- ALU -->
+    <g transform="translate(520, 110)" filter="url(#shadow)">
+        <rect width="280" height="130" rx="16" fill="url(#aluGrad)" stroke="#38BDF8" stroke-width="2"/>
+        <text x="140" y="45" fill="#FFFFFF" font-size="20" font-weight="800" text-anchor="middle">ALU</text>
+        <text x="140" y="75" fill="#BAE6FD" font-size="14" font-weight="400" text-anchor="middle">Arithmetic Logic Unit</text>
+        <text x="140" y="105" fill="#BAE6FD" font-size="14" font-weight="400" text-anchor="middle">Performs mathematical &amp; logical ops.</text>
+    </g>
+
+    <!-- Registers Collection -->
+    <g transform="translate(520, 260)" filter="url(#shadow)">
+        <rect width="280" height="150" rx="16" fill="url(#regGrad)" stroke="#34D399" stroke-width="2"/>
+        <text x="140" y="35" fill="#FFFFFF" font-size="18" font-weight="800" text-anchor="middle">Registers</text>
+        <text x="140" y="55" fill="#A7F3D0" font-size="12" font-weight="400" text-anchor="middle">High-speed volatile state storage</text>
+        
+        <!-- Individual Registers -->
+        <rect x="20" y="75" width="110" height="28" rx="4" fill="#047857" stroke="#10B981"/>
+        <text x="75" y="93" fill="#D1FAE5" font-size="12" font-weight="600" text-anchor="middle">PC (Prog Ctr)</text>
+        
+        <rect x="150" y="75" width="110" height="28" rx="4" fill="#047857" stroke="#10B981"/>
+        <text x="205" y="93" fill="#D1FAE5" font-size="12" font-weight="600" text-anchor="middle">IR (Instr Reg)</text>
+
+        <rect x="20" y="110" width="110" height="28" rx="4" fill="#047857" stroke="#10B981"/>
+        <text x="75" y="128" fill="#D1FAE5" font-size="12" font-weight="600" text-anchor="middle">MAR</text>
+
+        <rect x="150" y="110" width="110" height="28" rx="4" fill="#047857" stroke="#10B981"/>
+        <text x="205" y="128" fill="#D1FAE5" font-size="12" font-weight="600" text-anchor="middle">MBR</text>
+    </g>
+
+    <!-- Interconnections -->
+    <path d="M 380 220 L 450 220 L 520 220" stroke="#94A3B8" stroke-width="3" fill="none" marker-mid="url(#arrow)" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+    <path d="M 380 340 L 450 340 L 520 340" stroke="#94A3B8" stroke-width="3" fill="none" marker-mid="url(#arrow)" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+    
+</svg>

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --tc-box: #f7f1e3;
+        --tc-border: #d1ccc0;
+        --fn: #2980b9;
+        --hi: #c0392b;
+        --comment: #27ae60;
+        --line: #2d3436;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --tc-box: #2d3436;
+          --tc-border: #636e72;
+          --fn: #3498db;
+          --hi: #ff7675;
+          --comment: #55efc4;
+          --line: #dfe6e9;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'JetBrains Mono', 'Consolas', monospace; font-size: 22px; }
+      .title { font-family: 'Inter', sans-serif; font-size: 28px; font-weight: bold; }
+      .tc-box { fill: var(--tc-box); stroke: var(--tc-border); stroke-width: 2; rx: 8; }
+      .fn { fill: var(--fn); font-weight: bold; }
+      .hi { fill: var(--hi); font-weight: bold; }
+      .comment { fill: var(--comment); font-size: 20px;}
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="60" class="title text" text-anchor="middle">세마포어(Semaphore)를 이용한 상호배제 규약</text>
+
+  <rect x="200" y="120" width="600" height="400" class="tc-box"/>
+
+  <text x="250" y="180" class="text">세마포어 초기값: <tspan class="hi">lock = 1</tspan>;  <tspan class="comment">// (Mutex)</tspan></text>
+  
+  <rect x="250" y="210" width="500" height="2" fill="var(--tc-border)"/>
+
+  <text x="250" y="260" class="text" font-weight="bold">do {</text>
+
+  <text x="300" y="310" class="fn text">wait( <tspan class="hi">lock</tspan> ); <tspan class="comment">// 진입 영역 (P연산, lock 감소 및 대기)</tspan></text>
+
+  <text x="350" y="360" class="text">// 임계 영역 (Critical Section)</text>
+  <text x="350" y="390" class="text">...</text>
+
+  <text x="300" y="440" class="fn text">signal( <tspan class="hi">lock</tspan> ); <tspan class="comment">// 퇴출 영역 (V연산, lock 증가 및 깨움)</tspan></text>
+
+  <text x="350" y="490" class="text">// 나머지 영역 (Remainder Section)</text>
+
+  <text x="250" y="540" class="text" font-weight="bold">} while ( TRUE );</text>
+
+</svg>

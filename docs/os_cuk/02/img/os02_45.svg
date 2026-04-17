@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .box { fill: #ffffff; stroke: #0284c7; stroke-width: 2; rx: 4; }
+      .box-mem { fill: #1e3a8a; stroke: none; }
+      .bus-line { stroke: #94a3b8; stroke-width: 4; }
+      .text-title { font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 700; fill: #0f172a; }
+      .text-node { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; fill: #0f172a; text-anchor: middle; }
+      .text-white { fill: #f8fafc; }
+      .arrow { fill: none; stroke: #3b82f6; stroke-width: 2; marker-end: url(#arrow-blue); }
+      .time-badge { fill: #0f172a; color: white; border-radius: 50%; }
+      
+      @media (prefers-color-scheme: dark) {
+        .bg { fill: #0f172a; }
+        .box { fill: #1e293b; stroke: #38bdf8; }
+        .text-title, .text-node { fill: #f8fafc; }
+        .bus-line { stroke: #475569; }
+      }
+    </style>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#3b82f6"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="100%" height="100%" />
+  
+  <text x="50" y="40" class="text-title">인출 사이클 (Fetch Cycle) 마이크로 연산</text>
+
+  <!-- Buses -->
+  <rect x="400" y="80" width="10" height="320" class="bus-line" fill="#94a3b8"/> <!-- Address -->
+  <rect x="460" y="80" width="10" height="320" class="bus-line" fill="#94a3b8"/> <!-- Data -->
+  <rect x="520" y="80" width="10" height="320" class="bus-line" fill="#94a3b8"/> <!-- Control -->
+  
+  <text x="405" y="70" text-anchor="middle" font-family="Inter" font-size="12px" fill="#64748b">주소</text>
+  <text x="465" y="70" text-anchor="middle" font-family="Inter" font-size="12px" fill="#64748b">데이터</text>
+  <text x="525" y="70" text-anchor="middle" font-family="Inter" font-size="12px" fill="#64748b">제어</text>
+
+  <!-- Memory -->
+  <rect class="box-mem" x="600" y="150" width="120" height="150" rx="4" />
+  <text x="660" y="230" class="text-node text-white">메모리</text>
+
+  <!-- CPU Registers -->
+  <rect class="box" x="150" y="130" width="100" height="40" />
+  <text x="200" y="156" class="text-node">PC</text>
+
+  <rect class="box" x="270" y="130" width="100" height="40" />
+  <text x="320" y="156" class="text-node">MAR</text>
+
+  <rect class="box" x="150" y="270" width="100" height="40" />
+  <text x="200" y="296" class="text-node">IR</text>
+
+  <rect class="box" x="270" y="270" width="100" height="40" />
+  <text x="320" y="296" class="text-node">MBR</text>
+
+  <rect class="box" fill="#0ea5e9" x="250" y="200" width="120" height="40" />
+  <text x="310" y="226" class="text-node text-white">제어장치</text>
+
+  <!-- Flows -->
+  <!-- T1: PC -> MAR -->
+  <path class="arrow" d="M 250 150 L 265 150" />
+  <circle cx="210" cy="120" r="12" fill="#0f172a" />
+  <text x="210" y="125" fill="white" font-size="12" text-anchor="middle" font-weight="bold">1</text>
+  
+  <path class="arrow" d="M 370 150 L 400 150" /> <!-- MAR to Addr Bus -->
+
+  <!-- T2: Memory -> MBR & CU -> Memory(Read) -->
+  <path class="arrow" d="M 405 180 L 600 180" /> <!-- Addr bus to mem -->
+  <path class="arrow" d="M 370 220 L 520 220" /> <!-- CU to Ctrl Bus -->
+  <path class="arrow" d="M 525 240 L 600 240" /> <!-- Ctrl bus to mem -->
+  <path class="arrow" d="M 600 280 L 470 280" /> <!-- Mem to Data Bus -->
+  <path class="arrow" d="M 460 290 L 375 290" /> <!-- Data Bus to MBR -->
+  <circle cx="385" cy="180" r="12" fill="#0f172a" />
+  <text x="385" y="185" fill="white" font-size="12" text-anchor="middle" font-weight="bold">2</text>
+
+  <!-- T3: MBR -> IR -->
+  <path class="arrow" d="M 270 290 L 255 290" />
+  <circle cx="262" cy="275" r="12" fill="#0f172a" />
+  <text x="262" y="280" fill="white" font-size="12" text-anchor="middle" font-weight="bold">3</text>
+
+  <!-- Expalnation texts -->
+  <text x="50" y="380" font-family="Inter" font-size="14px" fill="#0f172a" font-weight="bold">[시간 흐름별 마이크로 연산]</text>
+  <text x="50" y="400" font-family="Inter" font-size="13px" fill="#475569">- t1: MAR &lt;- PC (PC값을 MAR로)</text>
+  <text x="50" y="420" font-family="Inter" font-size="13px" fill="#475569">- t2: MBR &lt;- M[MAR],  PC &lt;- PC + 1  (메모리 읽기, PC 증가)</text>
+  <text x="50" y="440" font-family="Inter" font-size="13px" fill="#475569">- t3: IR &lt;- MBR (명령어를 IR에 적재)</text>
+</svg>

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .box { fill: #ffffff; stroke: #e2e8f0; stroke-width: 2; rx: 8; ry: 8; }
+      .box-cpu { fill: #fafafa; stroke: #334155; stroke-dasharray: 4 4; }
+      .box-component { fill: #e0f2fe; stroke: #0284c7; }
+      .box-reg { fill: #fef08a; stroke: #ca8a04; }
+      .text-title { font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 700; fill: #0f172a; }
+      .text-sub { font-family: 'Inter', sans-serif; font-size: 14px; fill: #64748b; }
+      .text-box { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; fill: #0f172a; text-anchor: middle; }
+      .path-line { fill: none; stroke: #94a3b8; stroke-width: 2; marker-end: url(#arrowhead); }
+      .path-line-bidir { fill: none; stroke: #94a3b8; stroke-width: 2; marker-start: url(#arrowhead-rev); marker-end: url(#arrowhead); }
+      
+      @media (prefers-color-scheme: dark) {
+        .bg { fill: #0f172a; }
+        .box { fill: #1e293b; stroke: #475569; }
+        .box-cpu { fill: transparent; stroke: #94a3b8; }
+        .box-component { fill: #0c4a6e; stroke: #0284c7; }
+        .box-reg { fill: #713f12; stroke: #ca8a04; }
+        .text-title, .text-box { fill: #f8fafc; }
+        .text-sub { fill: #94a3b8; }
+        .path-line, .path-line-bidir { stroke: #64748b; }
+      }
+    </style>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#94a3b8" />
+    </marker>
+    <marker id="arrowhead-rev" markerWidth="8" markerHeight="6" refX="1" refY="3" orient="auto">
+      <polygon points="8 0, 0 3, 8 6" fill="#94a3b8" />
+    </marker>
+  </defs>
+
+  <rect class="bg" width="100%" height="100%" />
+  
+  <text x="400" y="40" class="text-title" text-anchor="middle">CPU (중앙처리장치) 내부 구조</text>
+  <text x="400" y="65" class="text-sub" text-anchor="middle">제어장치, 연산장치, 레지스터 내부 데이터 흐름</text>
+
+  <!-- CPU Bound -->
+  <rect class="box box-cpu" x="100" y="100" width="600" height="300" />
+  <text x="120" y="130" class="text-title" fill="currentColor">CPU</text>
+
+  <!-- Control Unit -->
+  <rect class="box box-component" x="140" y="140" width="180" height="100" />
+  <text x="230" y="195" class="text-box">제어장치 (CU)</text>
+
+  <!-- ALU -->
+  <polygon points="480,140 660,140 680,240 460,240" class="box box-component" />
+  <text x="570" y="195" class="text-box">산술논리연산장치 (ALU)</text>
+
+  <!-- Registers -->
+  <rect class="box box-reg" x="140" y="280" width="500" height="100" />
+  <text x="390" y="305" class="text-box">레지스터 세트 (Registers)</text>
+  
+  <rect class="box" x="160" y="320" width="70" height="40" />
+  <text x="195" y="345" class="text-box" style="font-size:13px">PC</text>
+  
+  <rect class="box" x="240" y="320" width="70" height="40" />
+  <text x="275" y="345" class="text-box" style="font-size:13px">IR</text>
+  
+  <rect class="box" x="320" y="320" width="70" height="40" />
+  <text x="355" y="345" class="text-box" style="font-size:13px">MAR</text>
+  
+  <rect class="box" x="400" y="320" width="70" height="40" />
+  <text x="435" y="345" class="text-box" style="font-size:13px">MBR</text>
+
+  <rect class="box" x="480" y="320" width="140" height="40" />
+  <text x="550" y="345" class="text-box" style="font-size:13px">범용 레지스터</text>
+
+  <!-- Internal Bus -->
+  <path class="path-line-bidir" d="M 230 240 L 230 280" />
+  <path class="path-line-bidir" d="M 570 240 L 570 280" />
+  <path class="path-line" d="M 320 190 L 460 190" stroke-dasharray="4 2" />
+  <text x="390" y="180" class="text-sub" text-anchor="middle" style="font-size: 11px">제어 신호</text>
+
+</svg>

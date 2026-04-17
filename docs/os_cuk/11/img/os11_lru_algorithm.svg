@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 450" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --cell: #ecf0f1;
+        --fault: #e74c3c;
+        --miss: #f39c12;
+        --grid: #bdc3c7;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --cell: #2c3e50;
+          --fault: #ff7675;
+          --miss: #f1c40f;
+          --grid: #4a6278;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-weight: bold; font-size: 20px; }
+      .text-sm { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; }
+      .title { font-size: 28px; }
+      .cell-box { fill: var(--cell); stroke: var(--grid); stroke-width: 2; }
+      .fault-text { fill: var(--fault); font-weight: bold; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="50" class="text title" text-anchor="middle">페이지 교체 알고리즘 비교 (FIFO vs LRU)</text>
+  
+  <text x="500" y="80" class="text-sm" font-weight="normal" text-anchor="middle">참조 문자열: 7 -> 0 -> 1 -> 2 -> 0 -> 3 (할당된 빈 프레임 3개)</text>
+
+  <!-- Reference String Header -->
+  <text x="150" y="140" class="text">Reference String:</text>
+  <text x="350" y="140" class="text">7</text>
+  <text x="430" y="140" class="text">0</text>
+  <text x="510" y="140" class="text">1</text>
+  <text x="590" y="140" class="text">2</text>
+  <text x="670" y="140" class="text">0</text>
+  <text x="750" y="140" class="text">3</text>
+
+  <!-- FIFO -->
+  <rect x="100" y="160" width="800" height="110" fill="transparent" stroke="var(--grid)" stroke-width="2" rx="5"/>
+  <text x="150" y="220" class="text text-anchor-middle">FIFO</text>
+  
+  <text x="350" y="190" class="text fault-text">F</text>
+  <text x="430" y="190" class="text fault-text">F</text>
+  <text x="510" y="190" class="text fault-text">F</text>
+  <text x="590" y="190" class="text fault-text">F</text>
+  <text x="670" y="190" class="text">Hit</text>
+  <text x="750" y="190" class="text fault-text">F</text>
+
+  <!-- FIFO Stack State -->
+  <text x="340" y="240" class="text-sm">[7]</text>
+  <text x="420" y="240" class="text-sm">[7,0]</text>
+  <text x="500" y="240" class="text-sm">[7,0,1]</text>
+  <text x="580" y="240" class="text-sm">[2,0,1]</text>
+  <text x="660" y="240" class="text-sm">[2,0,1]</text>
+  <text x="740" y="240" class="text-sm">[2,3,1]</text>
+  <text x="580" y="215" class="text-sm" fill="var(--fault)">7 OUT</text>
+  <text x="740" y="215" class="text-sm" fill="var(--fault)">0 OUT</text>
+
+  <!-- LRU -->
+  <rect x="100" y="290" width="800" height="110" fill="transparent" stroke="var(--grid)" stroke-width="2" rx="5"/>
+  <text x="150" y="350" class="text text-anchor-middle">LRU</text>
+
+  <text x="350" y="320" class="text fault-text">F</text>
+  <text x="430" y="320" class="text fault-text">F</text>
+  <text x="510" y="320" class="text fault-text">F</text>
+  <text x="590" y="320" class="text fault-text">F</text>
+  <text x="670" y="320" class="text">Hit</text>
+  <text x="750" y="320" class="text fault-text">F</text>
+
+  <!-- LRU Stack State -->
+  <text x="340" y="370" class="text-sm">[7]</text>
+  <text x="420" y="370" class="text-sm">[7,0]</text>
+  <text x="500" y="370" class="text-sm">[7,0,1]</text>
+  <text x="580" y="370" class="text-sm">[2,0,1]</text>
+  <text x="660" y="370" class="text-sm">[0,2,1]</text>
+  <text x="740" y="370" class="text-sm">[3,0,2]</text>
+  <text x="580" y="345" class="text-sm" fill="var(--fault)">7 OUT</text>
+  <text x="660" y="345" class="text-sm" fill="var(--miss)">0 최신화</text>
+  <text x="740" y="345" class="text-sm" fill="var(--fault)">1 OUT</text>
+
+</svg>

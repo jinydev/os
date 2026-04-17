@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 350" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .box { stroke: #cbd5e1; stroke-width: 2; rx: 4; }
+      .box-in { fill: #14b8a6; stroke: #0f766e; }
+      .box-comp { fill: #475569; stroke: #334155; }
+      .box-out { fill: #0284c7; stroke: #0369a1; }
+      
+      .text-title { font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 700; fill: #0f172a; }
+      .text-node { font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; fill: #ffffff; text-anchor: middle; }
+      .text-desc { font-family: 'Inter', sans-serif; font-size: 16px; fill: #0f172a; }
+      .arrow { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#arrow-md); }
+      
+      @media (prefers-color-scheme: dark) {
+        .bg { fill: #0f172a; }
+        .text-title { fill: #f8fafc; }
+        .text-desc { fill: #cbd5e1; }
+        .arrow { stroke: #94a3b8; }
+      }
+    </style>
+    <marker id="arrow-md" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="currentColor"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="100%" height="100%" />
+
+  <!-- Title -->
+  <text x="50" y="50" class="text-title">2. 컴파일 (compile) 단계</text>
+
+  <!-- Descriptions -->
+  <circle cx="60" cy="110" r="4" fill="#3b82f6" />
+  <text x="80" y="115" class="text-desc">전처리된 파일을 입력받아서 어셈블리 언어로 된 파일을 생성</text>
+
+  <!-- Flow -->
+  <rect class="box box-in" x="100" y="180" width="180" height="80" />
+  <text x="190" y="215" class="text-node">전처리된 파일</text>
+  <text x="190" y="240" class="text-node">File.i</text>
+
+  <path class="arrow" d="M 280 220 L 330 220" />
+
+  <rect class="box box-comp" x="330" y="180" width="150" height="80" />
+  <text x="405" y="215" class="text-node">컴파일러</text>
+  <text x="405" y="240" class="text-node">cc1</text>
+
+  <path class="arrow" d="M 480 220 L 530 220" />
+
+  <rect class="box box-out" x="530" y="180" width="220" height="80" />
+  <text x="640" y="215" class="text-node">어셈블리어로 된 파일</text>
+  <text x="640" y="240" class="text-node">File.s</text>
+
+</svg>

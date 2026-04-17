@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 450" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --q1: #e74c3c;
+        --q2: #f39c12;
+        --q3: #3498db;
+        --cpu: #2ecc71;
+        --line: #7f8c8d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --q1: #c0392b;
+          --q2: #d35400;
+          --q3: #2980b9;
+          --cpu: #27ae60;
+          --line: #b2bec3;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 18px; font-weight: bold; }
+      .desc { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 14px; }
+      .title { font-size: 24px; }
+      .node { stroke: var(--bg); stroke-width: 2; rx: 4; }
+      .arrow { stroke: var(--line); stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+      .arrow-dashed { stroke: var(--line); stroke-width: 2; fill: none; stroke-dasharray: 5 5; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--line)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text title" text-anchor="middle">다단계 피드백 큐 (Multilevel Feedback Queue, MLFQ) 구조</text>
+
+  <!-- Left: Process Arrival -->
+  <text x="80" y="125" class="text">도착한 프로세스</text>
+  <path d="M 210 120 L 290 120" class="arrow"/>
+
+  <!-- Q0 (Highest Priority) -->
+  <rect x="300" y="100" width="150" height="40" class="node" fill="var(--q1)"/>
+  <text x="375" y="125" class="text" fill="#fff" text-anchor="middle">Q0 (우선순위 상)</text>
+  <text x="375" y="160" class="desc" text-anchor="middle">RR (Time Quantum = 8)</text>
+
+  <!-- Q0 to CPU -->
+  <path d="M 450 120 L 730 120" class="arrow"/>
+  
+  <!-- Demote Q0 to Q1 -->
+  <path d="M 750 140 L 750 180 L 410 180 L 410 210" class="arrow"/>
+  <text x="580" y="170" class="desc" fill="var(--q1)" text-anchor="middle">Time Quantum 소진 시 (강등)</text>
+
+  <!-- Q1 (Medium Priority) -->
+  <rect x="300" y="210" width="150" height="40" class="node" fill="var(--q2)"/>
+  <text x="375" y="235" class="text" fill="#fff" text-anchor="middle">Q1 (우선순위 중)</text>
+  <text x="375" y="270" class="desc" text-anchor="middle">RR (Time Quantum = 16)</text>
+
+  <!-- Q1 to CPU -->
+  <path d="M 450 230 L 680 230 L 680 150 L 730 150" class="arrow"/>
+  <text x="565" y="220" class="desc" text-anchor="middle">Q0가 비어있을 때 할당</text>
+
+  <!-- Demote Q1 to Q2 -->
+  <path d="M 750 140 L 750 290 L 410 290 L 410 320" class="arrow"/>
+  <text x="580" y="280" class="desc" fill="var(--q2)" text-anchor="middle">Time Quantum 소진 시 (최하층 강등)</text>
+
+  <!-- Q2 (Lowest Priority) -->
+  <rect x="300" y="320" width="150" height="40" class="node" fill="var(--q3)"/>
+  <text x="375" y="345" class="text" fill="#fff" text-anchor="middle">Q2 (우선순위 하)</text>
+  <text x="375" y="380" class="desc" text-anchor="middle">FCFS (선입선처리)</text>
+
+  <!-- Q2 to CPU -->
+  <path d="M 450 340 L 710 340 L 710 160 L 730 160" class="arrow"/>
+  <text x="580" y="330" class="desc" text-anchor="middle">Q0, Q1이 비어있을 때 할당</text>
+
+  <!-- CPU -->
+  <circle cx="800" cy="140" r="50" fill="var(--cpu)"/>
+  <text x="800" y="145" class="text" fill="#fff" text-anchor="middle" font-size="24">CPU</text>
+
+  <!-- Completion -->
+  <path d="M 850 140 L 950 140" class="arrow"/>
+  <text x="900" y="130" class="text" text-anchor="middle">정상 완료</text>
+
+  <!-- Aging mechanism (feedback upwards) -->
+  <path d="M 300 340 L 250 340 L 250 230 L 290 230" class="arrow-dashed"/>
+  <path d="M 300 230 L 250 230 L 250 130 L 290 130" class="arrow-dashed"/>
+  <text x="235" y="260" class="desc" text-anchor="end" fill="var(--cpu)">에이징 (Aging) 기법:</text>
+  <text x="235" y="280" class="desc" text-anchor="end">기아(Starvation) 방지를 위해</text>
+  <text x="235" y="300" class="desc" text-anchor="end">오래 대기하면 상위 큐로 점프!</text>
+
+</svg>

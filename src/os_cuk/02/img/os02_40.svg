@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 350" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .box { fill: #ffffff; stroke: #334155; stroke-width: 2; }
+      .box-op { fill: #fef08a; stroke: #ca8a04; }
+      .box-opnd { fill: #e0f2fe; stroke: #0ea5e9; }
+      .text-title { font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 700; fill: #0f172a; text-anchor: middle; }
+      .text-node { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; fill: #0f172a; text-anchor: middle; }
+      .text-sub { font-family: 'Inter', sans-serif; font-size: 14px; fill: #475569; text-anchor: middle; }
+      
+      @media (prefers-color-scheme: dark) {
+        .bg { fill: #0f172a; }
+        .box { fill: #1e293b; stroke: #64748b; }
+        .box-op { fill: #854d0e; stroke: #ca8a04; }
+        .box-opnd { fill: #0c4a6e; stroke: #0ea5e9; }
+        .text-title, .text-node { fill: #f8fafc; }
+        .text-sub { fill: #94a3b8; }
+      }
+    </style>
+  </defs>
+
+  <rect class="bg" width="100%" height="100%" />
+  
+  <text x="400" y="50" class="text-title">기계어 명령어의 구조 (Instruction Format)</text>
+
+  <!-- General Format -->
+  <g transform="translate(150, 120)">
+    <rect class="box box-op" x="0" y="0" width="150" height="60" />
+    <text x="75" y="35" class="text-node">연산 코드 (Opcode)</text>
+    
+    <rect class="box box-opnd" x="150" y="0" width="350" height="60" />
+    <text x="325" y="35" class="text-node">오퍼랜드 (Operand / Address)</text>
+  </g>
+
+  <text x="225" y="210" class="text-node" style="font-size:14px;">무엇을 할 것인가?</text>
+  <text x="225" y="230" class="text-sub">(ADD, LOAD, STORE 등)</text>
+
+  <text x="475" y="210" class="text-node" style="font-size:14px;">대상이 어디에 있는가? / 데이터</text>
+  <text x="475" y="230" class="text-sub">(메모리 주소, 레지스터 번호, 상수 값)</text>
+
+  <!-- Example -->
+  <g transform="translate(150, 270)">
+    <text x="-20" y="35" class="text-node" text-anchor="end" fill="#64748b">예시:</text>
+    <rect class="box box-op" x="0" y="10" width="150" height="40" />
+    <text x="75" y="36" class="text-node">LOAD (0010)</text>
+
+    <rect class="box box-opnd" x="150" y="10" width="350" height="40" />
+    <text x="325" y="36" class="text-node">R1, [1024]</text>
+  </g>
+</svg>

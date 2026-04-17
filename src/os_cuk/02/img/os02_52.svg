@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .mem-border { fill: none; stroke: #334155; stroke-width: 2; }
+      .box { fill: #bae6fd; stroke: #0284c7; stroke-width: 1; }
+      .box-stack { fill: #e5e7eb; stroke: #94a3b8; stroke-width: 1; }
+      .text-title { font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 700; fill: #0f172a; text-anchor: middle; }
+      .text-sub { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; fill: #0f172a; text-anchor: middle; }
+      .arrow { fill: none; stroke: #475569; stroke-width: 2; marker-end: url(#arrow-sub); }
+      
+      @media (prefers-color-scheme: dark) {
+        .bg { fill: #0f172a; }
+        .text-title, .text-sub { fill: #f8fafc; }
+        .mem-border { stroke: #94a3b8; }
+        .box { fill: #0c4a6e; stroke: #38bdf8; }
+        .box-stack { fill: #334155; stroke: #64748b; }
+        .arrow { stroke: #cbd5e1; }
+      }
+    </style>
+    <marker id="arrow-sub" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="currentColor"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="100%" height="100%" />
+
+  <!-- (a) Before Interrupt -->
+  <g transform="translate(50, 100)">
+    <text x="60" y="-20" class="text-title">(a) 인터럽트 발생 전</text>
+    
+    <!-- Register -->
+    <text x="170" y="-30" class="text-sub">레지스터</text>
+    <rect class="box" x="140" y="-20" width="60" height="60" />
+    <path d="M 140 0 L 200 0 M 140 20 L 200 20" stroke="#0284c7" stroke-dasharray="3 3"/>
+    <text x="120" y="35" class="text-sub">PC</text>
+    <circle cx="150" cy="30" r="4" fill="#0f172a"/>
+
+    <!-- Memory -->
+    <text x="60" y="-30" class="text-sub">메모리</text>
+    <rect class="mem-border" x="20" y="-20" width="80" height="250" />
+    
+    <text x="0" y="45" class="text-sub">A</text>
+    <rect class="box-stack" x="30" y="20" width="60" height="40" />
+
+    <text x="60" y="115" class="text-sub">스택 영역</text>
+
+    <text x="0" y="175" class="text-sub">B</text>
+    <rect class="box-stack" x="30" y="150" width="60" height="40" />
+
+    <!-- PC arrow pointing to A -->
+    <path class="arrow" d="M 150 35 L 150 50 L 95 50" />
+  </g>
+
+  <!-- (b) During Interrupt -->
+  <g transform="translate(350, 100)">
+    <text x="60" y="-20" class="text-title">(b) 인터럽트 발생 및 전이</text>
+    
+    <!-- Register -->
+    <text x="170" y="-30" class="text-sub">레지스터</text>
+    <rect class="box" x="140" y="-20" width="60" height="60" />
+    <text x="120" y="35" class="text-sub">PC</text>
+
+    <!-- Memory -->
+    <text x="60" y="-30" class="text-sub">메모리</text>
+    <rect class="mem-border" x="20" y="-20" width="80" height="250" />
+    
+    <text x="0" y="45" class="text-sub">A</text>
+    <rect class="box-stack" x="30" y="20" width="60" height="40" />
+
+    <text x="60" y="115" class="text-sub">스택 영역</text>
+
+    <text x="0" y="175" class="text-sub">B (ISR)</text>
+    <rect class="box-stack" x="30" y="150" width="60" height="40" />
+
+    <!-- Stack pushing A's context -->
+    <path class="arrow" d="M 30 50 L 10 50 L 10 130 L 25 130" />
+    <!-- PC pushing to stack? Wait, original image shows register saving to stack -->
+    <path class="arrow" d="M 170 40 L 170 110 L 100 110" />
+
+    <!-- Current PC pointing to B -->
+    <rect class="box" x="140" y="150" width="60" height="20" /> <!-- Temp PC rep -->
+    <circle cx="160" cy="160" r="4" fill="#0f172a"/>
+    <text x="215" y="165" class="text-sub">PC (New)</text>
+    <path class="arrow" d="M 155 160 L 95 160" />
+  </g>
+
+  <!-- (c) After Interrupt -->
+  <g transform="translate(680, 100)">
+    <text x="60" y="-20" class="text-title">(c) 인터럽트 처리 후</text>
+    
+    <!-- Register -->
+    <text x="170" y="-30" class="text-sub">레지스터</text>
+    <rect class="box" x="140" y="-20" width="60" height="60" />
+    <text x="120" y="35" class="text-sub">PC</text>
+
+    <!-- Memory -->
+    <text x="60" y="-30" class="text-sub">메모리</text>
+    <rect class="mem-border" x="20" y="-20" width="80" height="250" />
+    
+    <text x="0" y="45" class="text-sub">A</text>
+    <rect class="box-stack" x="30" y="20" width="60" height="40" />
+
+    <text x="60" y="115" class="text-sub">스택 영역</text>
+
+    <text x="0" y="175" class="text-sub">B</text>
+    <rect class="box-stack" x="30" y="150" width="60" height="40" />
+
+    <!-- Stack restores PC -->
+    <path class="arrow" d="M 100 110 L 170 110 L 170 45" />
+
+  </g>
+
+</svg>

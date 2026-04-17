@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --step1: #3498db;
+        --step2: #2ecc71;
+        --step3: #e74c3c;
+        --line: #7f8c8d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --step1: #2980b9;
+          --step2: #27ae60;
+          --step3: #c0392b;
+          --line: #b2bec3;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 20px; }
+      .title { font-size: 24px; font-weight: bold; }
+      .box { fill: var(--bg); stroke-width: 4; rx: 25; }
+      .arrow { fill: var(--step2); }
+      .circle { fill: #fff; font-weight: bold; font-size: 24px; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="50" class="text title" text-anchor="middle">프로세스의 일반적인 자원 사용 순서</text>
+
+  <!-- Step 1 -->
+  <rect x="100" y="100" width="200" height="50" class="box" stroke="var(--step1)"/>
+  <circle cx="125" cy="125" r="20" fill="var(--step1)"/>
+  <text x="125" y="133" class="circle">1</text>
+  <text x="160" y="132" class="text title" fill="var(--step3)">자원 요청</text>
+  
+  <text x="340" y="120" class="text">· 프로세스가 필요한 자원 요청</text>
+  <text x="340" y="145" class="text">· 다른 프로세스가 사용 중이면 수락할 때까지 대기(Wait)</text>
+
+  <!-- Arrow 1 to 2 -->
+  <polygon points="180,165 220,165 200,190" class="arrow" fill="var(--line)"/>
+
+  <!-- Step 2 -->
+  <rect x="100" y="200" width="200" height="50" class="box" stroke="var(--step2)"/>
+  <circle cx="125" cy="225" r="20" fill="var(--step2)"/>
+  <text x="125" y="233" class="circle">2</text>
+  <text x="160" y="232" class="text title" fill="var(--step3)">자원 사용</text>
+
+  <text x="340" y="232" class="text">· 요청한 자원을 획득하여 작업 수행 (임계 영역 진입)</text>
+
+  <!-- Arrow 2 to 3 -->
+  <polygon points="180,265 220,265 200,290" class="arrow" fill="var(--line)"/>
+
+  <!-- Step 3 -->
+  <rect x="100" y="300" width="200" height="50" class="box" stroke="var(--step3)"/>
+  <circle cx="125" cy="325" r="20" fill="var(--step3)"/>
+  <text x="125" y="333" class="circle">3</text>
+  <text x="160" y="332" class="text title" fill="var(--step3)">자원 해제</text>
+
+  <text x="340" y="320" class="text">· 자원 사용을 마친 후 해당 자원을 시스템에 반납 (Release)</text>
+  <text x="340" y="345" class="text">· 대기 중이던 다른 프로세스가 자원을 획득할 수 있게 됨</text>
+
+</svg>

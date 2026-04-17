@@ -1,0 +1,105 @@
+I"$<h1 id="3강-프로세스와-컨텍스트-스위칭">3강. 프로세스와 컨텍스트 스위칭</h1>
+
+<p>운영체제의 핵심 임무 중 하나는 한정된 CPU 자원을 여러 프로그램이 효율적으로 나누어 쓸 수 있도록 조율하는 것입니다. 본 강의에서는 <strong>‘실행 중인 프로그램’</strong>을 의미하는 <strong>프로세스(Process)</strong>의 탄생과 소멸 과정, 그리고 프로세스 간에 CPU 제어권이 넘어가는 <strong>문맥 교환(Context Switching)</strong>의 기술적 메커니즘을 학습합니다.</p>
+
+<hr />
+
+<h2 id="-학습-목표">🎯 학습 목표</h2>
+
+<ul>
+  <li>정적인 <strong>프로그램(Program)</strong>과 동적인 <strong>프로세스(Process)</strong>의 개념적, 물리적 차이를 명확히 구분할 수 있다.</li>
+  <li>시스템 관점에서의 프로세스의 5가지 <strong>상태 전이(State Transition)</strong> 과정을 설명할 수 있다.</li>
+  <li>커널이 프로세스를 관리하기 위해 유지하는 <strong>프로세스 제어 블록(PCB)</strong>의 자료구조를 파악한다.</li>
+  <li>CPU 시간 분할을 위한 <strong>문맥 교환(Context Switching)</strong>과 <strong>모드 전환(Mode Switch)</strong>의 발생 메커니즘을 이해한다.</li>
+  <li>UNIX/Linux 환경에서 <code class="language-plaintext highlighter-rouge">fork()</code>와 <code class="language-plaintext highlighter-rouge">exec()</code> 시스템 호출을 통한 프로세스의 <strong>계층 구조(Hierarchy)</strong> 생성 원리를 분석한다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="-프로그램-vs-프로세스">💻 프로그램 vs 프로세스</h2>
+
+<p>우리가 디스크에 저장해 둔 실행 파일(예: <code class="language-plaintext highlighter-rouge">a.out</code>, <code class="language-plaintext highlighter-rouge">chrome.exe</code>)은 스스로 아무것도 할 수 없는 정적인 <strong>프로그램</strong>입니다. 사용자가 이를 실행하여 운영체제가 디스크 공간에 있던 코드를 메인 메모리(RAM)에 적재하고, CPU가 이를 실행할 준비를 마친 동적인 상태가 되었을 때 이를 <strong>프로세스(Process)</strong>라고 부릅니다.</p>
+
+<p>리눅스 및 유닉스 환경에서는 <code class="language-plaintext highlighter-rouge">ps</code>나 <code class="language-plaintext highlighter-rouge">top</code> (혹은 <code class="language-plaintext highlighter-rouge">htop</code>) 명령어를 통해, 윈도우에서는 ‘작업 관리자’를 통해 현재 커널이 관리 중인 프로세스 목록과 점유 상태를 실시간으로 확인할 수 있습니다.</p>
+
+<p><br /></p>
+
+<h2 id="️-프로세스의-생명-주기-5-state-model">♻️ 프로세스의 생명 주기 (5 State Model)</h2>
+
+<p>프로세스는 생성되어 완전히 종료될 때까지 메모리에 수동적으로 머무르지 않고, CPU 점유 상태와 외부 이벤트에 따라 끊임없이 자신의 <strong>상태(State)</strong>를 변화시킵니다.</p>
+
+<p><img src="img/process_states.svg" alt="프로세스 상태 전이도" /></p>
+
+<ol>
+  <li><strong>New (생성)</strong>: 프로세스가 커널 공간에 생성되어 PCB가 할당된 초기 상태</li>
+  <li><strong>Ready (준비)</strong>: CPU를 할당받기 위해 준비 큐(Ready Queue)에서 대기하는 상태</li>
+  <li><strong>Running (실행)</strong>: 스케줄러에 의해 CPU 제어권을 얻어 실제 명령어를 수행 중인 상태</li>
+  <li><strong>Wait/Block (대기)</strong>: 디스크 I/O나 네트워크 통신 등의 이벤트가 완료되기를 기다리며 CPU를 자발적으로 반납한 상태 (작업이 끝나면 다시 Ready 큐로 돌아감)</li>
+  <li><strong>Terminated (종료)</strong>: 모든 실행을 마치고 커널에 의해 자원이 반환된 상태</li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="️-커널의-장부-프로세스-제어-블록-pcb">🗃️ 커널의 장부: 프로세스 제어 블록 (PCB)</h2>
+
+<p>수십, 수백 개의 프로세스가 찰나의 시간 단위로 CPU를 번갈아 사용하는 다중 프로그래밍 환경에서, 각 프로세스가 어디까지 실행되었는지, 어떤 레지스터 값을 가지고 있었는지를 기억해야 합니다. 이를 위해 운영체제는 생성되는 모든 프로세스마다 <strong>PCB (Process Control Block)</strong>라는 고유의 자료구조를 할당합니다.</p>
+
+<p><img src="img/pcb_structure.svg" alt="PCB 구조" /></p>
+
+<p>PCB는 커널 데이터 영역에 존재하며, 문맥 교환이 일어날 때 프로세스의 생명줄 역할을 합니다.</p>
+<ul>
+  <li><strong>프로세스 상태 / PID</strong>: 현재 프로세스의 상태와 고유 식별자</li>
+  <li><strong>Program Counter (PC)</strong>: 이 프로세스가 다음에 실행할 인스트럭션의 메모리 주소</li>
+  <li><strong>CPU 레지스터</strong>: CPU 문맥 (누산기, 스택 포인터 등) 백업 데이터</li>
+  <li><strong>메모리 할당 정보</strong>: 프로세스의 Code/Data/Stack/Heap 세그먼트 위치 한계치</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="-문맥-교환과-커널-모드-전환">⏳ 문맥 교환과 커널 모드 전환</h2>
+
+<p>A라는 프로세스가 실행되다가 타이머 인터럽트가 발생하여 B라는 프로세스로 CPU 제어권이 넘어가는 과정을 <strong>문맥 교환(Context Switching)</strong>이라고 합니다.</p>
+
+<p><img src="img/context_switch.svg" alt="컨텍스트 스위칭 타임라인" /></p>
+
+<p>문맥 교환 시 커널은 현재 실행 중이던 프로세스 A의 모든 하드웨어 흐름(레지스터, PC 등)을 자신의 커널 메모리 내 <strong>PCB A</strong>에 스냅샷처럼 <strong>저장(Save)</strong>하고, 이어서 실행할 프로세스 B의 <strong>PCB B</strong>에서 백업된 정보들을 CPU 레지스터로 <strong>복원(Reload)</strong>합니다. 이 작업이 일어나는 동안 CPU는 유저 프로그램을 실행하지 못하게 되므로 문맥 교환은 대표적인 <strong>오버헤드(Overhead)</strong>가 됩니다.</p>
+
+<p>또한, 이를 수행하기 위해선 사용자 프로그램이 함부로 하드웨어 자원을 제어하지 못하도록 체제 보안을 갖춘 <strong>모드 전환(Mode Switch)</strong>이 선행됩니다.</p>
+
+<p><img src="img/mode_switch.svg" alt="유저 모드 vs 커널 모드" /></p>
+
+<p>시스템 호출(System Call)이나 하드웨어 인터럽트가 발생하면, CPU 내부의 <strong>모드 비트(Mode bit)</strong>가 1(사용자 모드)에서 0(커널 모드)으로 플립되며 운영체제 코드를 안전하게 실행하게 됩니다.</p>
+
+<p><br /></p>
+
+<h2 id="-계층적-생태계-fork-와-exec">🧬 계층적 생태계: fork() 와 exec()</h2>
+
+<p>UNIX 철학에서 모든 프로세스는 최초의 프로세스(init 또는 systemd)를 정점으로 하는 거대한 부모-자식 트리 계층을 이룹니다. 새로운 프로세스를 생성하는 메커니즘은 매우 독특하게 설계되어 있습니다.</p>
+
+<p><img src="img/process_hierarchy.svg" alt="프로세스 복제 및 실행" /></p>
+
+<ol>
+  <li><strong><code class="language-plaintext highlighter-rouge">fork()</code> System Call</strong>: 부모 프로세스는 자신과 메모리 상태, 코드가 100% 동일한 <strong>쌍둥이 자식 프로세스를 복제</strong>합니다. 단, PID 값과 메모리 공간 자체는 물리적으로 분리됩니다.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">exec()</code> System Call</strong>: 복제된 자식 프로세스는 스스로의 뇌를 지우고, 디스크에서 완전히 <strong>새로운 프로그램의 바이너리를 덮어씌워 실행</strong>합니다.</li>
+</ol>
+
+<p>이러한 두 단계의 분리는 프로세스 생성 시 운영체제의 오버헤드를 최적화하고(Copy-on-write 등) 세밀한 입출력 리다이렉션을 가능하게 합니다.</p>
+
+<p><br /></p>
+
+<h2 id="-좀비-프로세스와-리소스-누수">🧟 좀비 프로세스와 리소스 누수</h2>
+
+<p>자식 프로세스가 <code class="language-plaintext highlighter-rouge">exit()</code>를 호출하여 실행을 마무리지으면 <strong>종료 상태(Terminated)</strong>가 됩니다. 그러나 프로세스의 사용 정보(종료 코드 등)를 담은 PCB는 여전히 커널 메모리에 남아 부모 프로세스가 결과를 수거해 가기를 기다립니다.</p>
+
+<p>만약 부모 프로세스가 <code class="language-plaintext highlighter-rouge">wait()</code> 시스템 콜을 호출하여 수거하지 않으면, 해당 자식 프로세스는 죽었지만 완전히 사라지지는 못한 <strong>좀비 프로세스(Zombie Process)</strong>가 되어 시스템의 PID 테이블 자원을 영원히 차지하게 됩니다. 엔지니어는 반드시 부모-자식 간의 동기화 처리를 통해 이러한 자원 누수를 철저히 방지해야 합니다.</p>
+
+<hr style="margin: 40px 0;" />
+
+<blockquote>
+  <p><strong>📚 참고문헌</strong></p>
+  <ul>
+    <li>Abraham Silberschatz, 『Operating System Concepts (10th ed)』</li>
+    <li>구현회, 『운영체제 - 그림으로 배우는 구조와 원리』, 한빛아카데미, 2016.</li>
+  </ul>
+</blockquote>
+:ET

@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --box: #bdc3c7;
+        --c1: #e74c3c;
+        --c2: #f1c40f;
+        --c3: #3498db;
+        --line: #7f8c8d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --box: #34495e;
+          --c1: #ff7675;
+          --c2: #ffeaa7;
+          --c3: #74b9ff;
+          --line: #95a5a6;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-weight: bold; font-size: 18px; }
+      .text-sm { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 14px; font-weight: normal; }
+      .title { font-size: 26px; }
+      .disk { fill: transparent; stroke: var(--line); stroke-width: 3; rx: 10; }
+      .sector { stroke: var(--bg); stroke-width: 2; rx: 2; }
+      .arrow { stroke: var(--text); stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+      <polygon points="0 0, 6 2, 0 4" fill="var(--text)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text title" text-anchor="middle">디스크 블록 할당 체계 (File Allocation Architecture)</text>
+  
+  <rect x="50" y="150" width="900" height="280" class="disk"/>
+  <text x="500" y="130" class="text" text-anchor="middle">디스크 (Disk Logical Blocks)</text>
+
+  <!-- Draw 3 rows 15 cols grid representing disk blocks -->
+  <g transform="translate(80, 180)">
+    <!-- Row 1 -->
+    <rect x="0" y="0" width="40" height="40" class="sector" fill="var(--box)"/>
+    <rect x="50" y="0" width="40" height="40" class="sector" fill="var(--c1)"/>
+    <rect x="100" y="0" width="40" height="40" class="sector" fill="var(--c1)"/>
+    <rect x="150" y="0" width="40" height="40" class="sector" fill="var(--c1)"/>
+    <rect x="200" y="0" width="40" height="40" class="sector" fill="var(--c1)"/>
+    <rect x="250" y="0" width="40" height="40" class="sector" fill="var(--box)"/>
+    
+    <rect x="350" y="0" width="40" height="40" class="sector" fill="var(--box)"/>
+    <rect x="400" y="0" width="40" height="40" class="sector" fill="var(--c2)"/> <!-- Link start -->
+    <rect x="450" y="0" width="40" height="40" class="sector" fill="var(--box)"/>
+    
+    <rect x="550" y="0" width="40" height="40" class="sector" fill="var(--box)"/>
+    <rect x="600" y="0" width="40" height="40" class="sector" fill="var(--box)"/>
+    <rect x="650" y="0" width="40" height="40" class="sector" fill="var(--c3)"/> <!-- Index node -->
+    
+    <rect x="750" y="0" width="40" height="40" class="sector" fill="var(--box)"/>
+
+    <!-- Row 2 -->
+    <rect x="0" y="60" width="40" height="40" class="sector" fill="var(--box)"/>
+    <rect x="50" y="60" width="40" height="40" class="sector" fill="var(--box)"/>
+    <rect x="100" y="60" width="40" height="40" class="sector" fill="var(--box)"/>
+    <rect x="150" y="60" width="40" height="40" class="sector" fill="var(--box)"/>
+    
+    <rect x="350" y="60" width="40" height="40" class="sector" fill="var(--c2)"/>
+    <rect x="400" y="60" width="40" height="40" class="sector" fill="var(--box)"/>
+    <rect x="450" y="60" width="40" height="40" class="sector" fill="var(--c2)"/>
+    
+    <rect x="550" y="60" width="40" height="40" class="sector" fill="var(--c3)"/> <!-- Indexed data -->
+    <rect x="600" y="60" width="40" height="40" class="sector" fill="var(--c3)"/> <!-- Indexed data -->
+    <rect x="650" y="60" width="40" height="40" class="sector" fill="var(--box)"/>
+    <rect x="700" y="60" width="40" height="40" class="sector" fill="var(--c3)"/> <!-- Indexed data -->
+    
+    <rect x="800" y="60" width="40" height="40" class="sector" fill="var(--box)"/>
+
+    <!-- Row 3 -->
+    <rect x="250" y="120" width="40" height="40" class="sector" fill="var(--box)"/>
+    <rect x="350" y="120" width="40" height="40" class="sector" fill="var(--box)"/>
+    <rect x="400" y="120" width="40" height="40" class="sector" fill="var(--c2)"/> <!-- Link end -->
+    
+    <rect x="600" y="120" width="40" height="40" class="sector" fill="var(--c3)"/> <!-- Indexed data -->
+    <rect x="700" y="120" width="40" height="40" class="sector" fill="var(--box)"/>
+  </g>
+
+  <!-- Label Continuous -->
+  <text x="210" y="470" class="text" text-anchor="middle" fill="var(--c1)">1. 연속 할당 (Contiguous)</text>
+  <text x="210" y="490" class="text-sm" text-anchor="middle">빠르지만 외부 단편화 심각</text>
+  
+  <!-- Label Linked -->
+  <text x="500" y="470" class="text" text-anchor="middle" fill="var(--c2)">2. 연결 할당 (Linked / FAT)</text>
+  <text x="500" y="490" class="text-sm" text-anchor="middle">포인터를 타야함 (탐색 지연)</text>
+  <!-- Linked Arrows -->
+  <path d="M 520 220 L 450 240 L 450 240 Q 420 250 450 260" class="arrow"/>
+  <path d="M 450 280 L 530 260" class="arrow"/>
+  <path d="M 550 280 L 500 300 Q 480 320 500 320" class="arrow"/>
+
+  <!-- Label Indexed -->
+  <text x="750" y="470" class="text" text-anchor="middle" fill="var(--c3)">3. 색인 할당 (Indexed / UNIX)</text>
+  <text x="750" y="490" class="text-sm" text-anchor="middle">인덱스 블록이 주소 총괄</text>
+  <!-- Indexed Arrows radiating from Index node (Col 14, Row 1 = x:650(730) y:180) -->
+  <path d="M 750 220 L 650 240" class="arrow"/>
+  <path d="M 750 220 L 700 240" class="arrow"/>
+  <path d="M 750 220 L 800 240" class="arrow"/>
+  <path d="M 750 220 L 700 300" class="arrow"/>
+
+</svg>

@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 450" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --axis: #34495e;
+        --line: #2980b9;
+        --fill: #e1f5fe;
+        --highlight: #e74c3c;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --axis: #bdc3c7;
+          --line: #3498db;
+          --fill: #1a252f;
+          --highlight: #ff7675;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 18px; }
+      .title { font-size: 24px; font-weight: bold; }
+      .axis { stroke: var(--axis); stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+      .grid { stroke: var(--axis); stroke-width: 1; fill: none; opacity: 0.3; }
+      .graph { stroke: var(--line); stroke-width: 4; fill: none; }
+      .box { fill: #ffeaa7; stroke: #fdcb6e; stroke-width: 2; rx: 8; }
+      .box-text { fill: #d35400; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: bold; text-anchor: middle; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--axis)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text title" text-anchor="middle">CPU 버스트 주기 (Histogram)</text>
+  <text x="500" y="70" class="text" text-anchor="middle" font-weight="bold">"대부분의 프로세스 버스트 길이는 매우 짧다 (I/O 바운드 특성)"</text>
+
+  <!-- Graph Layout -->
+  <rect x="250" y="200" width="550" height="200" class="grid" fill="var(--fill)" stroke="none"/>
+  
+  <!-- Y Axis -->
+  <path d="M 250 400 L 250 180" class="axis"/>
+  <text x="210" y="190" class="text" text-anchor="end">160</text>
+  <text x="210" y="218" class="text" text-anchor="end">140</text>
+  <text x="210" y="246" class="text" text-anchor="end">120</text>
+  <text x="210" y="274" class="text" text-anchor="end">100</text>
+  <text x="210" y="302" class="text" text-anchor="end">80</text>
+  <text x="210" y="330" class="text" text-anchor="end">60</text>
+  <text x="210" y="358" class="text" text-anchor="end">40</text>
+  <text x="210" y="386" class="text" text-anchor="end">20</text>
+  <text x="210" y="405" class="text" text-anchor="end">0</text>
+
+  <text x="170" y="300" class="text title" text-anchor="end">빈도</text>
+
+  <!-- X Axis -->
+  <path d="M 250 400 L 820 400" class="axis"/>
+  <text x="340" y="430" class="text" text-anchor="middle">8</text>
+  <text x="440" y="430" class="text" text-anchor="middle">16</text>
+  <text x="540" y="430" class="text" text-anchor="middle">24</text>
+  <text x="640" y="430" class="text" text-anchor="middle">32</text>
+  <text x="740" y="430" class="text" text-anchor="middle">40</text>
+
+  <text x="540" y="460" class="text title" text-anchor="middle">CPU 버스트 지속 시간 (초)</text>
+
+  <!-- Grid lines -->
+  <path d="M 250 372 L 800 372" class="grid"/>
+  <path d="M 250 344 L 800 344" class="grid"/>
+  <path d="M 250 316 L 800 316" class="grid"/>
+  <path d="M 250 288 L 800 288" class="grid"/>
+  <path d="M 250 260 L 800 260" class="grid"/>
+  <path d="M 250 232 L 800 232" class="grid"/>
+  <path d="M 250 204 L 800 204" class="grid"/>
+  
+  <path d="M 340 400 L 340 200" class="grid"/>
+  <path d="M 440 400 L 440 200" class="grid"/>
+  <path d="M 540 400 L 540 200" class="grid"/>
+  <path d="M 640 400 L 640 200" class="grid"/>
+  <path d="M 740 400 L 740 200" class="grid"/>
+
+  <!-- Data Line (Exponential Decay) -->
+  <path d="M 250 204 L 280 204 L 320 372 L 360 385 L 420 395 L 800 395" class="graph"/>
+
+  <!-- Info Box 1 -->
+  <rect x="290" y="100" width="160" height="60" class="box"/>
+  <text x="370" y="125" class="box-text">짧은</text>
+  <text x="370" y="145" class="box-text">CPU 버스트 작업</text>
+  <path d="M 290 150 L 270 210 M 270 210 L 320 160" stroke="#fdcb6e" stroke-width="2" fill="#ffeaa7"/>
+
+  <!-- Info Box 2 -->
+  <rect x="500" y="270" width="160" height="60" class="box"/>
+  <text x="580" y="295" class="box-text">긴</text>
+  <text x="580" y="315" class="box-text">CPU 버스트 작업</text>
+  <path d="M 540 330 L 510 390 M 510 390 L 570 330" stroke="#fdcb6e" stroke-width="2" fill="#ffeaa7"/>
+
+</svg>

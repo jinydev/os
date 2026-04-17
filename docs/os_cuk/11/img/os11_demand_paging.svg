@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --page: #3498db;
+        --frame: #27ae60;
+        --trap: #e74c3c;
+        --disk: #8e44ad;
+        --line: #7f8c8d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --page: #2980b9;
+          --frame: #2ecc71;
+          --trap: #ff7675;
+          --disk: #9b59b6;
+          --line: #95a5a6;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-weight: bold; font-size: 20px; }
+      .text-sm { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 14px; }
+      .title { font-size: 28px; }
+      .box { fill: transparent; stroke: var(--line); stroke-width: 2; }
+      .highlight { fill: var(--trap); color: #fff; }
+      .arrow { stroke: var(--trap); stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+      .seq-circle { fill: var(--text); }
+      .seq-text { fill: var(--bg); font-weight: bold; font-family: sans-serif; font-size: 16px;}
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--trap)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="50" class="text title" text-anchor="middle">요구 페이징 (Demand Paging) 과 페이지 부재(Page Fault)</text>
+
+  <!-- CPU -->
+  <rect x="50" y="160" width="120" height="60" class="box" fill="var(--page)" stroke="none"/>
+  <text x="110" y="195" class="text" fill="#fff" text-anchor="middle">CPU Load M</text>
+  
+  <text x="210" y="150" class="text-sm">1. 페이지 M 참조</text>
+  <path d="M 170 190 L 260 190" class="arrow"/>
+
+  <!-- Page Table -->
+  <text x="320" y="140" class="text" text-anchor="middle">Page Table</text>
+  <rect x="280" y="160" width="80" height="120" class="box"/>
+  <line x1="280" y1="190" x2="360" y2="190" stroke="var(--line)"/>
+  <line x1="280" y1="220" x2="360" y2="220" stroke="var(--line)"/>
+  <line x1="280" y1="250" x2="360" y2="250" stroke="var(--line)"/>
+  <line x1="320" y1="160" x2="320" y2="280" stroke="var(--line)"/>
+  
+  <!-- Invalid Bit Row -->
+  <rect x="280" y="190" width="80" height="30" class="highlight"/>
+  <text x="300" y="212" class="text" fill="#fff" text-anchor="middle">M</text>
+  <text x="340" y="212" class="text" fill="#fff" text-anchor="middle">i</text> <!-- invalid -->
+  
+  <text x="250" y="212" class="text-sm" text-anchor="end">Page M</text>
+
+  <text x="300" y="242" class="text" text-anchor="middle">A</text>
+  <text x="340" y="242" class="text" text-anchor="middle">v</text> <!-- valid -->
+
+  <!-- Trap Arrow -->
+  <text x="375" y="235" class="text-sm">2. Invalid 판정 (Trap)</text>
+  <path d="M 360 205 L 430 205 Q 460 205 460 240 L 460 280" class="arrow"/>
+
+  <!-- OS OS -->
+  <rect x="400" y="290" width="120" height="60" class="box" stroke-width="3"/>
+  <text x="460" y="325" class="text" text-anchor="middle">운영체제 (OS)</text>
+  
+  <!-- Fetch Action -->
+  <text x="540" y="315" class="text-sm">3. 디스크에서 M 찾기</text>
+  <path d="M 520 320 L 730 320" class="arrow"/>
+
+  <!-- Disk -->
+  <ellipse cx="800" cy="280" rx="70" ry="15" class="box" fill="var(--disk)" opacity="0.2"/>
+  <path d="M 730 280 L 730 380 A 70 15 0 0 0 870 380 L 870 280" class="box" fill="var(--disk)" opacity="0.2"/>
+  <text x="800" y="380" class="text" text-anchor="middle">디스크</text>
+  <rect x="760" y="300" width="80" height="30" class="highlight"/>
+  <text x="800" y="322" class="text" fill="#fff" text-anchor="middle">Page M</text>
+
+  <!-- Bring to Memory -->
+  <text x="730" y="240" class="text-sm" text-anchor="end">4. 빈 프레임으로 가져오기 (Swap in)</text>
+  <path d="M 750 315 L 680 315 Q 650 315 650 250 L 650 200 L 730 200" class="arrow"/>
+
+  <!-- Res Memory -->
+  <rect x="730" y="100" width="100" height="150" class="box"/>
+  <text x="850" y="150" class="text" text-anchor="start">물리 메모리</text>
+  <rect x="730" y="170" width="100" height="40" class="box" fill="var(--frame)" stroke="none"/>
+  <text x="780" y="196" class="text" fill="#fff" text-anchor="middle">Page M</text>
+  <line x1="730" y1="140" x2="830" y2="140" stroke="var(--line)"/>
+
+  <!-- Updating Table -->
+  <text x="630" y="150" class="text-sm">5. 테이블 갱신 (i -> v)</text>
+  <path d="M 730 180 Q 550 180 500 130 L 370 130 Q 340 130 340 160" class="arrow" stroke-dasharray="5 5"/>
+  
+  <!-- Restart Instruction -->
+  <text x="100" y="100" class="text-sm">6. 명령어 재시작</text>
+  <path d="M 320 160 L 320 120 L 110 120 L 110 160" class="arrow" stroke-dasharray="5 5"/>
+
+</svg>

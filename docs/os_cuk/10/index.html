@@ -1,0 +1,127 @@
+<h1 id="10강-메모리-관리-memory-management">10강. 메모리 관리 (Memory Management)</h1>
+
+<h2 id="-학습-목표">🎯 학습 목표</h2>
+
+<ol>
+  <li><strong>물리 주소와 논리 주소</strong>: CPU가 연산하는 논리적 가상 주소와 실제 하드웨어의 물리 주소를 구분하고 변환하는 MMU의 원리를 이해한다.</li>
+  <li><strong>단편화(Fragmentation) 현상 파악</strong>: 고정 영역 할당에서의 내부 단편화와 가변 영역 할당에서의 외부 단편화를 구별할 수 있다.</li>
+  <li><strong>가상 메모리 기초(페이징 &amp; 세그먼테이션)</strong>: 외부 단편화를 근본적으로 해결하기 위한 페이징의 구조적 특징과, 보호와 관리에 강점을 지닌 세그먼테이션의 장단점을 심층 분석한다.</li>
+  <li><strong>하이브리드 시스템</strong>: 페이지화된 세그먼테이션이 현대 운영체제에 도입된 필연적 이유를 도출한다.</li>
+</ol>
+
+<p><br /><br /></p>
+
+<h2 id="1-메모리와-주소-바인딩-address-binding">1. 메모리와 주소 바인딩 (Address Binding)</h2>
+
+<p>프로세스가 실행되기 위해선 디스크에 있던 바이너리 프로그램이 반드시 메모리(RAM)에 적재(Load)되어야 합니다. 이때, 한정된 자원인 메모리 위에서 프로세스가 충돌하지 않으려면 <strong>실제 물리적 위치와 논리적 주소의 분리</strong>가 필수적입니다.</p>
+
+<h3 id="하드웨어-주소-변환-mmu">하드웨어 주소 변환 (MMU)</h3>
+<p>CPU는 컴파일 시점에 생성된 가상의 <code class="language-plaintext highlighter-rouge">논리 주소</code>만 보고 명령을 수행합니다. CPU가 메모리에 접근할 때마다 그 사이에 낀 <strong>MMU (Memory Management Unit)</strong> 칩이 하드웨어 레벨에서 현재 프로세스의 <code class="language-plaintext highlighter-rouge">기준 레지스터(Relocation Register)</code> 값을 더해 실제 <code class="language-plaintext highlighter-rouge">물리 주소</code>로 변환해줍니다.</p>
+
+<p><img src="./img/os10_mmu.svg" alt="MMU 주소 변환" /></p>
+
+<blockquote>
+  <p>[!TIP]
+<strong>주소 바인딩(Binding)의 시점</strong> <br /></p>
+  <ol>
+    <li>컴파일 시간: 주소가 아예 고정되어 생성됨. (현대 OS에서는 쓰지 않음) <br /></li>
+    <li>적재 시간: 메모리에 올라갈 때 재배치 됨. <br /></li>
+    <li>실행 시간: 프로세스 실행 중에 위치가 메모리상에서 이동할 수 있음. 최신 OS들은 하드웨어(MMU) 지원을 받아 실행 시간 바인딩을 사용합니다.</li>
+  </ol>
+</blockquote>
+
+<p><br /><br /></p>
+
+<h2 id="2-연속-메모리-할당과-단편화-fragmentation">2. 연속 메모리 할당과 단편화 (Fragmentation)</h2>
+
+<p>초기 컴퓨터는 메모리에 프로세스를 통째로, 그리고 연속적으로 한 덩어리로 올리려 했습니다. 이를 “연속 메모리 할당”이라 하며, 크게 <strong>고정 분할(Fixed Partition)</strong>과 <strong>가변 분할(Variable Partition)</strong>로 나뉩니다. 두 방식 모두 피할 수 없는 ‘빈 공간의 낭비’, 즉 단편화를 유발합니다.</p>
+
+<p><img src="./img/os10_fragmentation.svg" alt="메모리 단편화" /></p>
+
+<ul>
+  <li><strong>내부 단편화 (Internal Fragmentation)</strong>: 메모리를 일정한 크기(예: 6K) 블록으로 미리 갈라뒀을 때, 더 작은 프로세스(예: 4K)가 들어가면 블록 내부에 <strong>사용 못하는 자투리(2K)</strong>가 생기는 현상입니다.</li>
+  <li><strong>외부 단편화 (External Fragmentation)</strong>: 프로세스 크기 맞춤형으로 쪼개주는 방식입니다. 이 경우 프로세스들이 생성/종료를 반복하다 보면 빈 틈새(Hole)가 군데군데 생겨서, <strong>전체 잔여 용량은 많지만 연속된 큰 공간이 없어</strong> 새 프로세스를 할당하지 못하는 심각한 이슈입니다.</li>
+</ul>
+
+<p><br /><br /></p>
+
+<h2 id="3-분산-할당-1-페이징-paging-시스템">3. 분산 할당 1: 페이징 (Paging) 시스템</h2>
+
+<p><strong>외부 단편화를 완벽하게 해결</strong>하기 위해 현대 OS가 가장 기본적으로 채택하는 아키텍처입니다.</p>
+
+<p>물리적 메모리를 일정한 작은 고정 크기(예: 4KB)로 썰어서 이 공간을 <strong>프레임(Frame)</strong>이라 부릅니다.
+논리적 메모리(프로세스) 역시 동일한 크기로 썰어서 이를 <strong>페이지(Page)</strong>라 부릅니다. 
+어차피 크기가 같으니 빈 프레임이 어디 있든 순서에 상관없이 페이지를 조각조각 집어넣을 수 있습니다.</p>
+
+<p><img src="./img/os10_paging.svg" alt="페이징 아키텍처" /></p>
+
+<ul>
+  <li><strong>페이지 테이블 (Page Table)</strong>: 논리 주소 상의 ‘Page 2번’이 실제 RAM의 ‘Frame 3번’에 있다는 맵핑 장부입니다. 메모리 내에 저장되며, 아주 빠른 레지스터 조합인 <code class="language-plaintext highlighter-rouge">TLB(Translation Look-aside Buffer)</code> 캐시를 보통 동반합니다.</li>
+  <li>외부 공간은 모두 일정하므로 외부 단편화는 사라지나, 프로세스의 마지막 꼬리 페이지가 프레임을 전부 채우지 못할 때 발생하는 <strong>소량의 내부 단편화</strong>는 발생합니다.</li>
+</ul>
+
+<p><br /><br /></p>
+
+<h2 id="4-분산-할당-2-세그먼테이션-segmentation">4. 분산 할당 2: 세그먼테이션 (Segmentation)</h2>
+
+<p>페이징이 물리적인 잣대(같은 크기)로 무식하게 잘라버렸다면, 세그먼테이션은 논리적/의미적 관점으로 자릅니다. 예를 들어 코드는 코드끼리, 스택은 스택끼리, 데이터는 데이터끼리 가변적인 크기 덩어리(세그먼트)로 구분하여 저장합니다.</p>
+
+<p><img src="./img/os10_segmentation.svg" alt="세그먼테이션 아키텍처" /></p>
+
+<ul>
+  <li><strong>보호와 공유 (Protection &amp; Sharing)</strong>: 코드가 담긴 세그먼트는 ‘Read-Only’ 권한을 주어 수정 자체를 하드웨어 레벨에서 거부할 수 있고, 공통 라이브러리 세그먼트는 다른 프로세스들이 똑같이 포인팅하여(공유) 메모리를 절약할 수 있습니다.</li>
+  <li>세그먼트마다 크기가 제각각이므로 필연적으로 메모리에 산발적으로 배치되며, 치명적인 약점인 <strong>외부 단편화</strong>가 다시 발생합니다.</li>
+</ul>
+
+<p><br /><br /></p>
+
+<h2 id="5-진화-페이지화된-세그먼테이션-paged-segmentation">5. 진화: 페이지화된 세그먼테이션 (Paged Segmentation)</h2>
+
+<p>보호망이 훌륭한 세그먼테이션과 자원 누수를 막는 페이징. 둘 중 하나만 선택할 수는 없습니다. 따라서 현대 OS(멀틱스, 최신 리눅스/윈도우 변형 아키텍처)는 두 메커니즘을 융합시켰습니다.</p>
+
+<p>논리적으로는 프로세스를 <strong>세그먼트</strong> 단위로 분리하여 권한 검사와 공유를 수행하고, 이 세그먼트를 램에 박아 넣을 때 다시 일정한 크기의 <strong>페이지 단위로 썰어서</strong> 분산 적재시키는 방식입니다.</p>
+
+<p><img src="./img/os10_paged_segmentation.svg" alt="페이지화된 세그먼테이션" /></p>
+
+<p>프로세스는 <code class="language-plaintext highlighter-rouge">세그먼트 테이블</code>을 거쳐 해당 세그먼트 전용 <code class="language-plaintext highlighter-rouge">페이지 테이블</code>을 조회한 뒤, 최종 프레임 단위의 <code class="language-plaintext highlighter-rouge">물리 메모리</code>를 얻게 됩니다. 메모리 참조가 2단계를 거쳐야 하므로 하드웨어(TLB 캐싱)의 지원이 절대적입니다.</p>
+
+<p><br /><br /></p>
+
+<h2 id="-핵심-요약">📝 핵심 요약</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">관리 정책</th>
+      <th style="text-align: left">메모리 할당 포맷</th>
+      <th style="text-align: left">주요 특징 및 한계점</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>고정 분할</strong></td>
+      <td style="text-align: left">연속 (크기 고정)</td>
+      <td style="text-align: left">크기가 맞지 않아 발생하는 <strong>내부 단편화</strong> 심각.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>가변 분할</strong></td>
+      <td style="text-align: left">연속 (크기 가변)</td>
+      <td style="text-align: left">남아도는 빈 공간이 흩어져서 못 쓰는 <strong>외부 단편화</strong> 유발.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>페이징</strong></td>
+      <td style="text-align: left">비연속 (프레임 단위)</td>
+      <td style="text-align: left">외부 단편화 100% 해결. 맵핑을 위한 페이징 테이블 오버헤드.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>세그먼테이션</strong></td>
+      <td style="text-align: left">비연속 (의미 단위)</td>
+      <td style="text-align: left">메모리 <strong>보호와 공유(Sharing)</strong>에 탁월. 크기가 달라 외부 단편화 재발.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>페이지화된 세그먼트</strong></td>
+      <td style="text-align: left">비연속 (혼합형)</td>
+      <td style="text-align: left">프로그래머 관점의 논리적 보호와, 물리 메모리의 외부 단편화 방지를 결합한 최신 구조.</td>
+    </tr>
+  </tbody>
+</table>

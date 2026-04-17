@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --bit0: #27ae60;
+        --bit1: #e74c3c;
+        --link: #f39c12;
+        --grid: #bdc3c7;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --bit0: #2ecc71;
+          --bit1: #ff7675;
+          --link: #f1c40f;
+          --grid: #4a6278;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-weight: bold; font-size: 18px; }
+      .title { font-size: 26px; }
+      .grid-box { fill: transparent; stroke: var(--grid); stroke-width: 2; }
+      .fill0 { fill: var(--bit0); }
+      .fill1 { fill: var(--bit1); }
+      .arrow { stroke: var(--link); stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+      <polygon points="0 0, 6 2, 0 4" fill="var(--link)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text title" text-anchor="middle">빈 공간 (Free Space) 관리 기법 비교</text>
+
+  <!-- Left: Bit Vector -->
+  <text x="250" y="100" class="text" text-anchor="middle">1. 비트 벡터 (Bit Vector) 방식</text>
+  
+  <rect x="50" y="130" width="400" height="60" class="grid-box" rx="5"/>
+  <line x1="100" y1="130" x2="100" y2="190" stroke="var(--grid)" stroke-width="2"/>
+  <line x1="150" y1="130" x2="150" y2="190" stroke="var(--grid)" stroke-width="2"/>
+  <line x1="200" y1="130" x2="200" y2="190" stroke="var(--grid)" stroke-width="2"/>
+  <line x1="250" y1="130" x2="250" y2="190" stroke="var(--grid)" stroke-width="2"/>
+  <line x1="300" y1="130" x2="300" y2="190" stroke="var(--grid)" stroke-width="2"/>
+  <line x1="350" y1="130" x2="350" y2="190" stroke="var(--grid)" stroke-width="2"/>
+  <line x1="400" y1="130" x2="400" y2="190" stroke="var(--grid)" stroke-width="2"/>
+
+  <!-- values -->
+  <text x="75" y="167" class="text fill1" text-anchor="middle">1</text>
+  <text x="125" y="167" class="text fill0" text-anchor="middle">0</text>
+  <text x="175" y="167" class="text fill1" text-anchor="middle">1</text>
+  <text x="225" y="167" class="text fill1" text-anchor="middle">1</text>
+  <text x="275" y="167" class="text fill0" text-anchor="middle">0</text>
+  <text x="325" y="167" class="text fill0" text-anchor="middle">0</text>
+  <text x="375" y="167" class="text fill1" text-anchor="middle">1</text>
+  <text x="425" y="167" class="text fill0" text-anchor="middle">0</text>
+  
+  <text x="250" y="230" class="text" font-weight="normal" font-size="14" text-anchor="middle">장점: 메모리에 통째로 캐싱 가능. 비트연산 매우 빠름.</text>
+  <text x="250" y="255" class="text fill1" font-weight="normal" font-size="14" text-anchor="middle">1: 사용중 (Allocated) / 0: 비어있음 (Free)</text>
+
+  <line x1="500" y1="100" x2="500" y2="350" stroke="var(--grid)" stroke-dasharray="8 8"/>
+
+  <!-- Right: Linked List / Grouping -->
+  <text x="750" y="100" class="text" text-anchor="middle">2. 그룹핑 체인 리스트 (Grouping)</text>
+
+  <rect x="580" y="140" width="80" height="120" class="grid-box" fill="#ecf0f1" stroke="none" rx="5"/>
+  <text x="620" y="170" class="text text-anchor-middle">Idx 5</text>
+  <rect x="590" y="190" width="60" height="20" class="fill0"/>
+  <rect x="590" y="215" width="60" height="20" class="fill0"/>
+  <text x="620" y="205" font-size="12" fill="#fff" text-anchor="middle">블록8</text>
+  <text x="620" y="230" font-size="12" fill="#fff" text-anchor="middle">블록14</text>
+  
+  <rect x="730" y="200" width="80" height="120" class="grid-box" fill="#ecf0f1" stroke="none" rx="5"/>
+  <text x="770" y="230" class="text text-anchor-middle">Idx 14</text>
+  <rect x="740" y="250" width="60" height="20" class="fill0"/>
+  <rect x="740" y="275" width="60" height="20" class="fill0"/>
+
+  <rect x="880" y="140" width="80" height="90" class="grid-box" fill="#ecf0f1" stroke="none" rx="5"/>
+  <text x="920" y="170" class="text text-anchor-middle">Idx 22</text>
+  <rect x="890" y="190" width="60" height="20" class="fill1"/>
+  <text x="920" y="205" font-size="12" fill="#fff" text-anchor="middle">NULL</text>
+
+  <!-- Pointers -->
+  <path d="M 650 225 L 720 225" class="arrow"/>
+  <path d="M 800 275 Q 850 275 870 200" class="arrow"/>
+
+  <text x="750" y="350" class="text" font-weight="normal" font-size="14" text-anchor="middle">인덱스 블록 안에 다음 비어있는 블록들의 포인터 배열을 집어넣음.</text>
+</svg>

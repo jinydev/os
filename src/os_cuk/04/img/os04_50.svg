@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --text-mut: #7f8c8d;
+        --mem-box: #ecf0f1;
+        --mem-border: #bdc3c7;
+        --pc-highlight: #3498db;
+        --line: #e74c3c;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --text-mut: #a4b0be;
+          --mem-box: #2d3436;
+          --mem-border: #636e72;
+          --pc-highlight: #2980b9;
+          --line: #ff6b81;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', system-ui, sans-serif; }
+      .mem-body { fill: var(--mem-box); stroke: var(--mem-border); stroke-width: 2; }
+      .mem-hl { fill: var(--pc-highlight); stroke: none; }
+      .code-lbl { fill: #fff; font-family: monospace; font-size: 16px; font-weight: bold; text-anchor: middle;}
+      .link { stroke: var(--line); stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .title { font-size: 24px; font-weight: bold; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--line)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <text x="500" y="50" class="text title" text-anchor="middle">fork + exec 수행 시 메모리와 Program Counter (PC)의 변화</text>
+
+  <!-- Context: Before fork -->
+  <text x="150" y="120" class="text" font-weight="bold" fill="var(--line)">Before fork</text>
+  
+  <g transform="translate(350, 100)">
+    <rect x="0" y="0" width="200" height="80" class="mem-body"/>
+    <rect x="0" y="30" width="200" height="25" class="mem-hl"/>
+    <text x="100" y="47" class="code-lbl">pid = fork()</text>
+    <text x="210" y="47" class="text" font-weight="bold">&lt;-- PC</text>
+  </g>
+
+  <!-- Divider -->
+  <line x1="200" y1="210" x2="800" y2="210" stroke="var(--mem-border)" stroke-dasharray="5 5"/>
+
+  <!-- Context: After fork -->
+  <text x="150" y="270" class="text" font-weight="bold" fill="var(--line)">After fork</text>
+  <text x="450" y="235" class="text" text-anchor="middle">Parent Process</text>
+  <text x="750" y="235" class="text" text-anchor="middle">Child Process</text>
+
+  <g transform="translate(350, 250)">
+    <rect x="0" y="0" width="200" height="80" class="mem-body"/>
+    <rect x="0" y="45" width="200" height="25" class="mem-hl"/>
+    <text x="100" y="62" class="code-lbl">wait(&amp;status)</text>
+    <text x="210" y="62" class="text" font-weight="bold">&lt;-- PC</text>
+  </g>
+  <!-- Fork flow line -->
+  <path class="link" d="M450,180 L450,250"/>
+
+  <g transform="translate(650, 250)">
+    <rect x="0" y="0" width="200" height="80" class="mem-body"/>
+    <rect x="0" y="45" width="200" height="25" class="mem-hl"/>
+    <text x="100" y="62" class="code-lbl">execl("/bin/ls",..)</text>
+    <text x="210" y="62" class="text" font-weight="bold">&lt;-- PC</text>
+  </g>
+  <!-- Fork child flow line -->
+  <path class="link" d="M450,180 L750,250"/>
+
+  <!-- Divider -->
+  <line x1="200" y1="360" x2="800" y2="360" stroke="var(--mem-border)" stroke-dasharray="5 5"/>
+
+  <!-- Context: After exec -->
+  <text x="150" y="420" class="text" font-weight="bold" fill="var(--line)">After exec</text>
+
+  <g transform="translate(350, 400)">
+    <rect x="0" y="0" width="200" height="80" class="mem-body"/>
+    <rect x="0" y="45" width="200" height="25" class="mem-hl"/>
+    <text x="100" y="62" class="code-lbl">wait(&amp;status)</text>
+    <text x="210" y="62" class="text" font-weight="bold">&lt;-- PC</text>
+  </g>
+  <path class="link" d="M450,330 L450,400"/>
+
+  <g transform="translate(650, 400)">
+    <!-- Memory replaced (yellowish to indicate new process space) -->
+    <rect x="0" y="0" width="200" height="80" class="mem-body" fill="#fcf3cf"/>
+    <rect x="0" y="15" width="200" height="25" class="mem-hl" fill="#f39c12"/>
+    <text x="100" y="32" class="code-lbl">/* [ls] 실행 시작 */</text>
+    <text x="210" y="32" class="text" font-weight="bold">&lt;-- PC</text>
+  </g>
+  <path class="link" d="M750,330 L750,400"/>
+
+</svg>

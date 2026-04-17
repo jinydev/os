@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --box: #3498db;
+        --box-dark: #2980b9;
+        --line: #e74c3c;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --box: #2980b9;
+          --box-dark: #1f618d;
+          --line: #ff7675;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 20px; font-weight: bold; }
+      .stage-text { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 18px; }
+      .title { font-size: 24px; }
+      .state-box { fill: var(--box); stroke: none; }
+      .state-box-dark { fill: var(--box-dark); stroke: none; }
+      .arrow { stroke: var(--line); stroke-width: 4; fill: none; marker-end: url(#arrowhead); }
+      .divider { stroke: var(--line); stroke-width: 2; stroke-dasharray: 6 6; fill: none; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--line)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text title" text-anchor="middle">스케줄링 단계별 상세 분류</text>
+
+  <!-- 1. System Enqueue -->
+  <rect x="200" y="80" width="350" height="40" class="state-box-dark"/>
+  <text x="375" y="108" class="text" fill="#fff" text-anchor="middle">시스템에 들어오려고 대기하는 작업</text>
+  <path d="M 375 120 L 375 160" class="arrow"/>
+  <text x="420" y="148" class="text" text-anchor="middle">작업 입력</text>
+
+  <!-- 2. Wait for Start -->
+  <rect x="200" y="170" width="350" height="40" class="state-box-dark"/>
+  <text x="375" y="198" class="text" fill="#fff" text-anchor="middle">시작을 기다리는 작업</text>
+  <path d="M 375 210 L 375 250" class="arrow"/>
+  <text x="420" y="238" class="text" text-anchor="middle">작업 시작</text>
+
+  <!-- 3. Wait for Activation -->
+  <rect x="200" y="260" width="350" height="40" class="state-box-dark"/>
+  <text x="375" y="288" class="text" fill="#fff" text-anchor="middle">활성화되기를 기다리는 프로세스들</text>
+  
+  <path d="M 330 300 L 330 340" class="arrow"/>
+  <path d="M 400 340 L 400 300" class="arrow"/>
+  <text x="280" y="328" class="text" text-anchor="middle">활성화</text>
+  <text x="440" y="328" class="text" text-anchor="middle">보류</text>
+
+
+  <!-- 4. Ready to Execute -->
+  <rect x="200" y="350" width="350" height="40" class="state-box-dark"/>
+  <text x="375" y="378" class="text" fill="#fff" text-anchor="middle">활성화될 수 있는 프로세스들</text>
+
+  <path d="M 330 390 L 330 430" class="arrow"/>
+  <path d="M 400 430 L 400 390" class="arrow"/>
+  <text x="270" y="418" class="text" text-anchor="middle">디스패치</text>
+  <text x="500" y="418" class="text" text-anchor="middle">중단 또는 시간 만료</text>
+
+
+  <!-- 5. Executing -->
+  <rect x="200" y="440" width="350" height="40" class="state-box-dark"/>
+  <text x="375" y="468" class="text" fill="#fff" text-anchor="middle">실행 중인 프로세스들</text>
+
+  <!-- Stages Labels -->
+  <path d="M 550 190 L 800 190" class="divider"/>
+  <text x="570" y="240" class="stage-text">1단계 장기 스케줄링</text>
+
+  <path d="M 550 280 L 800 280" class="divider"/>
+  <text x="570" y="330" class="stage-text">2단계 중기 스케줄링</text>
+
+  <path d="M 550 370 L 800 370" class="divider"/>
+  <text x="570" y="420" class="stage-text">3단계 CPU 스케줄링, 디스패처</text>
+
+  <path d="M 550 460 L 800 460" class="divider"/>
+
+</svg>

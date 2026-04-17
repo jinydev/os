@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --box: #ecf0f1;
+        --cpu: #e74c3c;
+        --io: #3498db;
+        --mem: #9b59b6;
+        --line: #7f8c8d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --box: #34495e;
+          --cpu: #ff7675;
+          --io: #2980b9;
+          --mem: #8e44ad;
+          --line: #95a5a6;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-weight: bold; font-size: 18px; }
+      .text-sm { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 14px; font-weight: normal; }
+      .title { font-size: 26px; }
+      
+      .comp-box { stroke: var(--text); stroke-width: 2; rx: 5; }
+      .cpu-box { fill: var(--cpu); }
+      .io-box { fill: var(--io); }
+      .mem-box { fill: var(--mem); }
+      
+      .arrow { stroke: var(--text); stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+      .arrow-dash { stroke: var(--text); stroke-width: 2; stroke-dasharray: 6; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+      <polygon points="0 0, 6 2, 0 4" fill="var(--text)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text title" text-anchor="middle">CPU와 장치 간의 데이터 전송 기술 진화</text>
+
+  <!-- Base Grid Labels -->
+  <!-- We will lay out 3 rows. Polling, Interrupt, DMA -->
+  
+  <!-- Row 1: Polling -->
+  <rect x="50" y="90" width="900" height="150" fill="transparent" stroke="var(--line)" stroke-dasharray="10" rx="10"/>
+  <text x="70" y="120" class="text" fill="var(--cpu)">1. 폴링 (Polling, Programmed I/O)</text>
+  
+  <rect x="250" y="140" width="100" height="50" class="comp-box cpu-box"/>
+  <text x="300" y="170" class="text" fill="#fff" text-anchor="middle">CPU</text>
+
+  <rect x="550" y="140" width="100" height="50" class="comp-box io-box"/>
+  <text x="600" y="170" class="text" fill="#fff" text-anchor="middle">I/O 장치</text>
+  
+  <path d="M 360 150 Q 450 120 540 150" class="arrow"/>
+  <text x="450" y="140" class="text-sm" text-anchor="middle">상태 레지스터 반복/무한 검사</text>
+  <path d="M 540 180 Q 450 200 360 180" class="arrow"/>
+  <text x="450" y="210" class="text-sm" text-anchor="middle">"다 썼습니다" 할때까지 CPU가 멈춰서 기다림(낭비)</text>
+
+
+  <!-- Row 2: Interrupt -->
+  <rect x="50" y="260" width="900" height="150" fill="transparent" stroke="var(--line)" stroke-dasharray="10" rx="10"/>
+  <text x="70" y="290" class="text" fill="var(--io)">2. 인터럽트 기반 (Interrupt Driven I/O)</text>
+  
+  <rect x="250" y="310" width="100" height="50" class="comp-box cpu-box"/>
+  <text x="300" y="340" class="text" fill="#fff" text-anchor="middle">CPU</text>
+
+  <rect x="550" y="310" width="100" height="50" class="comp-box io-box"/>
+  <text x="600" y="340" class="text" fill="#fff" text-anchor="middle">I/O 장치</text>
+
+  <path d="M 360 320 Q 450 300 540 320" class="arrow-dash"/>
+  <text x="450" y="310" class="text-sm" text-anchor="middle">명령 지시 후, CPU는 다른 프로세스 실행하러 떠남</text>
+  <path d="M 540 350 Q 450 380 360 350" class="arrow"/>
+  <text x="450" y="390" class="text-sm" font-weight="bold" fill="var(--io)" text-anchor="middle">완료 시 하드웨어 Interrupt 발생! (CPU 호출)</text>
+  <text x="210" y="380" class="text-sm" text-anchor="end">여전히 모든 바이트를 CPU가 직접<br/>메모리로 옮겨야하는 워크로드가 존재.</text>
+
+
+  <!-- Row 3: DMA -->
+  <rect x="50" y="430" width="900" height="190" fill="transparent" stroke="var(--line)" stroke-dasharray="10" rx="10"/>
+  <text x="70" y="460" class="text" fill="var(--mem)">3. 직접 메모리 접근 (DMA, Direct Memory Access)</text>
+  
+  <rect x="150" y="520" width="80" height="50" class="comp-box cpu-box"/>
+  <text x="190" y="550" class="text" fill="#fff" text-anchor="middle">CPU</text>
+
+  <rect x="350" y="490" width="100" height="70" class="comp-box io-box" fill="#f39c12"/>
+  <text x="400" y="520" class="text" fill="#fff" text-anchor="middle">DMA</text>
+  <text x="400" y="545" class="text-sm" fill="#fff" text-anchor="middle">컨트롤러</text>
+
+  <rect x="600" y="540" width="80" height="50" class="comp-box io-box"/>
+  <text x="640" y="570" class="text" fill="#fff" text-anchor="middle">I/O 장치</text>
+
+  <rect x="600" y="460" width="150" height="50" class="comp-box mem-box"/>
+  <text x="675" y="490" class="text" fill="#fff" text-anchor="middle">메인 메모리</text>
+
+  <!-- CPU to DMA -->
+  <path d="M 230 535 L 340 535" class="arrow-dash"/>
+  <text x="290" y="525" class="text-sm" text-anchor="middle">전권 위임</text>
+
+  <!-- DMA acts as master between IO and Mem -->
+  <path d="M 590 565 L 460 565" class="arrow"/>
+  <path d="M 460 485 L 590 485" class="arrow"/>
+  <path d="M 430 565 L 430 485" class="arrow" stroke-width="4" stroke="var(--mem)"/>
+  
+  <text x="500" y="475" class="text-sm" font-weight="bold" fill="var(--mem)" text-anchor="middle">CPU 개입 제로! DMA가 직접 버스를 장악해 이송.</text>
+  <text x="500" y="595" class="text-sm" text-anchor="middle">블록/페이지 단위 대규모 전송에 특화 (Cycle Stealing)</text>
+  
+  <!-- DMA triggers single interrupt at the end -->
+  <path d="M 350 510 L 190 510 L 190 520" class="arrow" stroke="var(--cpu)"/>
+  <text x="270" y="500" class="text-sm" fill="var(--cpu)" text-anchor="middle">"모든 블록 복사" 완료 시 단 1번의 인터럽트</text>
+
+</svg>

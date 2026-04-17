@@ -1,0 +1,56 @@
+<svg width="100%" height="300" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#1E1E1E" rx="10"/>
+
+  <text x="400" y="50" fill="white" font-size="28" font-weight="bold" font-family="sans-serif" text-anchor="middle">운영체제의 종류</text>
+
+  <!-- Windows Card -->
+  <rect x="50" y="80" width="200" height="180" fill="#2D2D2D" rx="10" stroke="#0078D7" stroke-width="3"/>
+  <rect x="50" y="210" width="200" height="50" fill="#0078D7" rx="0" clip-path="url(#clip-bottom1)"/>
+  
+  <rect x="105" y="110" width="40" height="40" fill="#0078D7"/>
+  <rect x="150" y="110" width="40" height="40" fill="#0078D7"/>
+  <rect x="105" y="155" width="40" height="40" fill="#0078D7"/>
+  <rect x="150" y="155" width="40" height="40" fill="#0078D7"/>
+  
+  <text x="150" y="242" fill="white" font-size="20" font-weight="bold" font-family="sans-serif" text-anchor="middle">Windows</text>
+
+  <!-- Unix/Linux Card -->
+  <rect x="300" y="80" width="200" height="180" fill="#2D2D2D" rx="10" stroke="#20B2AA" stroke-width="3"/>
+  <rect x="300" y="210" width="200" height="50" fill="#20B2AA" rx="0" clip-path="url(#clip-bottom2)"/>
+  
+  <!-- Linux Tux Abstract -->
+  <ellipse cx="400" cy="140" rx="35" ry="40" fill="black"/>
+  <ellipse cx="400" cy="145" rx="25" ry="32" fill="white"/>
+  <ellipse cx="385" cy="130" rx="4" ry="5" fill="black"/>
+  <ellipse cx="415" cy="130" rx="4" ry="5" fill="black"/>
+  <polygon points="390,140 410,140 400,150" fill="#FFD700"/>
+  
+  <text x="400" y="242" fill="white" font-size="20" font-weight="bold" font-family="sans-serif" text-anchor="middle">Unix / Linux</text>
+
+  <!-- macOS Card -->
+  <rect x="550" y="80" width="200" height="180" fill="#2D2D2D" rx="10" stroke="#DAA520" stroke-width="3"/>
+  <rect x="550" y="210" width="200" height="50" fill="#DAA520" rx="0" clip-path="url(#clip-bottom3)"/>
+  
+  <!-- Apple Abstract -->
+  <ellipse cx="650" cy="145" rx="28" ry="30" fill="#CCC"/>
+  <ellipse cx="665" cy="145" rx="15" ry="15" fill="#2D2D2D"/> <!-- bite -->
+  <path d="M 645 110 C 655 100, 665 110, 650 120" fill="#CCC"/> <!-- leaf -->
+  
+  <text x="650" y="242" fill="white" font-size="20" font-weight="bold" font-family="sans-serif" text-anchor="middle">macOS</text>
+  
+  <!-- Clip Paths for bottom rounded corners -->
+  <defs>
+    <clipPath id="clip-bottom1">
+      <rect x="50" y="210" width="200" height="50" rx="10" ry="10"/>
+      <rect x="50" y="210" width="200" height="10"/> <!-- Override top left/right curve -->
+    </clipPath>
+    <clipPath id="clip-bottom2">
+      <rect x="300" y="210" width="200" height="50" rx="10" ry="10"/>
+      <rect x="300" y="210" width="200" height="10"/>
+    </clipPath>
+    <clipPath id="clip-bottom3">
+      <rect x="550" y="210" width="200" height="50" rx="10" ry="10"/>
+      <rect x="550" y="210" width="200" height="10"/>
+    </clipPath>
+  </defs>
+</svg>

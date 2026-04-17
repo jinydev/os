@@ -1,0 +1,56 @@
+<svg width="100%" height="250" viewBox="0 0 800 250" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#005A9E;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#001F3F;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#20B2AA;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#008080;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#DAA520;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B6508;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4682B4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#27408B;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#1E1E1E" rx="10"/>
+
+  <!-- Connecting Line -->
+  <line x1="50" y1="100" x2="750" y2="100" stroke="#777" stroke-width="4"/>
+
+  <!-- Circles -->
+  <circle cx="150" cy="100" r="70" fill="url(#grad1)" stroke="#555" stroke-width="3"/>
+  <text x="150" y="108" fill="white" font-size="22" font-weight="bold" font-family="sans-serif" text-anchor="middle">부팅 서비스</text>
+
+  <circle cx="316" cy="100" r="70" fill="url(#grad2)" stroke="#555" stroke-width="3"/>
+  <text x="316" y="108" fill="white" font-size="22" font-weight="bold" font-family="sans-serif" text-anchor="middle">사용자 서비스</text>
+
+  <circle cx="483" cy="100" r="70" fill="url(#grad3)" stroke="#555" stroke-width="3"/>
+  <text x="483" y="108" fill="white" font-size="22" font-weight="bold" font-family="sans-serif" text-anchor="middle">시스템 서비스</text>
+
+  <circle cx="650" cy="100" r="70" fill="url(#grad4)" stroke="#555" stroke-width="3"/>
+  <text x="650" y="108" fill="white" font-size="22" font-weight="bold" font-family="sans-serif" text-anchor="middle">시스템 호출</text>
+
+  <!-- Descriptions -->
+  <path d="M 150 180 L 140 170 L 160 170 Z" fill="#005A9E"/>
+  <text x="150" y="200" fill="#CCC" font-size="14" font-family="sans-serif" text-anchor="middle">컴퓨터를 시동하여</text>
+  <text x="150" y="220" fill="#CCC" font-size="14" font-family="sans-serif" text-anchor="middle">하드웨어를 관리 시작</text>
+
+  <path d="M 316 180 L 306 170 L 326 170 Z" fill="#20B2AA"/>
+  <text x="316" y="200" fill="#CCC" font-size="14" font-family="sans-serif" text-anchor="middle">컴퓨터와 사용자 간의</text>
+  <text x="316" y="220" fill="#CCC" font-size="14" font-family="sans-serif" text-anchor="middle">인터페이스 제공</text>
+
+  <path d="M 483 180 L 473 170 L 493 170 Z" fill="#DAA520"/>
+  <text x="483" y="200" fill="#CCC" font-size="14" font-family="sans-serif" text-anchor="middle">시스템의 효율적인</text>
+  <text x="483" y="220" fill="#CCC" font-size="14" font-family="sans-serif" text-anchor="middle">동작 보장</text>
+
+  <path d="M 650 180 L 640 170 L 660 170 Z" fill="#4682B4"/>
+  <text x="650" y="200" fill="#CCC" font-size="14" font-family="sans-serif" text-anchor="middle">프로그램이 기능을</text>
+  <text x="650" y="220" fill="#CCC" font-size="14" font-family="sans-serif" text-anchor="middle">서비스 받는 인터페이스</text>
+
+</svg>

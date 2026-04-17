@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --disk: #bdc3c7;
+        --data1: #3498db;
+        --data2: #e74c3c;
+        --parity: #9b59b6;
+        --stroke: #7f8c8d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --disk: #34495e;
+          --data1: #2980b9;
+          --data2: #ff7675;
+          --parity: #8e44ad;
+          --stroke: #95a5a6;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-weight: bold; font-size: 18px; }
+      .text-sm { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 14px; font-weight: normal; }
+      .title { font-size: 26px; }
+      .disk-shape { fill: var(--disk); stroke: var(--stroke); stroke-width: 2; rx: 10; ry: 10; }
+      .stripe1 { fill: var(--data1); }
+      .stripe2 { fill: var(--data2); }
+      .stripe-p { fill: var(--parity); }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text title" text-anchor="middle">RAID 아키텍처 (Redundant Array of Independent Disks)</text>
+  <text x="500" y="70" class="text-sm" text-anchor="middle">여러 개의 물리적 디스크를 묶어 읽기속도 향상 / 데이터 신뢰성을 확보하는 컨트롤러 기술</text>
+
+  <!-- RAID 0 -->
+  <text x="200" y="140" class="text" text-anchor="middle">RAID 0 (Striping)</text>
+  <text x="200" y="160" class="text-sm" text-anchor="middle">분산 저장으로 IO 속도 최상</text>
+  <text x="200" y="180" class="text-sm" fill="var(--data2)" text-anchor="middle">백업 불가 (Disk 하나 고장 시 파괴)</text>
+
+  <g transform="translate(100, 200)">
+    <rect x="0" y="0" width="80" height="100" class="disk-shape"/>
+    <rect x="10" y="15" width="60" height="30" class="stripe1"/>
+    <text x="40" y="35" class="text" fill="#fff" text-anchor="middle">A-1</text>
+    <rect x="10" y="55" width="60" height="30" class="stripe1"/>
+    <text x="40" y="75" class="text" fill="#fff" text-anchor="middle">A-3</text>
+
+    <rect x="120" y="0" width="80" height="100" class="disk-shape"/>
+    <rect x="130" y="15" width="60" height="30" class="stripe2"/>
+    <text x="160" y="35" class="text" fill="#fff" text-anchor="middle">A-2</text>
+    <rect x="130" y="55" width="60" height="30" class="stripe2"/>
+    <text x="160" y="75" class="text" fill="#fff" text-anchor="middle">A-4</text>
+  </g>
+
+  <!-- RAID 1 -->
+  <text x="500" y="140" class="text" text-anchor="middle">RAID 1 (Mirroring)</text>
+  <text x="500" y="160" class="text-sm" text-anchor="middle">디스크를 1:1 완벽 복제</text>
+  <text x="500" y="180" class="text-sm" fill="var(--data2)" text-anchor="middle">신뢰성 최상이나 용량 효율 50% (비용증가)</text>
+
+  <g transform="translate(400, 200)">
+    <rect x="0" y="0" width="80" height="100" class="disk-shape"/>
+    <rect x="10" y="15" width="60" height="30" class="stripe1"/>
+    <text x="40" y="35" class="text" fill="#fff" text-anchor="middle">A</text>
+    <rect x="10" y="55" width="60" height="30" class="stripe1"/>
+    <text x="40" y="75" class="text" fill="#fff" text-anchor="middle">B</text>
+
+    <rect x="120" y="0" width="80" height="100" class="disk-shape"/>
+    <rect x="130" y="15" width="60" height="30" class="stripe1"/>
+    <text x="160" y="35" class="text" fill="#fff" text-anchor="middle">A</text>
+    <rect x="130" y="55" width="60" height="30" class="stripe1"/>
+    <text x="160" y="75" class="text" fill="#fff" text-anchor="middle">B</text>
+  </g>
+
+
+  <!-- RAID 5 -->
+  <text x="800" y="140" class="text" text-anchor="middle">RAID 5 (Distributed Parity)</text>
+  <text x="800" y="160" class="text-sm" text-anchor="middle">최소 3개 디스크 운용 (가장 범용)</text>
+  <text x="800" y="180" class="text-sm" fill="var(--data2)" text-anchor="middle">복구용 Parity를 모든 Disk에 분산</text>
+
+  <g transform="translate(650, 200)">
+    <!-- Disk 1 -->
+    <rect x="0" y="0" width="80" height="100" class="disk-shape"/>
+    <rect x="10" y="15" width="60" height="20" class="stripe1"/>
+    <text x="40" y="30" class="text-sm" fill="#fff" text-anchor="middle">A-1</text>
+    <rect x="10" y="40" width="60" height="20" class="stripe1"/>
+    <text x="40" y="55" class="text-sm" fill="#fff" text-anchor="middle">B-1</text>
+    <rect x="10" y="65" width="60" height="20" class="stripe-p"/>
+    <text x="40" y="80" class="text-sm" fill="#fff" text-anchor="middle">Cp</text>
+
+    <!-- Disk 2 -->
+    <rect x="100" y="0" width="80" height="100" class="disk-shape"/>
+    <rect x="110" y="15" width="60" height="20" class="stripe2"/>
+    <text x="140" y="30" class="text-sm" fill="#fff" text-anchor="middle">A-2</text>
+    <rect x="110" y="40" width="60" height="20" class="stripe-p"/>
+    <text x="140" y="55" class="text-sm" fill="#fff" text-anchor="middle">Bp</text>
+    <rect x="110" y="65" width="60" height="20" class="stripe1"/>
+    <text x="140" y="80" class="text-sm" fill="#fff" text-anchor="middle">C-1</text>
+
+    <!-- Disk 3 -->
+    <rect x="200" y="0" width="80" height="100" class="disk-shape"/>
+    <rect x="210" y="15" width="60" height="20" class="stripe-p"/>
+    <text x="240" y="30" class="text-sm" fill="#fff" text-anchor="middle">Ap</text>
+    <rect x="210" y="40" width="60" height="20" class="stripe2"/>
+    <text x="240" y="55" class="text-sm" fill="#fff" text-anchor="middle">B-2</text>
+    <rect x="210" y="65" width="60" height="20" class="stripe2"/>
+    <text x="240" y="80" class="text-sm" fill="#fff" text-anchor="middle">C-2</text>
+  </g>
+
+  <!-- Explanation Bottom -->
+  <rect x="100" y="360" width="800" height="80" fill="transparent" stroke="var(--stroke)" stroke-width="2" rx="10"/>
+  <text x="500" y="390" class="text" text-anchor="middle">현대 시스템의 선택</text>
+  <text x="500" y="420" class="text-sm" text-anchor="middle">운영체제는 논리적으로 단일 디스크로 인식하지만, RAID 하드웨어 컨트롤러가 뒤편에서 병렬 처리 및 복구를 보장함.</text>
+
+</svg>

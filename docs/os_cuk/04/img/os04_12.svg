@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg-color: #ffffff;
+        --text-main: #2c3e50;
+        --text-muted: #596a7b;
+        --accent-blue: #3498db;
+        --accent-purple: #9b59b6;
+        --accent-green: #2ecc71;
+        --accent-red: #e74c3c;
+        --box-bg: #ecf0f1;
+        --box-border: #bdc3c7;
+        --thread-color: #2980b9;
+        --shared-bg: #dff9fb;
+        --shared-border: #c7ecee;
+        --private-bg: #f5f6fa;
+        --private-border: #dcdde1;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-color: #121212;
+          --text-main: #ecf0f1;
+          --text-muted: #95a5a6;
+          --accent-blue: #3498db;
+          --accent-purple: #9b59b6;
+          --accent-green: #2ecc71;
+          --accent-red: #e74c3c;
+          --box-bg: #1e272e;
+          --box-border: #485460;
+          --thread-color: #82ccdd;
+          --shared-bg: #093444;
+          --shared-border: #13586b;
+          --private-bg: #2d3436;
+          --private-border: #636e72;
+        }
+      }
+      .bg { fill: var(--bg-color); }
+      .text-main { fill: var(--text-main); font-family: 'Inter', system-ui, sans-serif; }
+      .text-muted { fill: var(--text-muted); font-family: 'Inter', system-ui, sans-serif; }
+      .shared-box { fill: var(--shared-bg); stroke: var(--shared-border); stroke-width: 2; rx: 8; }
+      .private-box { fill: var(--private-bg); stroke: var(--private-border); stroke-width: 2; rx: 8; }
+      .title { font-size: 24px; font-weight: bold; font-family: 'Inter', system-ui, sans-serif; fill: var(--text-main); }
+      .subtitle { font-size: 20px; font-weight: 600; text-anchor: middle; }
+      .label { font-size: 16px; font-weight: 600; text-anchor: middle; fill: var(--text-main); }
+      .thread { stroke: var(--thread-color); stroke-width: 4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <text x="500" y="40" class="title" text-anchor="middle">Single-threaded vs Multi-threaded Process Architecture</text>
+  <text x="500" y="65" class="text-muted" text-anchor="middle" font-size="14">Memory layout differences between single-threaded and multi-threaded processes</text>
+
+  <!-- Left Side: Single Threaded -->
+  <g transform="translate(100, 120)">
+    <rect width="360" height="400" class="private-box" fill-opacity="0.2"/>
+    <text x="180" y="380" class="subtitle text-main">단일 스레드 프로세스</text>
+    <text x="180" y="400" class="text-muted" text-anchor="middle" font-size="14">(Single-Threaded Process)</text>
+
+    <!-- Shared Area (Only 1 thread, so everything is within this process context) -->
+    <text x="180" y="30" class="label text-muted">공유 자원 (Shared Space)</text>
+    <rect x="20" y="50" width="100" height="40" class="shared-box"/>
+    <text x="70" y="76" class="label">코드 (Code)</text>
+    
+    <rect x="130" y="50" width="100" height="40" class="shared-box"/>
+    <text x="180" y="76" class="label">데이터 (Data)</text>
+
+    <rect x="240" y="50" width="100" height="40" class="shared-box"/>
+    <text x="290" y="76" class="label">힙 (Heap)</text>
+
+    <!-- Thread Specific Area -->
+    <rect x="20" y="110" width="320" height="220" class="private-box"/>
+    <text x="180" y="140" class="label text-muted">스레드 컨텍스트 (Thread Space)</text>
+
+    <rect x="40" y="160" width="80" height="40" fill="var(--box-bg)" stroke="var(--box-border)" stroke-width="1" rx="4"/>
+    <text x="80" y="186" class="label" font-size="14">레지스터</text>
+
+    <rect x="140" y="160" width="80" height="40" fill="var(--box-bg)" stroke="var(--box-border)" stroke-width="1" rx="4"/>
+    <text x="180" y="186" class="label" font-size="14">카운터(PC)</text>
+
+    <rect x="240" y="160" width="80" height="40" fill="var(--box-bg)" stroke="var(--box-border)" stroke-width="1" rx="4"/>
+    <text x="280" y="186" class="label" font-size="14">스택 (Stack)</text>
+
+    <!-- Thread Squiggle -->
+    <path class="thread" d="M180,220 Q160,235 180,250 T180,280 T180,310"/>
+  </g>
+
+  <!-- Right Side: Multi Threaded -->
+  <g transform="translate(540, 120)">
+    <rect width="360" height="400" class="private-box" fill-opacity="0.2"/>
+    <text x="180" y="380" class="subtitle text-main">다중 스레드 프로세스</text>
+    <text x="180" y="400" class="text-muted" text-anchor="middle" font-size="14">(Multi-Threaded Process)</text>
+
+    <!-- Shared Area -->
+    <text x="180" y="30" class="label text-muted">공유 자원 (Shared Space, 프로세스 전체 공유)</text>
+    <rect x="20" y="50" width="100" height="40" class="shared-box"/>
+    <text x="70" y="76" class="label">코드 (Code)</text>
+    
+    <rect x="130" y="50" width="100" height="40" class="shared-box"/>
+    <text x="180" y="76" class="label">데이터 (Data)</text>
+
+    <rect x="240" y="50" width="100" height="40" class="shared-box"/>
+    <text x="290" y="76" class="label">힙 (Heap)</text>
+
+    <!-- Thread 1 -->
+    <rect x="20" y="110" width="100" height="220" class="private-box"/>
+    <text x="70" y="135" class="label text-muted" font-size="12">Thread 1</text>
+    <rect x="30" y="150" width="80" height="25" fill="var(--box-bg)" stroke="var(--box-border)" stroke-width="1" rx="2"/>
+    <text x="70" y="167" class="label" font-size="12">레지스터</text>
+    <rect x="30" y="180" width="80" height="25" fill="var(--box-bg)" stroke="var(--box-border)" stroke-width="1" rx="2"/>
+    <text x="70" y="197" class="label" font-size="12">스택</text>
+    <path class="thread" d="M70,220 Q50,235 70,250 T70,280 T70,310"/>
+
+    <!-- Thread 2 -->
+    <rect x="130" y="110" width="100" height="220" class="private-box"/>
+    <text x="180" y="135" class="label text-muted" font-size="12">Thread 2</text>
+    <rect x="140" y="150" width="80" height="25" fill="var(--box-bg)" stroke="var(--box-border)" stroke-width="1" rx="2"/>
+    <text x="180" y="167" class="label" font-size="12">레지스터</text>
+    <rect x="140" y="180" width="80" height="25" fill="var(--box-bg)" stroke="var(--box-border)" stroke-width="1" rx="2"/>
+    <text x="180" y="197" class="label" font-size="12">스택</text>
+    <path class="thread" d="M180,220 Q160,235 180,250 T180,280 T180,310"/>
+
+    <!-- Thread 3 -->
+    <rect x="240" y="110" width="100" height="220" class="private-box"/>
+    <text x="290" y="135" class="label text-muted" font-size="12">Thread 3</text>
+    <rect x="250" y="150" width="80" height="25" fill="var(--box-bg)" stroke="var(--box-border)" stroke-width="1" rx="2"/>
+    <text x="290" y="167" class="label" font-size="12">레지스터</text>
+    <rect x="250" y="180" width="80" height="25" fill="var(--box-bg)" stroke="var(--box-border)" stroke-width="1" rx="2"/>
+    <text x="290" y="197" class="label" font-size="12">스택</text>
+    <path class="thread" d="M290,220 Q270,235 290,250 T290,280 T290,310"/>
+
+  </g>
+
+</svg>

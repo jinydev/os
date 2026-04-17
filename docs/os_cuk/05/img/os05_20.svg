@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --text-mut: #7f8c8d;
+        --p1: #3498db;
+        --p2: #e74c3c;
+        --mem: #f1c40f;
+        --line: #2d3436;
+        --err: #c0392b;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --text-mut: #b2bec3;
+          --p1: #0984e3;
+          --p2: #ff7675;
+          --mem: #fdcb6e;
+          --line: #dfe6e9;
+          --err: #ff4757;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; }
+      .text-w { fill: #fff; font-family: 'Inter', sans-serif; font-weight: bold; }
+      .title { font-size: 26px; font-weight: bold; }
+      .box { stroke: var(--text); stroke-width: 2; fill: var(--bg); }
+      .mem-box { fill: var(--mem); stroke: var(--line); stroke-width: 3; rx: 8; }
+      .ptr { stroke: var(--line); stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .err-ptr { stroke: var(--err); stroke-width: 4; stroke-dasharray: 8 4; fill: none; marker-end: url(#arrow-err); }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--line)"/>
+    </marker>
+    <marker id="arrow-err" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--err)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="50" class="text title" text-anchor="middle">병행 프로세스의 경쟁 상태 (Race Condition) - 손실된 업데이트 문제</text>
+
+  <!-- Process 1 -->
+  <rect x="100" y="120" width="250" height="250" fill="var(--p1)" rx="8"/>
+  <text x="225" y="160" class="text-w" font-size="22" text-anchor="middle">프로세스 1 (P1)</text>
+  <rect x="120" y="180" width="210" height="170" fill="var(--bg)" rx="4"/>
+  <text x="140" y="210" class="text" font-size="16">1. Reg1 = count; (0)</text>
+  <text x="140" y="250" class="text" font-size="16">2. Reg1 = Reg1 + 1; (1)</text>
+  <text x="140" y="290" class="text text-mut" font-size="16">--- Context Switch ---</text>
+  <text x="140" y="330" class="text" font-size="16">6. count = Reg1; (1 저장)</text>
+
+  <!-- Process 2 -->
+  <rect x="650" y="120" width="250" height="250" fill="var(--p2)" rx="8"/>
+  <text x="775" y="160" class="text-w" font-size="22" text-anchor="middle">프로세스 2 (P2)</text>
+  <rect x="670" y="180" width="210" height="170" fill="var(--bg)" rx="4"/>
+  <text x="690" y="210" class="text" font-size="16">3. Reg2 = count; (0)</text>
+  <text x="690" y="250" class="text" font-size="16">4. Reg2 = Reg2 + 1; (1)</text>
+  <text x="690" y="290" class="text" font-size="16">5. count = Reg2; (1 저장)</text>
+
+  <!-- Shared Memory -->
+  <rect x="400" y="420" width="200" height="100" class="mem-box"/>
+  <text x="500" y="450" class="text" font-size="20" font-weight="bold" text-anchor="middle">공유 메모리</text>
+  <text x="500" y="490" class="text" font-size="24" font-weight="bold" text-anchor="middle">count = 1</text>
+  
+  <text x="500" y="550" class="text" fill="var(--err)" font-size="18" font-weight="bold" text-anchor="middle">결과: 2번의 증가 연산이 수행되었으나 결과는 2가 아닌 1 (Lost Update)</text>
+
+  <!-- Pointers -->
+  <!-- Read 0 arrows -->
+  <path class="ptr" d="M140,210 C100,210 50,210 50,300 C50,470 380,470 380,470"/>
+  <text x="100" y="460" class="text text-mut" font-size="14">시간 (1) P1 읽기: 0</text>
+  
+  <path class="ptr" d="M860,210 C900,210 950,210 950,300 C950,470 620,470 620,470"/>
+  <text x="750" y="460" class="text text-mut" font-size="14">시간 (3) P2 읽기: 0</text>
+
+  <!-- Write 1 arrows -->
+  <path class="err-ptr" d="M350,330 C350,330 400,330 440,410"/>
+  <text x="350" y="390" class="text" fill="var(--err)" font-size="14">시간 (6) P1 덮어쓰기</text>
+
+  <path class="ptr" d="M650,290 C600,290 560,320 560,410"/>
+  <text x="560" y="360" class="text text-mut" font-size="14">시간 (5) P2 쓰기</text>
+
+  <line x1="390" y1="280" x2="610" y2="280" stroke="var(--line)" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="500" y="270" class="text text-mut" font-size="14" text-anchor="middle">명령어 실행 도중 CPU 선점 (Preemption)</text>
+
+</svg>

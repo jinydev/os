@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 450" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --axis: #34495e;
+        --p1: #1565c0;
+        --p2: #1976d2;
+        --p3: #2196f3;
+        --p4: #42a5f5;
+        --p5: #64b5f6;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --axis: #bdc3c7;
+          --p1: #3f51b5;
+          --p2: #5c6bc0;
+          --p3: #7986cb;
+          --p4: #9fa8da;
+          --p5: #c5cae9;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 18px; font-weight: bold; }
+      .desc { font-weight: normal; font-size: 16px; fill: var(--text); }
+      .title { font-size: 24px; }
+      .gantt-bg { fill: var(--p2); stroke: var(--bg); stroke-width: 2; }
+      .axis { stroke: var(--axis); stroke-width: 2; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text title" text-anchor="middle">선입선처리 스케줄링의 예 #1 (FCFS Gantt Chart)</text>
+
+  <!-- Source Table Mapping -->
+  <text x="50" y="80" class="text" text-anchor="start">도착: P1(0), P2(1), P3(2), P4(3), P5(4)</text>
+  <text x="50" y="110" class="text" text-anchor="start">실행: P1(10), P2(28), P3(6), P4(4), P5(14)</text>
+
+  <!-- FCFS Gantt Box -->
+  <!-- Timeline Start = 0 -->
+  <text x="100" y="270" class="text" text-anchor="middle">0</text>
+  
+  <!-- P1 (0 to 10) -->
+  <rect x="100" y="160" width="100" height="80" class="gantt-bg" fill="var(--p1)"/>
+  <text x="150" y="205" class="text" fill="#fff" text-anchor="middle" font-size="22">P1</text>
+  <text x="200" y="270" class="text" text-anchor="middle">10</text>
+
+  <!-- P2 (10 to 38) -> Length = 28 -->
+  <rect x="200" y="160" width="280" height="80" class="gantt-bg" fill="var(--p2)"/>
+  <text x="340" y="205" class="text" fill="#fff" text-anchor="middle" font-size="22">P2</text>
+  <text x="480" y="270" class="text" text-anchor="middle">38</text>
+
+  <!-- P3 (38 to 44) -> Length = 6 -->
+  <rect x="480" y="160" width="60" height="80" class="gantt-bg" fill="var(--p3)"/>
+  <text x="510" y="205" class="text" fill="#fff" text-anchor="middle" font-size="22">P3</text>
+  <text x="540" y="270" class="text" text-anchor="middle">44</text>
+
+  <!-- P4 (44 to 48) -> Length = 4 -->
+  <rect x="540" y="160" width="40" height="80" class="gantt-bg" fill="var(--p4)"/>
+  <text x="560" y="205" class="text" fill="#fff" text-anchor="middle" font-size="18">P4</text>
+  <text x="580" y="270" class="text" text-anchor="middle">48</text>
+
+  <!-- P5 (48 to 62) -> Length = 14 -->
+  <rect x="580" y="160" width="140" height="80" class="gantt-bg" fill="var(--p5)"/>
+  <text x="650" y="205" class="text" fill="#fff" text-anchor="middle" font-size="22">P5</text>
+  <text x="720" y="270" class="text" text-anchor="middle">62</text>
+
+
+  <!-- Metrics Box -->
+  <rect x="50" y="320" width="900" height="100" fill="transparent" stroke="var(--axis)" stroke-width="2"/>
+  
+  <text x="80" y="350" class="text">반환시간 (완료 - 도착)</text>
+  <text x="80" y="380" class="desc">P1: 10, P2: 37, P3: 42, P4: 45, P5: 58 (평균: 38.4)</text>
+
+  <text x="500" y="350" class="text">대기시간 (대기 총합 또는 반환 - 실행)</text>
+  <text x="500" y="380" class="desc">P1: 0, P2: 9, P3: 36, P4: 41, P5: 44 (평균: 26.0)</text>
+
+</svg>

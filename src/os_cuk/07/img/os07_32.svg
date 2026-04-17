@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 480" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --queue: #5c6bc0;
+        --cpu: #2980b9;
+        --swap: #16a085;
+        --line: #7f8c8d;
+        --box: #34495e;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --queue: #3f51b5;
+          --cpu: #3498db;
+          --swap: #1abc9c;
+          --line: #b2bec3;
+          --box: #ecf0f1;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 20px; font-weight: bold; }
+      .title { font-size: 24px; }
+      .queue-box { fill: var(--queue); stroke: #fff; stroke-width: 2; }
+      .cpu-ellipse { fill: var(--cpu); stroke: #fff; stroke-width: 2; }
+      .swap-box { fill: var(--swap); stroke: #fff; stroke-width: 2; }
+      .arrow { stroke: var(--line); stroke-width: 4; fill: none; marker-end: url(#arrowhead); }
+      .dashed-box { stroke: var(--box); stroke-width: 3; stroke-dasharray: 10 10; fill: none; rx: 10;}
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--line)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text title" text-anchor="middle">중기 스케줄러를 추가한 큐잉 도표</text>
+
+  <!-- Dashed Box for Mid-term Scheduler Area -->
+  <rect x="250" y="90" width="600" height="130" class="dashed-box"/>
+  <text x="800" y="125" class="text" text-anchor="middle">중기 스케줄러</text>
+
+  <!-- Swap In / Swap Out Nodes -->
+  <ellipse cx="550" cy="155" rx="60" ry="50" class="swap-box"/>
+  <text x="550" y="140" class="text" fill="#fff" text-anchor="middle">중단</text>
+  <text x="550" y="165" class="text" fill="#fff" text-anchor="middle">(일시정지)</text>
+  <text x="550" y="190" class="text" fill="#fff" text-anchor="middle" font-size="16">프로세스</text>
+
+  <!-- Disk -->
+  <ellipse cx="140" cy="275" rx="60" ry="50" class="swap-box"/>
+  <text x="140" y="270" class="text" fill="#fff" text-anchor="middle">다른 상태의</text>
+  <text x="140" y="295" class="text" fill="#fff" text-anchor="middle">프로세스</text>
+
+  <!-- Ready State -->
+  <ellipse cx="330" cy="275" rx="55" ry="50" class="swap-box"/>
+  <text x="330" y="270" class="text" fill="#fff" text-anchor="middle">준비 상태의</text>
+  <text x="330" y="295" class="text" fill="#fff" text-anchor="middle">프로세스</text>
+
+  <!-- Ready Queue -->
+  <rect x="470" y="250" width="140" height="50" class="queue-box"/>
+  <text x="540" y="283" class="text" fill="#fff" text-anchor="middle">준비 큐</text>
+
+  <!-- CPU -->
+  <ellipse cx="730" cy="275" rx="60" ry="55" class="cpu-ellipse"/>
+  <text x="730" y="270" class="text" fill="#fff" text-anchor="middle" font-size="28">CPU</text>
+
+  <!-- IO Device -->
+  <ellipse cx="330" cy="405" rx="55" ry="50" class="cpu-ellipse"/>
+  <text x="330" y="400" class="text" fill="#fff" text-anchor="middle">입출력</text>
+  <text x="330" y="425" class="text" fill="#fff" text-anchor="middle">장치</text>
+
+  <!-- IO Queue -->
+  <rect x="490" y="380" width="150" height="50" class="queue-box"/>
+  <text x="565" y="413" class="text" fill="#fff" text-anchor="middle">입출력장치 큐</text>
+
+
+  <!-- Edges -->
+  <!-- Long term -->
+  <path d="M 200 275 L 265 275" class="arrow"/>
+  <text x="235" y="260" class="text" text-anchor="middle" fill="var(--cpu)">전환</text>
+
+  <!-- Ready -> Queue -->
+  <path d="M 385 275 L 460 275" class="arrow"/>
+  
+  <!-- Ready Queue -> CPU -->
+  <path d="M 610 275 L 660 275" class="arrow"/>
+
+  <!-- CPU -> End -->
+  <path d="M 790 275 L 880 275" class="arrow"/>
+  <text x="910" y="283" class="text" text-anchor="middle">종료</text>
+
+  <!-- CPU -> IO Queue -->
+  <path d="M 790 275 L 820 275 L 820 405 L 650 405" class="arrow"/>
+
+  <!-- IO Queue -> IO Device -->
+  <path d="M 490 405 L 395 405" class="arrow"/>
+
+  <!-- IO Device -> Ready -->
+  <path d="M 275 405 L 240 405 L 240 290 L 265 290" stroke="var(--line)" stroke-width="4" fill="none"/>
+  <path d="M 240 290 L 265 290" class="arrow"/>
+
+
+  <!-- Swapping Edges -->
+  <!-- CPU -> Swap Out -->
+  <path d="M 730 220 L 730 155 L 620 155" class="arrow"/>
+  <text x="675" y="140" class="text" text-anchor="middle" fill="var(--cpu)">스왑 아웃</text>
+
+  <!-- Swap In -> Ready State -->
+  <path d="M 490 155 L 260 155 L 260 260 L 265 260" stroke="var(--line)" stroke-width="4" fill="none"/>
+  <path d="M 260 260 L 265 260" class="arrow"/>
+  <text x="440" y="140" class="text" text-anchor="middle" fill="var(--cpu)">스왑 인</text>
+
+</svg>

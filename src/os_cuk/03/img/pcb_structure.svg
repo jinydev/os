@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" fill="none">
+    <defs>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap');
+            text { font-family: 'Inter', sans-serif; }
+            .row { rx: 6; stroke-width: 2; }
+        </style>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#020617"/>
+            <stop offset="100%" stop-color="#0F172A"/>
+        </linearGradient>
+        <filter id="shadow">
+            <feDropShadow dx="0" dy="10" stdDeviation="15" flood-color="#000" flood-opacity="0.6"/>
+        </filter>
+    </defs>
+
+    <rect width="900" height="600" rx="20" fill="url(#bg)"/>
+    <text x="450" y="60" fill="#F8FAFC" font-size="28" font-weight="800" text-anchor="middle" letter-spacing="2">PROCESS CONTROL BLOCK (PCB)</text>
+    <text x="450" y="90" fill="#94A3B8" font-size="15" font-weight="400" text-anchor="middle">Data structure maintained by the Kernel to manage processes</text>
+
+    <!-- Table Graphic -->
+    <g transform="translate(300, 120)" filter="url(#shadow)">
+        <rect width="300" height="420" rx="16" fill="#1E293B" stroke="#334155" stroke-width="4"/>
+        
+        <!-- Headers/Rows -->
+        <rect x="20" y="20" width="260" height="45" fill="#0F766E" stroke="#14B8A6" class="row"/>
+        <text x="150" y="48" fill="#CCFBF1" font-size="18" font-weight="800" text-anchor="middle">Process State</text>
+
+        <rect x="20" y="75" width="260" height="45" fill="#0C4A6E" stroke="#0284C7" class="row"/>
+        <text x="150" y="103" fill="#E0F2FE" font-size="18" font-weight="800" text-anchor="middle">Process ID (PID) : 1042</text>
+
+        <rect x="20" y="130" width="260" height="45" fill="#4C1D95" stroke="#7C3AED" class="row"/>
+        <text x="150" y="158" fill="#EDE9FE" font-size="18" font-weight="800" text-anchor="middle">Program Counter (PC)</text>
+
+        <rect x="20" y="185" width="260" height="45" fill="#7C2D12" stroke="#EA580C" class="row"/>
+        <text x="150" y="213" fill="#FFEDD5" font-size="18" font-weight="800" text-anchor="middle">CPU Registers Backup</text>
+
+        <rect x="20" y="240" width="260" height="45" fill="#831843" stroke="#E11D48" class="row"/>
+        <text x="150" y="268" fill="#FFE4E6" font-size="18" font-weight="800" text-anchor="middle">Memory Limits &amp; PT</text>
+
+        <rect x="20" y="295" width="260" height="45" fill="#3F6212" stroke="#65A30D" class="row"/>
+        <text x="150" y="323" fill="#ECFCCB" font-size="18" font-weight="800" text-anchor="middle">List of Open Files</text>
+        
+        <rect x="20" y="350" width="260" height="45" fill="#374151" stroke="#6B7280" class="row"/>
+        <text x="150" y="378" fill="#D1D5DB" font-size="18" font-weight="800" text-anchor="middle">I/O Status Information</text>
+    </g>
+
+    <!-- Explanations connected with lines -->
+    <!-- Left side -->
+    <path d="M 300 160 L 230 160" stroke="#0284C7" stroke-width="2" stroke-dasharray="4" fill="none"/>
+    <text x="210" y="165" fill="#0284C7" font-size="14" font-weight="600" text-anchor="end">Unique identifier mapping</text>
+
+    <path d="M 300 215 L 230 215" stroke="#7C3AED" stroke-width="2" stroke-dasharray="4" fill="none"/>
+    <text x="210" y="210" fill="#8B5CF6" font-size="14" font-weight="600" text-anchor="end">Address of the NEXT</text>
+    <text x="210" y="228" fill="#8B5CF6" font-size="14" font-weight="600" text-anchor="end">instruction to execute</text>
+
+    <!-- Right side -->
+    <path d="M 600 265 L 670 265" stroke="#EA580C" stroke-width="2" stroke-dasharray="4" fill="none"/>
+    <text x="690" y="260" fill="#F97316" font-size="14" font-weight="600" text-anchor="start">Accumulators, index, stack</text>
+    <text x="690" y="278" fill="#F97316" font-size="14" font-weight="600" text-anchor="start">pointers context save</text>
+
+    <path d="M 600 320 L 670 320" stroke="#E11D48" stroke-width="2" stroke-dasharray="4" fill="none"/>
+    <text x="690" y="315" fill="#FB7185" font-size="14" font-weight="600" text-anchor="start">Base/Limit Registers</text>
+    <text x="690" y="333" fill="#FB7185" font-size="14" font-weight="600" text-anchor="start">or Page Table Locators</text>
+
+</svg>

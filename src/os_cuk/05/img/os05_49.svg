@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --box: #3498db;
+        --shared: #e67e22;
+        --init: #27ae60;
+        --queue: #9b59b6;
+        --line: #2d3436;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --box: #2980b9;
+          --shared: #d35400;
+          --init: #2ecc71;
+          --queue: #8e44ad;
+          --line: #dfe6e9;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 18px; font-weight: bold; }
+      .title { font-size: 26px; font-weight: bold; }
+      .box { fill: var(--box); stroke: var(--line); stroke-width: 2; rx: 4; }
+      .shared { fill: var(--shared); stroke: var(--line); stroke-width: 2; rx: 4; }
+      .init { fill: var(--init); stroke: var(--line); stroke-width: 2; rx: 4; }
+      .queue { fill: var(--queue); stroke: var(--line); stroke-width: 2; }
+      .arrow { stroke: var(--line); stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+      .arrow-bi { stroke: var(--line); stroke-width: 3; fill: none; marker-end: url(#arrowhead); marker-start: url(#arrowhead-rev); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--line)"/>
+    </marker>
+    <marker id="arrowhead-rev" markerWidth="10" markerHeight="7" refX="1" refY="3.5" orient="auto">
+      <polygon points="10 0, 0 3.5, 10 7" fill="var(--line)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="50" class="text title" text-anchor="middle">모니터(Monitor) 객체의 강제 락킹 은닉화 아키텍처</text>
+
+  <!-- Monitor Container -->
+  <rect x="250" y="100" width="350" height="350" fill="transparent" stroke="var(--line)" stroke-width="3" rx="16" stroke-dasharray="8 8"/>
+  <rect x="420" y="80" width="100" height="40" fill="var(--bg)"/>
+  <text x="470" y="107" class="text title" fill="#d63031" text-anchor="middle">모니터</text>
+
+  <!-- Procedures -->
+  <rect x="80" y="150" width="140" height="40" class="box"/>
+  <text x="150" y="177" class="text" fill="#fff" text-anchor="middle">메서드 P1</text>
+  <path d="M 220 170 L 300 170" class="arrow-bi"/>
+
+  <rect x="80" y="210" width="140" height="40" class="box"/>
+  <text x="150" y="237" class="text" fill="#fff" text-anchor="middle">메서드 P2</text>
+  <path d="M 220 230 L 300 230" class="arrow-bi"/>
+
+  <text x="150" y="280" class="text" text-anchor="middle">...</text>
+
+  <rect x="80" y="310" width="140" height="40" class="box"/>
+  <text x="150" y="337" class="text" fill="#fff" text-anchor="middle">메서드 Pn</text>
+  <path d="M 220 330 L 300 330" class="arrow-bi"/>
+
+
+  <!-- Internals -->
+  <rect x="310" y="150" width="120" height="200" class="shared"/>
+  <text x="370" y="230" class="text" fill="#fff" text-anchor="middle">공유(Private)</text>
+  <text x="370" y="260" class="text" fill="#fff" text-anchor="middle">데이터</text>
+
+  <rect x="450" y="150" width="120" height="200" class="init"/>
+  <text x="510" y="230" class="text" fill="#fff" text-anchor="middle">초기화</text>
+  <text x="510" y="260" class="text" fill="#fff" text-anchor="middle">코드</text>
+
+  <!-- Wait Queue -->
+  <text x="750" y="200" class="text title" text-anchor="middle" fill="#0984e3">진입 준비 큐</text>
+  
+  <rect x="650" y="220" width="50" height="50" class="queue" fill="#74b9ff"/>
+  <path d="M 700 245 L 720 245" class="arrow" stroke="#0984e3"/>
+  
+  <rect x="730" y="220" width="50" height="50" class="queue" fill="#81ecec"/>
+  <path d="M 780 245 L 800 245" class="arrow" stroke="#0984e3"/>
+  
+  <rect x="810" y="220" width="50" height="50" class="queue" fill="#a29bfe"/>
+
+  <path d="M 640 245 L 610 245" class="arrow"/>
+  
+  <text x="750" y="310" class="text" text-anchor="middle">진입을 기다리는 프로세스들</text>
+
+</svg>

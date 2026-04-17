@@ -1,0 +1,65 @@
+<svg width="100%" height="450" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow-msg" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#FFF"/>
+    </marker>
+    <marker id="arrow-both" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 10 5 L 0 0 L 0 10 z" fill="#FFF"/>
+    </marker>
+    <marker id="arrow-start" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 5 L 10 0 L 10 10 z" fill="#FFF"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#1E1E1E" rx="10"/>
+
+  <!-- Backgrounds -->
+  <rect x="50" y="200" width="550" height="150" fill="#005A9E"/>
+  <rect x="50" y="360" width="550" height="50" fill="#20B2AA"/>
+  <text x="325" y="392" fill="white" font-size="24" font-weight="bold" font-family="sans-serif" text-anchor="middle">하드웨어</text>
+
+  <!-- User level -->
+  <rect x="70" y="50" width="120" height="60" fill="#DAA520"/>
+  <text x="130" y="85" fill="white" font-size="18" font-family="sans-serif" text-anchor="middle">응용 프로그램</text>
+  
+  <rect x="260" y="50" width="120" height="60" fill="#DAA520"/>
+  <text x="320" y="75" fill="white" font-size="18" font-family="sans-serif" text-anchor="middle">파일</text>
+  <text x="320" y="95" fill="white" font-size="18" font-family="sans-serif" text-anchor="middle">시스템</text>
+  
+  <rect x="450" y="50" width="120" height="60" fill="#DAA520"/>
+  <text x="510" y="75" fill="white" font-size="18" font-family="sans-serif" text-anchor="middle">장치</text>
+  <text x="510" y="95" fill="white" font-size="18" font-family="sans-serif" text-anchor="middle">드라이버</text>
+
+  <!-- Microkernel components -->
+  <ellipse cx="150" cy="250" rx="60" ry="35" fill="white"/>
+  <text x="150" y="245" fill="black" font-size="16" font-weight="bold" font-family="sans-serif" text-anchor="middle">프로세스간</text>
+  <text x="150" y="265" fill="black" font-size="16" font-weight="bold" font-family="sans-serif" text-anchor="middle">통신</text>
+
+  <ellipse cx="325" cy="250" rx="60" ry="35" fill="white"/>
+  <text x="325" y="245" fill="black" font-size="16" font-weight="bold" font-family="sans-serif" text-anchor="middle">메모리</text>
+  <text x="325" y="265" fill="black" font-size="16" font-weight="bold" font-family="sans-serif" text-anchor="middle">관리</text>
+
+  <ellipse cx="500" cy="250" rx="60" ry="35" fill="white"/>
+  <text x="500" y="245" fill="black" font-size="16" font-weight="bold" font-family="sans-serif" text-anchor="middle">CPU</text>
+  <text x="500" y="265" fill="black" font-size="16" font-weight="bold" font-family="sans-serif" text-anchor="middle">스케줄링</text>
+
+  <text x="325" y="330" fill="#FFD700" font-size="28" font-weight="bold" font-family="sans-serif" text-anchor="middle">마이크로커널</text>
+
+  <!-- Messages (dashed lines and arrows) -->
+  <path d="M 130 110 L 130 150 L 290 150 L 290 110" fill="none" stroke="#FFF" stroke-dasharray="5,5" stroke-width="2" marker-start="url(#arrow-start)" marker-end="url(#arrow-both)"/>
+  <path d="M 360 110 L 360 150 L 480 150 L 480 110" fill="none" stroke="#FFF" stroke-dasharray="5,5" stroke-width="2" marker-start="url(#arrow-start)" marker-end="url(#arrow-both)"/>
+  <text x="190" y="140" fill="white" font-size="18" font-weight="bold" font-family="sans-serif">메시지</text>
+  <text x="400" y="140" fill="white" font-size="18" font-weight="bold" font-family="sans-serif">메시지</text>
+
+  <!-- Hardware interaction arrows -->
+  <line x1="180" y1="350" x2="180" y2="295" stroke="#FFF" stroke-width="2" marker-end="url(#arrow-start)" marker-start="url(#arrow-both)"/>
+  <line x1="470" y1="350" x2="470" y2="295" stroke="#FFF" stroke-width="2" marker-end="url(#arrow-start)" marker-start="url(#arrow-both)"/>
+
+  <!-- Brackets for Mode Annotation -->
+  <path d="M 610 40 C 630 40, 630 80, 650 80 C 630 80, 630 120, 610 120" fill="none" stroke="#CCC" stroke-width="2"/>
+  <text x="660" y="86" fill="#FF6B6B" font-size="24" font-weight="bold" font-family="sans-serif">사용자 모드</text>
+
+  <path d="M 610 200 C 630 200, 630 275, 650 275 C 630 275, 630 350, 610 350" fill="none" stroke="#CCC" stroke-width="2"/>
+  <text x="660" y="283" fill="#FF6B6B" font-size="24" font-weight="bold" font-family="sans-serif">커널 모드</text>
+
+</svg>

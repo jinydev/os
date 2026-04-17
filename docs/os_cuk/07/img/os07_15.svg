@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --cpu: #3498db;
+        --io: #34495e;
+        --line: #7f8c8d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --cpu: #2980b9;
+          --io: #2c3e50;
+          --line: #b2bec3;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 18px; font-weight: bold; }
+      .desc { font-weight: normal; font-size: 16px; fill: var(--text); }
+      .title { font-size: 24px; }
+      .io-box { fill: var(--io); rx: 4; }
+      .cpu-ellipse { fill: var(--cpu); stroke: #fff; stroke-width: 2; }
+      .arrow { stroke: var(--cpu); stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--cpu)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text title" text-anchor="middle">CPU 버스트(Burst)와 입출력(I/O) 버스트의 교차</text>
+  <text x="500" y="70" class="text" text-anchor="middle" fill="#e74c3c">프로세스 코드는 CPU 버스트와 입출력 버스트의 연속으로 구성됨</text>
+
+  <!-- Left Side: Source Code Mockup -->
+  <text x="200" y="120" class="desc" text-anchor="middle">...</text>
+  <text x="200" y="140" class="desc" text-anchor="middle">load store</text>
+  <text x="200" y="160" class="desc" text-anchor="middle">add store</text>
+  <text x="200" y="180" class="desc" text-anchor="middle">read from file</text>
+
+  <!-- CPU Burst brace -->
+  <path d="M 280 120 Q 290 150 300 150 Q 290 150 280 180" stroke="var(--line)" stroke-width="2" fill="none"/>
+  <text x="320" y="155" class="text">CPU 버스트</text>
+
+  <rect x="100" y="200" width="200" height="30" class="io-box"/>
+  <text x="200" y="222" class="text" fill="#fff" text-anchor="middle">입출력 대기</text>
+
+  <!-- IO Burst brace -->
+  <path d="M 280 200 Q 290 215 300 215 Q 290 215 280 230" stroke="var(--line)" stroke-width="2" fill="none"/>
+  <text x="320" y="222" class="text">입출력 버스트</text>
+
+  <text x="200" y="260" class="desc" text-anchor="middle">store increment</text>
+  <text x="200" y="280" class="desc" text-anchor="middle">index</text>
+  <text x="200" y="300" class="desc" text-anchor="middle">write to file</text>
+
+  <!-- CPU Burst brace -->
+  <path d="M 280 240 Q 290 270 300 270 Q 290 270 280 300" stroke="var(--line)" stroke-width="2" fill="none"/>
+  <text x="320" y="275" class="text">CPU 버스트</text>
+
+  <rect x="100" y="320" width="200" height="30" class="io-box"/>
+  <text x="200" y="342" class="text" fill="#fff" text-anchor="middle">입출력 대기</text>
+
+  <!-- IO Burst brace -->
+  <path d="M 280 320 Q 290 335 300 335 Q 290 335 280 350" stroke="var(--line)" stroke-width="2" fill="none"/>
+  <text x="320" y="342" class="text">입출력 버스트</text>
+
+  <text x="200" y="380" class="desc" text-anchor="middle">load store</text>
+  <text x="200" y="400" class="desc" text-anchor="middle">add store</text>
+
+  <path d="M 280 360 Q 290 380 300 380 Q 290 380 280 410" stroke="var(--line)" stroke-width="2" fill="none"/>
+  <text x="320" y="385" class="text">CPU 버스트</text>
+
+  <rect x="100" y="430" width="200" height="30" class="io-box"/>
+  <text x="200" y="452" class="text" fill="#fff" text-anchor="middle">입출력 대기</text>
+
+
+  <!-- Global Brace -->
+  <path d="M 430 120 Q 450 250 460 250 Q 450 250 430 400" stroke="var(--line)" stroke-width="2" fill="none"/>
+
+  <!-- Right Side: State Machine Graph -->
+  <text x="650" y="120" class="text" text-anchor="middle">시작</text>
+  <text x="700" y="120" class="text" text-anchor="middle">종료</text>
+
+  <ellipse cx="675" cy="250" rx="80" ry="40" class="cpu-ellipse"/>
+  <text x="675" y="257" class="text" fill="#fff" text-anchor="middle" font-size="22">CPU 버스트</text>
+
+  <ellipse cx="675" cy="400" rx="80" ry="40" class="cpu-ellipse"/>
+  <text x="675" y="395" class="text" fill="#fff" text-anchor="middle" font-size="20">입출력</text>
+  <text x="675" y="420" class="text" fill="#fff" text-anchor="middle" font-size="20">버스트</text>
+
+  <!-- Cycle Arrows -->
+  <path d="M 650 130 L 650 200" class="arrow"/>
+  <path d="M 700 200 L 700 130" class="arrow"/>
+  
+  <path d="M 650 290 L 650 350" class="arrow"/>
+  <path d="M 700 350 L 700 290" class="arrow"/>
+
+</svg>

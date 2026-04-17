@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --box: #34495e;
+        --root: #8e44ad;
+        --dir: #3498db;
+        --file: #27ae60;
+        --link: #e74c3c;
+        --line: #7f8c8d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --box: #4a6278;
+          --root: #9b59b6;
+          --dir: #2980b9;
+          --file: #2ecc71;
+          --link: #ff7675;
+          --line: #95a5a6;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-weight: bold; font-size: 18px; }
+      .text-sm { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 14px; font-weight: normal; }
+      .title { font-size: 26px; }
+      .root-box { fill: var(--root); rx: 5; }
+      .dir-box { fill: var(--dir); rx: 5; }
+      .file-circle { fill: var(--file); }
+      .arrow { stroke: var(--line); stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .link-arrow { stroke: var(--link); stroke-width: 2; fill: none; stroke-dasharray: 5,5; marker-end: url(#arrowhead-link); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--line)"/>
+    </marker>
+    <marker id="arrowhead-link" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--link)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text title" text-anchor="middle">디렉터리 논리 모델 진화: 트리(Tree) vs 비순환 그래프(Acyclic Graph)</text>
+
+  <!-- Left: Tree Structure -->
+  <text x="250" y="100" class="text" text-anchor="middle">트리 (Tree) 계층 구조</text>
+  <text x="250" y="120" class="text-sm" text-anchor="middle">파일 공유가 불가능하며 복사본을 만들어야 함</text>
+
+  <rect x="200" y="150" width="100" height="30" class="root-box"/>
+  <text x="250" y="171" class="text" fill="#fff" text-anchor="middle">/ (Root)</text>
+
+  <rect x="120" y="230" width="80" height="30" class="dir-box"/>
+  <text x="160" y="251" class="text" fill="#fff" text-anchor="middle">User A</text>
+  
+  <rect x="290" y="230" width="80" height="30" class="dir-box"/>
+  <text x="330" y="251" class="text" fill="#fff" text-anchor="middle">User B</text>
+
+  <circle cx="120" cy="320" r="15" class="file-circle"/>
+  <circle cx="190" cy="320" r="15" class="file-circle"/>
+  
+  <circle cx="290" cy="320" r="15" class="file-circle"/>
+  <circle cx="360" cy="320" r="15" class="file-circle"/>
+
+  <text x="120" y="355" class="text-sm" text-anchor="middle">data.txt</text>
+  <text x="190" y="355" class="text-sm" text-anchor="middle">util.c</text>
+  <text x="290" y="355" class="text-sm" text-anchor="middle">data.txt</text> <!-- Explicit copy -->
+  <text x="360" y="355" class="text-sm" text-anchor="middle">main.c</text>
+
+  <path d="M 230 180 L 170 230" class="arrow"/>
+  <path d="M 270 180 L 320 230" class="arrow"/>
+  
+  <path d="M 150 260 L 125 305" class="arrow"/>
+  <path d="M 170 260 L 185 305" class="arrow"/>
+  
+  <path d="M 310 260 L 295 305" class="arrow"/>
+  <path d="M 350 260 L 355 305" class="arrow"/>
+
+
+  <!-- Divider -->
+  <line x1="500" y1="100" x2="500" y2="400" stroke="var(--line)" stroke-dasharray="10 10"/>
+
+
+  <!-- Right: Acyclic Graph -->
+  <text x="750" y="100" class="text" text-anchor="middle">비순환 그래프 (Acyclic Graph) 구조</text>
+  <text x="750" y="120" class="text-sm" text-anchor="middle">하드/소프트 링크를 통해 단일 파일을 다중 사용자가 완벽히 공유</text>
+
+  <rect x="700" y="150" width="100" height="30" class="root-box"/>
+  <text x="750" y="171" class="text" fill="#fff" text-anchor="middle">/ (Root)</text>
+
+  <rect x="620" y="230" width="80" height="30" class="dir-box"/>
+  <text x="660" y="251" class="text" fill="#fff" text-anchor="middle">User A</text>
+  
+  <rect x="790" y="230" width="80" height="30" class="dir-box"/>
+  <text x="830" y="251" class="text" fill="#fff" text-anchor="middle">User B</text>
+
+  <!-- Shared File -->
+  <circle cx="750" cy="350" r="18" class="file-circle"/>
+  <text x="750" y="390" class="text" text-anchor="middle">shared.c</text>
+
+  <circle cx="580" cy="350" r="15" class="file-circle"/>
+  <text x="580" y="390" class="text-sm" text-anchor="middle">data.c</text>
+
+  <path d="M 730 180 L 670 230" class="arrow"/>
+  <path d="M 770 180 L 820 230" class="arrow"/>
+
+  <path d="M 640 260 L 590 335" class="arrow"/>
+  
+  <!-- Direct sharing arrows -->
+  <path d="M 680 260 L 735 332" class="arrow"/>
+  
+  <!-- Link sharing arrow (Red) -->
+  <path d="M 810 260 Q 750 280 760 332" class="link-arrow"/>
+  <text x="830" y="310" class="text-sm" fill="var(--link)">소프트 링크 (바로가기)</text>
+
+</svg>

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --graph-bg: #ecf0f1;
+        --line-col: #e74c3c;
+        --grid: #bdc3c7;
+        --line: #7f8c8d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --graph-bg: #2c3e50;
+          --line-col: #ff7675;
+          --grid: #4a6278;
+          --line: #95a5a6;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-weight: bold; font-size: 20px; }
+      .text-sm { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; }
+      .title { font-size: 28px; }
+      .axis { stroke: var(--text); stroke-width: 3; fill: none; }
+      .grid-line { stroke: var(--grid); stroke-width: 1; stroke-dasharray: 4; }
+      .graph-line { stroke: var(--line-col); stroke-width: 5; fill: none; }
+      .dot { fill: var(--line-col); }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="50" class="text title" text-anchor="middle">스래싱 (Thrashing) 현상과 CPU 이용률</text>
+
+  <!-- Graph Area -->
+  <rect x="150" y="100" width="750" height="300" fill="var(--graph-bg)" rx="10"/>
+  
+  <!-- Axes -->
+  <path d="M 200 370 L 850 370" class="axis"/> <!-- X axis -->
+  <path d="M 200 370 L 200 120" class="axis"/> <!-- Y axis -->
+  <polygon points="850,365 860,370 850,375" fill="var(--text)"/>
+  <polygon points="195,120 200,110 205,120" fill="var(--text)"/>
+
+  <!-- Y Axis Label -->
+  <text x="140" y="250" class="text" text-anchor="middle" transform="rotate(-90, 140, 250)">CPU 이용률 (Utilization)</text>
+  
+  <!-- X Axis Label -->
+  <text x="525" y="420" class="text" text-anchor="middle">다중 프로그래밍의 정도 (Degree of Multiprogramming)</text>
+
+  <!-- Plotting the line -->
+  <path d="M 200 370 
+           Q 240 320 300 240 
+           Q 350 180 430 140
+           T 480 130
+           Q 520 130 550 160
+           Q 600 280 650 360
+           L 800 365" class="graph-line"/>
+           
+  <!-- Tipping Point Dot -->
+  <circle cx="480" cy="130" r="8" class="dot"/>
+  <polyline points="480,130 480,90 550,90" stroke="var(--text)" stroke-width="2" fill="none"/>
+  <text x="650" y="85" class="text" fill="var(--line-col)" text-anchor="middle">스래싱 시작 지점 (Thrashing Pivot)</text>
+
+  <!-- Explanation Texts inside graph -->
+  <text x="350" y="280" class="text-sm" text-anchor="middle" fill="var(--text)">프로그램을 띄울수록 효율성 증가</text>
+  
+  <text x="650" y="270" class="text" fill="var(--line-col)" text-anchor="middle">급격한 성능 저하!</text>
+  <text x="650" y="300" class="text-sm" text-anchor="middle" fill="var(--text)">CPU는 일 안하고 Page SWAP만 반복 발생</text>
+
+</svg>

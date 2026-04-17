@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .box { stroke: #cbd5e1; stroke-width: 2; rx: 4; }
+      .box-cmd { fill: #1e40af; stroke: #1e3a8a; } /* command mode */
+      .box-input { fill: #48a8a6; stroke: #0f766e; } /* input mode */
+      .box-line { fill: #48a8a6; stroke: #0f766e; } /* line command mode */
+      
+      .text-title { font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 700; fill: #0f172a; text-anchor: middle; }
+      .text-node { font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 600; fill: #ffffff; text-anchor: middle; }
+      .text-edge { font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; fill: #0f172a; }
+      
+      .arrow { fill: none; stroke: #64748b; stroke-width: 3; marker-end: url(#arrow-md); }
+      
+      @media (prefers-color-scheme: dark) {
+        .bg { fill: #0f172a; }
+        .text-title, .text-edge { fill: #f8fafc; }
+        .arrow { stroke: #94a3b8; }
+      }
+    </style>
+    <marker id="arrow-md" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="currentColor"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="100%" height="100%" />
+  
+  <text x="400" y="50" class="text-title">VIM (vi editor) 상태 전환도</text>
+
+  <!-- Nodes -->
+  <rect class="box box-input" x="300" y="100" width="200" height="50" />
+  <text x="400" y="133" class="text-node">입력 모드</text>
+
+  <rect class="box box-cmd" x="300" y="180" width="200" height="50" />
+  <text x="400" y="213" class="text-node">명령 모드</text>
+
+  <rect class="box box-line" x="300" y="260" width="200" height="50" />
+  <text x="400" y="293" class="text-node">라인 명령 모드</text>
+
+  <!-- Edges -->
+  <!-- Command -> Input -->
+  <path class="arrow" d="M 300 190 Q 250 150 300 130" />
+  <text x="260" y="150" class="text-edge" text-anchor="end">i 혹은 a 등</text>
+
+  <!-- Input -> Command -->
+  <path class="arrow" d="M 500 130 Q 550 150 500 190" />
+  <text x="530" y="165" class="text-edge">ESC</text>
+
+  <!-- Command -> Line Command -->
+  <path class="arrow" d="M 500 220 Q 550 250 500 280" />
+  <text x="530" y="260" class="text-edge">콜론 ( : )</text>
+
+  <!-- Line Command -> Command -->
+  <path class="arrow" d="M 300 280 Q 250 250 300 220" />
+  <text x="260" y="245" class="text-edge" text-anchor="end">ESC</text>
+  <text x="260" y="270" class="text-edge" text-anchor="end">혹은 ENTER</text>
+
+  <rect x="250" y="340" width="300" height="40" fill="#312e81" rx="4" />
+  <text x="400" y="366" font-family="Inter" font-weight="bold" font-size="16px" fill="#fde047" text-anchor="middle">vi editor 핵심 구조</text>
+
+</svg>

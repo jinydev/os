@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --hdr: #f39c12;
+        --box: #3498db;
+        --kernel: #e74c3c;
+        --line: #7f8c8d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --hdr: #f1c40f;
+          --box: #2980b9;
+          --kernel: #ff7675;
+          --line: #95a5a6;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-weight: bold; font-size: 20px; }
+      .title { font-size: 28px; }
+      .addr-box { fill: var(--bg); stroke: var(--text); stroke-width: 2; }
+      .box-hdr { fill: var(--hdr); }
+      .box-fill { fill: var(--box); }
+      .arrow { stroke: var(--line); stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--line)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="50" class="text title" text-anchor="middle">페이지화된 세그먼테이션 (Paged Segmentation)</text>
+  <text x="500" y="80" class="text" font-weight="normal" text-anchor="middle" font-size="16">논리적 보호망(세그먼트) + 물리적 외부단편화 해결(페이징) 의 장점 결합방식</text>
+
+  <!-- Logical Address Form -->
+  <text x="250" y="150" class="text" text-anchor="middle">CPU 논리 주소</text>
+  <rect x="100" y="170" width="300" height="40" class="addr-box"/>
+  <line x1="180" y1="170" x2="180" y2="210" stroke="var(--text)" stroke-width="2"/>
+  <line x1="280" y1="170" x2="280" y2="210" stroke="var(--text)" stroke-width="2"/>
+  <text x="140" y="196" class="text" text-anchor="middle">Seg#</text>
+  <text x="230" y="196" class="text" text-anchor="middle">Page#</text>
+  <text x="340" y="196" class="text" text-anchor="middle">Offset</text>
+
+  <!-- Segment Table -->
+  <text x="500" y="140" class="text" text-anchor="middle">Seg Table</text>
+  <rect x="450" y="150" width="100" height="30" class="box-hdr"/>
+  <text x="500" y="172" class="text" fill="#fff" text-anchor="middle">PT_Base</text>
+  <rect x="450" y="180" width="100" height="80" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/>
+  <rect x="450" y="200" width="100" height="20" class="box-fill"/>
+
+  <!-- Page Table -->
+  <text x="700" y="240" class="text" text-anchor="middle">Page Table (for Seg#)</text>
+  <rect x="650" y="250" width="100" height="30" class="box-hdr"/>
+  <text x="700" y="272" class="text" fill="#fff" text-anchor="middle">Frame#</text>
+  <rect x="650" y="280" width="100" height="80" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/>
+  <rect x="650" y="320" width="100" height="20" class="box-fill"/>
+
+  <!-- Physical Memory -->
+  <text x="250" y="300" class="text" text-anchor="middle">물리 메모리 (RAM)</text>
+  <rect x="200" y="320" width="120" height="120" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/>
+  <rect x="200" y="380" width="120" height="30" fill="#27ae60"/>
+  <text x="260" y="401" class="text" fill="#fff" text-anchor="middle">Frame</text>
+
+  <!-- Flow Arrows -->
+  <path d="M 140 210 L 140 240 L 440 240 M 440 210 L 450 210" class="arrow"/>
+  <path d="M 550 210 L 600 210 L 600 290 M 600 330 L 640 330" class="arrow"/>
+  
+  <path d="M 650 330 L 500 330 L 500 395 L 330 395" class="arrow"/>
+  <path d="M 340 210 L 340 380 L 330 380" class="arrow" stroke-dasharray="4"/>
+
+</svg>

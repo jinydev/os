@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --proc: #1abc9c;
+        --res: #2980b9;
+        --line: #34495e;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --proc: #16a085;
+          --res: #3498db;
+          --line: #95a5a6;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 20px; font-weight: bold; }
+      .desc { font-size: 18px; font-weight: normal; }
+      .proc { fill: var(--proc); stroke: var(--bg); stroke-width: 2; }
+      .res { fill: var(--res); stroke: var(--bg); stroke-width: 2; }
+      .dot { fill: #fff; }
+      .arrow { stroke: var(--line); stroke-width: 4; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--line)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text" text-anchor="middle" font-size="26">자원 할당 그래프 예와 프로세스 상태</text>
+
+  <!-- Resources -->
+  <!-- R1 -->
+  <rect x="250" y="100" width="80" height="80" class="res"/>
+  <text x="290" y="90" class="text" text-anchor="middle">R1</text>
+  <circle cx="290" cy="140" r="8" class="dot"/>
+
+  <!-- R3 -->
+  <rect x="450" y="100" width="80" height="80" class="res"/>
+  <text x="490" y="90" class="text" text-anchor="middle">R3</text>
+  <circle cx="490" cy="140" r="8" class="dot"/>
+
+  <!-- R2 -->
+  <rect x="250" y="320" width="80" height="80" class="res"/>
+  <text x="290" y="425" class="text" text-anchor="middle">R2</text>
+  <circle cx="290" cy="345" r="8" class="dot"/>
+  <circle cx="290" cy="375" r="8" class="dot"/>
+
+  <!-- R4 -->
+  <rect x="450" y="320" width="80" height="100" class="res"/>
+  <text x="490" y="445" class="text" text-anchor="middle">R4</text>
+  <circle cx="490" cy="345" r="8" class="dot"/>
+  <circle cx="490" cy="370" r="8" class="dot"/>
+  <circle cx="490" cy="395" r="8" class="dot"/>
+
+  <!-- Processes -->
+  <circle cx="150" cy="250" r="45" class="proc"/>
+  <text x="150" y="258" class="text" fill="#fff" text-anchor="middle">P1</text>
+
+  <circle cx="370" cy="250" r="45" class="proc"/>
+  <text x="370" y="258" class="text" fill="#fff" text-anchor="middle">P2</text>
+
+  <circle cx="590" cy="250" r="45" class="proc"/>
+  <text x="590" y="258" class="text" fill="#fff" text-anchor="middle">P3</text>
+
+  <!-- Edges -->
+  <!-- P1 -> R1 -->
+  <path d="M 185 220 L 250 160" class="arrow"/>
+  <!-- R1 -> P2 -->
+  <path d="M 330 160 L 345 210" class="arrow"/>
+  <!-- R2 -> P1 -->
+  <path d="M 250 340 L 180 285" class="arrow"/>
+  <!-- R2 -> P2 -->
+  <path d="M 330 340 L 345 290" class="arrow"/>
+  <!-- P2 -> R3 -->
+  <path d="M 395 215 L 450 160" class="arrow"/>
+  <!-- R3 -> P3 -->
+  <path d="M 530 160 L 565 215" class="arrow"/>
+
+
+  <!-- Legend Text -->
+  <text x="660" y="120" class="text">1. 시스템 구조</text>
+  <text x="680" y="150" class="desc">집합 P = {P1, P2, P3}</text>
+  <text x="680" y="180" class="desc">집합 R = {R1, R2, R3, R4}</text>
+
+  <text x="660" y="240" class="text">2. 프로세스의 상태</text>
+  <text x="680" y="270" class="desc">· 프로세스 P1은 R2 자원을 하나</text>
+  <text x="680" y="295" class="desc">  점유하고 R1을 기다린다.</text>
+  <text x="680" y="325" class="desc">· 프로세스 P2는 자원 R1과 R2를 각각</text>
+  <text x="680" y="350" class="desc">  점유하고 R3를 기다린다.</text>
+  <text x="680" y="380" class="desc">· 프로세스 P3은 자원 R3를 점유중이다.</text>
+
+</svg>

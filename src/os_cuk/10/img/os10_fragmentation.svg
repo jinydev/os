@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 450" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --mem: #bdc3c7;
+        --alloc: #3498db;
+        --frag: #e74c3c;
+        --line: #7f8c8d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --mem: #34495e;
+          --alloc: #2980b9;
+          --frag: #c0392b;
+          --line: #95a5a6;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-weight: bold; font-size: 20px; }
+      .text-sm { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; }
+      .title { font-size: 28px; }
+      .mem-block { fill: var(--mem); stroke: var(--bg); stroke-width: 2; }
+      .alloc-block { fill: var(--alloc); stroke: var(--bg); stroke-width: 2; }
+      .frag-block { fill: var(--frag); opacity: 0.8; stroke: var(--bg); stroke-width: 2; }
+      .arrow { stroke: var(--line); stroke-width: 3; stroke-dasharray: 5 5; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--line)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="50" class="text title" text-anchor="middle">메모리 단편화 (Memory Fragmentation)</text>
+
+  <!-- INTERNAL FRAGMENTATION -->
+  <text x="250" y="120" class="text" text-anchor="middle">내부 단편화 (고정 분할)</text>
+  <text x="250" y="150" class="text-sm" text-anchor="middle" font-weight="normal">할당된 블록 내부에 남는 잉여 공간</text>
+
+  <!-- Mem column 1 -->
+  <rect x="150" y="180" width="200" height="60" class="alloc-block"/>
+  <text x="250" y="215" class="text" fill="#fff" text-anchor="middle">프로세스 A (7K)</text>
+  
+  <rect x="150" y="240" width="200" height="40" class="alloc-block"/>
+  <rect x="150" y="280" width="200" height="20" class="frag-block"/> <!-- Internal Frag -->
+  <text x="250" y="265" class="text" fill="#fff" text-anchor="middle">프로세스 B (4K)</text>
+  <text x="250" y="295" class="text" fill="#fff" text-anchor="middle" font-size="14">내부 단편화 (2K)</text>
+
+  <rect x="150" y="300" width="200" height="60" class="alloc-block"/>
+  <text x="250" y="335" class="text" fill="#fff" text-anchor="middle">프로세스 C (7K)</text>
+  
+  <!-- Division Lines 6K blocks -->
+  <path d="M 130 180 L 370 180" stroke="var(--line)" stroke-width="2"/>
+  <path d="M 130 240 L 370 240" stroke="var(--line)" stroke-width="2"/>
+  <path d="M 130 300 L 370 300" stroke="var(--line)" stroke-width="2"/>
+  <text x="100" y="275" class="text" text-anchor="middle">6K 파티션</text>
+
+  <!-- EXTERNAL FRAGMENTATION -->
+  <text x="750" y="120" class="text" text-anchor="middle">외부 단편화 (가변 분할)</text>
+  <text x="750" y="150" class="text-sm" text-anchor="middle" font-weight="normal">총 빈 공간은 충분하나, 연속되지 않아 할당 불가</text>
+
+  <!-- Mem column 2 -->
+  <rect x="650" y="180" width="200" height="60" class="alloc-block"/>
+  <text x="750" y="215" class="text" fill="#fff" text-anchor="middle">프로세스 1 (6K)</text>
+
+  <rect x="650" y="240" width="200" height="30" class="frag-block"/> <!-- Free Space 1 -->
+  <text x="750" y="260" class="text" fill="#fff" text-anchor="middle" font-size="14">자투리 공간 (3K)</text>
+
+  <rect x="650" y="270" width="200" height="50" class="alloc-block"/>
+  <text x="750" y="305" class="text" fill="#fff" text-anchor="middle">프로세스 2 (5K)</text>
+
+  <rect x="650" y="320" width="200" height="40" class="frag-block"/> <!-- Free Space 2 -->
+  <text x="750" y="345" class="text" fill="#fff" text-anchor="middle" font-size="14">자투리 공간 (4K)</text>
+
+  <!-- New Process Trying to enter -->
+  <rect x="500" y="250" width="100" height="50" fill="var(--mmu)" rx="4"/>
+  <text x="550" y="275" class="text" fill="#fff" text-anchor="middle">새 프로세스</text>
+  <text x="550" y="295" class="text" fill="#fff" text-anchor="middle" font-size="14">(6K 대기)</text>
+  <path d="M 610 270 L 640 270" class="arrow"/>
+  
+  <text x="550" y="330" class="text" fill="var(--frag)" text-anchor="middle" font-size="16">총 7K가 남지만</text>
+  <text x="550" y="350" class="text" fill="var(--frag)" text-anchor="middle" font-size="16">연속되지 않아 진입 X</text>
+
+</svg>

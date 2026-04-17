@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 8; ry: 8; }
+      .box-cpu { fill: #f0fdf4; stroke: #22c55e; }
+      .box-mem { fill: #eff6ff; stroke: #3b82f6; }
+      .box-io { fill: #fef2f2; stroke: #ef4444; }
+      .text-title { font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 700; fill: #1e293b; }
+      .text-sub { font-family: 'Inter', sans-serif; font-size: 14px; fill: #475569; }
+      .text-box { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; fill: #1e293b; text-anchor: middle; }
+      .arrow { fill: none; stroke: #94a3b8; stroke-width: 2; marker-end: url(#arrowhead); }
+      .arrow-bidir { fill: none; stroke: #94a3b8; stroke-width: 2; marker-start: url(#arrowhead-rev); marker-end: url(#arrowhead); }
+      
+      @media (prefers-color-scheme: dark) {
+        .bg { fill: #0f172a; }
+        .box { fill: #1e293b; stroke: #334155; }
+        .box-cpu { fill: #14532d; stroke: #22c55e; }
+        .box-mem { fill: #1e3a8a; stroke: #3b82f6; }
+        .box-io { fill: #7f1d1d; stroke: #ef4444; }
+        .text-title { fill: #f8fafc; }
+        .text-sub { fill: #cbd5e1; }
+        .text-box { fill: #f8fafc; }
+        .arrow, .arrow-bidir { stroke: #64748b; }
+      }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="currentColor" class="text-sub"/>
+    </marker>
+    <marker id="arrowhead-rev" markerWidth="10" markerHeight="7" refX="1" refY="3.5" orient="auto">
+      <polygon points="10 0, 0 3.5, 10 7" fill="currentColor" class="text-sub"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="100%" height="100%" />
+  
+  <text x="400" y="40" class="text-title" text-anchor="middle">컴퓨터 시스템의 핵심 구성요소</text>
+  <text x="400" y="65" class="text-sub" text-anchor="middle">하드웨어 관점에서의 컴퓨터 아키텍처 (폰 노이만 구조)</text>
+
+  <!-- CPU Box -->
+  <rect class="box box-cpu" x="150" y="120" width="200" height="200" />
+  <text x="250" y="150" class="text-title" text-anchor="middle" fill="currentColor">CPU</text>
+  <text x="250" y="170" class="text-sub" text-anchor="middle" fill="currentColor">(중앙처리장치)</text>
+  
+  <rect class="box" x="170" y="190" width="160" height="35" />
+  <text x="250" y="213" class="text-box">제어장치 (CU)</text>
+  
+  <rect class="box" x="170" y="235" width="160" height="35" />
+  <text x="250" y="258" class="text-box">연산장치 (ALU)</text>
+  
+  <rect class="box" x="170" y="280" width="160" height="30" />
+  <text x="250" y="300" class="text-box" style="font-size: 14px;">레지스터 (Registers)</text>
+
+  <!-- Memory Box -->
+  <rect class="box box-mem" x="450" y="120" width="200" height="200" />
+  <text x="550" y="150" class="text-title" text-anchor="middle" fill="currentColor">Memory</text>
+  <text x="550" y="170" class="text-sub" text-anchor="middle" fill="currentColor">(메인 메모리)</text>
+
+  <rect class="box" x="470" y="190" width="160" height="120" />
+  <line x1="470" y1="220" x2="630" y2="220" stroke="#cbd5e1" stroke-width="1" />
+  <line x1="470" y1="250" x2="630" y2="250" stroke="#cbd5e1" stroke-width="1" />
+  <line x1="470" y1="280" x2="630" y2="280" stroke="#cbd5e1" stroke-width="1" />
+  <text x="550" y="245" class="text-box" style="font-size: 14px;">프로그램 (명령어)</text>
+  <text x="550" y="275" class="text-box" style="font-size: 14px;">데이터</text>
+
+  <!-- I/O Box -->
+  <rect class="box box-io" x="300" y="360" width="200" height="60" />
+  <text x="400" y="395" class="text-box">입출력 장치 (I/O)</text>
+
+  <!-- System Bus -->
+  <rect class="box" x="120" y="340" width="560" height="6" fill="#64748b" stroke="none" />
+  <!-- Bus lines -->
+  <line x1="250" y1="320" x2="250" y2="340" class="arrow-bidir" stroke-width="3" />
+  <line x1="550" y1="320" x2="550" y2="340" class="arrow-bidir" stroke-width="3" />
+  <line x1="400" y1="346" x2="400" y2="360" class="arrow-bidir" stroke-width="3" />
+  
+  <text x="400" y="330" class="text-sub" text-anchor="middle" font-weight="bold">시스템 버스 (System Bus)</text>
+
+</svg>

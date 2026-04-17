@@ -1,0 +1,51 @@
+<svg width="100%" height="300" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#FFF"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#1E1E1E" rx="10"/>
+
+  <!-- Core Timeline Lines -->
+  <line x1="50" y1="180" x2="750" y2="180" stroke="#0078D7" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="760" y="185" fill="#FFF" font-size="16" font-family="sans-serif">Windows NT 커널 (통합)</text>
+
+  <line x1="50" y1="80" x2="400" y2="80" stroke="#FF6B6B" stroke-width="4"/>
+  <text x="410" y="85" fill="#FFF" font-size="16" font-family="sans-serif">MS-DOS 커널 (Consumer)</text>
+  
+  <path d="M 400 80 Q 450 80, 480 180" fill="none" stroke="#FF6B6B" stroke-width="4" stroke-dasharray="5,5" marker-end="url(#arrow)"/>
+  
+  <!-- Windows 1.0 (1985) -->
+  <circle cx="100" cy="80" r="8" fill="#FF8C00"/>
+  <text x="100" y="60" fill="white" font-size="16" font-weight="bold" font-family="sans-serif" text-anchor="middle">Win 1.0</text>
+  <text x="100" y="105" fill="#CCC" font-size="14" font-family="sans-serif" text-anchor="middle">1985</text>
+
+  <!-- Windows 95 (1995) -->
+  <circle cx="280" cy="80" r="8" fill="#FF8C00"/>
+  <text x="280" y="60" fill="white" font-size="16" font-weight="bold" font-family="sans-serif" text-anchor="middle">Win 95</text>
+  <text x="280" y="105" fill="#CCC" font-size="14" font-family="sans-serif" text-anchor="middle">1995</text>
+
+  <!-- Windows NT 3.1 (1993) -->
+  <circle cx="240" cy="180" r="8" fill="#005A9E"/>
+  <text x="240" y="210" fill="white" font-size="16" font-weight="bold" font-family="sans-serif" text-anchor="middle">NT 3.1</text>
+  <text x="240" y="235" fill="#CCC" font-size="14" font-family="sans-serif" text-anchor="middle">1993</text>
+
+  <!-- Windows XP (2001) - Merge -->
+  <circle cx="480" cy="180" r="10" fill="#20B2AA"/>
+  <text x="480" y="210" fill="white" font-size="18" font-weight="bold" font-family="sans-serif" text-anchor="middle">Win XP</text>
+  <text x="480" y="235" fill="#CCC" font-size="14" font-family="sans-serif" text-anchor="middle">2001 (통합)</text>
+
+  <!-- Windows 7 (2009) -->
+  <circle cx="600" cy="180" r="8" fill="#005A9E"/>
+  <text x="600" y="210" fill="white" font-size="16" font-weight="bold" font-family="sans-serif" text-anchor="middle">Win 7</text>
+  <text x="600" y="235" fill="#CCC" font-size="14" font-family="sans-serif" text-anchor="middle">2009</text>
+
+  <!-- Windows 10/11 (2015+) -->
+  <circle cx="700" cy="180" r="8" fill="#005A9E"/>
+  <text x="700" y="210" fill="white" font-size="16" font-weight="bold" font-family="sans-serif" text-anchor="middle">Win 10/11</text>
+  <text x="700" y="235" fill="#CCC" font-size="14" font-family="sans-serif" text-anchor="middle">2015~</text>
+
+  <rect x="50" y="10" width="160" height="30" fill="#333" rx="5"/>
+  <text x="130" y="32" fill="white" font-size="18" font-weight="bold" font-family="sans-serif" text-anchor="middle">윈도우의 역사</text>
+</svg>

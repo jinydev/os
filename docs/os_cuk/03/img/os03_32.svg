@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" fill="none">
+    <defs>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap');
+            text { font-family: 'Inter', sans-serif; }
+            .pill { rx: 35; stroke-width: 4; }
+        </style>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#0F172A"/>
+            <stop offset="100%" stop-color="#1E293B"/>
+        </linearGradient>
+        <marker id="arrowB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#3B82F6"/>
+        </marker>
+    </defs>
+    <rect width="900" height="500" rx="20" fill="url(#bg)"/>
+    <text x="450" y="50" fill="#F8FAFC" font-size="28" font-weight="800" text-anchor="middle">프로세스 종료 및 생태계 시스템 콜</text>
+
+    <!-- Processes -->
+    <!-- Parent fork -->
+    <rect x="150" y="150" width="160" height="70" fill="#1E3A8A" stroke="#3B82F6" class="pill"/>
+    <text x="230" y="192" fill="#DBEAFE" font-size="22" font-weight="800" text-anchor="middle">fork()</text>
+    
+    <!-- Child exec -->
+    <rect x="350" y="270" width="160" height="70" fill="#0C4A6E" stroke="#0EA5E9" class="pill"/>
+    <text x="430" y="312" fill="#BAE6FD" font-size="22" font-weight="800" text-anchor="middle">exec()</text>
+
+    <!-- Child exit -->
+    <rect x="580" y="270" width="160" height="70" fill="#4C1D95" stroke="#8B5CF6" class="pill"/>
+    <text x="660" y="312" fill="#EDE9FE" font-size="22" font-weight="800" text-anchor="middle">exit()</text>
+
+    <!-- Parent wait -->
+    <rect x="580" y="100" width="160" height="70" fill="#1E3A8A" stroke="#3B82F6" class="pill"/>
+    <text x="660" y="142" fill="#DBEAFE" font-size="22" font-weight="800" text-anchor="middle">wait()</text>
+
+    <!-- Flow lines -->
+    <!-- Parent fork to wait -->
+    <path d="M 280 150 Q 430 135 570 135" stroke="#3B82F6" stroke-width="4" fill="none" marker-end="url(#arrowB)"/>
+    <text x="410" y="125" fill="#93C5FD" font-size="18" font-weight="600" text-anchor="middle">부모 프로세스</text>
+
+    <path d="M 740 135 L 790 135" stroke="#3B82F6" stroke-width="4" fill="none" marker-end="url(#arrowB)"/>
+    <text x="765" y="125" fill="#93C5FD" font-size="18" font-weight="600" text-anchor="middle">재개</text>
+
+    <!-- Fork to exec -->
+    <path d="M 200 220 Q 230 305 340 305" stroke="#0EA5E9" stroke-width="4" fill="none" marker-end="url(#arrowB)"/>
+    <text x="270" y="280" fill="#38BDF8" font-size="18" font-weight="600" text-anchor="middle">자식</text>
+    
+    <!-- Exec to exit -->
+    <path d="M 510 305 L 570 305" stroke="#0EA5E9" stroke-width="4" fill="none" marker-end="url(#arrowB)"/>
+
+    <!-- Exit to wait -->
+    <path d="M 660 270 L 660 180" stroke="#8B5CF6" stroke-width="4" fill="none" marker-end="url(#arrowB)"/>
+    <text x="670" y="230" fill="#A78BFA" font-size="16" font-weight="600" text-anchor="start">종료 코드 전달</text>
+    <text x="670" y="250" fill="#A78BFA" font-size="14" font-weight="400" text-anchor="start">(Zombie 방지)</text>
+
+</svg>

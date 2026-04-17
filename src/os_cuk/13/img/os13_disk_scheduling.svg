@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --sstf: #e74c3c;
+        --scan: #3498db;
+        --cscan: #9b59b6;
+        --grid: #bdc3c7;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --sstf: #ff7675;
+          --scan: #2980b9;
+          --cscan: #8e44ad;
+          --grid: #4a6278;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-weight: bold; font-size: 16px; }
+      .text-sm { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 14px; font-weight: normal; }
+      .title { font-size: 26px; }
+      .grid-line { stroke: var(--grid); stroke-width: 1; stroke-dasharray: 4; }
+      .axis { stroke: var(--text); stroke-width: 2; }
+      .line-sstf { stroke: var(--sstf); stroke-width: 3; fill: none; marker-end: url(#arrow-sstf); }
+      .line-scan { stroke: var(--scan); stroke-width: 4; fill: none; marker-end: url(#arrow-scan); opacity: 0.8; }
+      .line-cscan { stroke: var(--cscan); stroke-width: 3; fill: none; stroke-dasharray: 10,5; marker-end: url(#arrow-cscan); opacity: 0.9; }
+      
+      .dot-sstf { fill: var(--sstf); }
+      .dot-scan { fill: var(--scan); }
+      .dot-cscan { fill: var(--cscan); }
+    </style>
+    <!-- Markers -->
+    <marker id="arrow-sstf" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+      <polygon points="0 0, 6 2, 0 4" fill="var(--sstf)"/>
+    </marker>
+    <marker id="arrow-scan" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+      <polygon points="0 0, 6 2, 0 4" fill="var(--scan)"/>
+    </marker>
+    <marker id="arrow-cscan" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+      <polygon points="0 0, 6 2, 0 4" fill="var(--cscan)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text title" text-anchor="middle">디스크 헤드 스케줄링 궤적 비교 (Disk Scheduling)</text>
+  <text x="500" y="70" class="text-sm" text-anchor="middle">요청 큐: 98, 183, 37, 122, 14, 124, 65, 67 | 초기 위치: 53</text>
+
+  <!-- Graph Area Base: X=100~900(Tracks 0~199), Y=120~400(Time) -->
+  <!-- X Scale -->
+  <line x1="100" y1="120" x2="900" y2="120" class="axis"/>
+  <!-- Y Scale -->
+  <line x1="100" y1="120" x2="100" y2="400" class="axis"/>
+  <text x="80" y="270" class="text" transform="rotate(-90, 80, 270)" text-anchor="middle">시간 (Time)</text>
+  <text x="500" y="110" class="text" text-anchor="middle">트랙 번호 (Cylinder 0 ~ 199)</text>
+
+  <!-- Vertical grid lines for requests + labels -->
+  <!-- 0, 14, 37, 53, 65, 67, 98, 122, 124, 183, 199 -->
+  <!-- Let's map roughly: Track 0 = 100, Track 199 = 900 (span 800, so 1 track = ~4px) -->
+  <g>
+    <text x="100" y="95" class="text-sm" text-anchor="middle">0</text>
+    <line x1="100" y1="120" x2="100" y2="400" class="grid-line"/>
+
+    <text x="156" y="95" class="text-sm" text-anchor="middle">14</text>
+    <line x1="156" y1="120" x2="156" y2="400" class="grid-line"/>
+    
+    <text x="248" y="95" class="text-sm" text-anchor="middle">37</text>
+    <line x1="248" y1="120" x2="248" y2="400" class="grid-line"/>
+    
+    <text x="312" y="95" class="text" fill="var(--text)" text-anchor="middle">53</text>
+    <line x1="312" y1="120" x2="312" y2="400" class="axis" stroke-width="2"/> <!-- Start -->
+
+    <text x="360" y="95" class="text-sm" text-anchor="middle">65</text>
+    <line x1="360" y1="120" x2="360" y2="400" class="grid-line"/>
+    
+    <text x="368" y="70" class="text-sm" text-anchor="middle">67</text>
+    <line x1="368" y1="120" x2="368" y2="400" class="grid-line"/>
+
+    <text x="492" y="95" class="text-sm" text-anchor="middle">98</text>
+    <line x1="492" y1="120" x2="492" y2="400" class="grid-line"/>
+
+    <text x="588" y="95" class="text-sm" text-anchor="middle">122</text>
+    <line x1="588" y1="120" x2="588" y2="400" class="grid-line"/>
+
+    <text x="596" y="70" class="text-sm" text-anchor="middle">124</text>
+    <line x1="596" y1="120" x2="596" y2="400" class="grid-line"/>
+
+    <text x="832" y="95" class="text-sm" text-anchor="middle">183</text>
+    <line x1="832" y1="120" x2="832" y2="400" class="grid-line"/>
+
+    <text x="900" y="95" class="text-sm" text-anchor="middle">199</text>
+    <line x1="900" y1="120" x2="900" y2="400" class="grid-line"/>
+  </g>
+
+  <!-- Plotting SSTF (Red) -->
+  <!-- 53 -> 65 -> 67 -> 37 -> 14 -> 98 -> 122 -> 124 -> 183 -->
+  <path d="M 312 120 L 360 140 L 368 150 L 248 180 L 156 210 L 492 270 L 588 300 L 596 310 L 832 370" class="line-sstf"/>
+  <circle cx="360" cy="140" r="4" class="dot-sstf"/>
+  <circle cx="368" cy="150" r="4" class="dot-sstf"/>
+  <circle cx="248" cy="180" r="4" class="dot-sstf"/>
+  <circle cx="156" cy="210" r="4" class="dot-sstf"/>
+  <circle cx="492" cy="270" r="4" class="dot-sstf"/>
+  <circle cx="588" cy="300" r="4" class="dot-sstf"/>
+  <circle cx="596" cy="310" r="4" class="dot-sstf"/>
+  <circle cx="832" cy="370" r="4" class="dot-sstf"/>
+
+  <!-- Plotting SCAN (Blue) -->
+  <!-- 53 -> 37 -> 14 -> 0(wall) -> 65 -> 67 -> 98 -> 122 -> 124 -> 183 -->
+  <!-- Let's offset time (Y axis) slightly to not perfectly overlap -->
+  <path d="M 312 120 L 248 145 L 156 165 L 100 200 L 360 250 L 368 255 L 492 285 L 588 320 L 596 325 L 832 385" class="line-scan"/>
+  <circle cx="100" cy="200" r="4" class="dot-scan"/>
+  <text x="120" y="215" class="text-sm" fill="var(--scan)">0 (벽면 반사)</text>
+
+  <!-- Plotting C-SCAN (Purple) -->
+  <!-- Assuming going UP: 53 -> 65 -> 67 -> 98 -> 122 -> 124 -> 183 -> 199(wall jump to 0) -> 14 -> 37 -->
+  <path d="M 312 120 L 360 130 L 368 135 L 492 165 L 588 185 L 596 190 L 832 230 L 900 250 L 100 280 L 156 320 L 248 370" class="line-cscan"/>
+  <text x="450" y="275" class="text-sm" fill="var(--cscan)">Jump (Circular)</text>
+
+
+  <!-- Legends Base Box -->
+  <rect x="150" y="420" width="700" height="70" fill="transparent" stroke="var(--line)" stroke-width="2" rx="5"/>
+  
+  <line x1="170" y1="440" x2="210" y2="440" class="line-sstf"/>
+  <text x="220" y="445" class="text" fill="var(--sstf)">SSTF</text>
+  <text x="220" y="465" class="text-sm">근처 요청부터 우선 처리(단기 고효율, 기아 부작용)</text>
+
+  <line x1="450" y1="440" x2="490" y2="440" class="line-scan"/>
+  <text x="500" y="445" class="text" fill="var(--scan)">SCAN</text>
+  <text x="500" y="465" class="text-sm">엘리베이터처럼 양끝벽을 치고 방향을 바꿈</text>
+
+  <line x1="720" y1="440" x2="760" y2="440" class="line-cscan"/>
+  <text x="770" y="445" class="text" fill="var(--cscan)">C-SCAN</text>
+  <text x="770" y="465" class="text-sm">단방향 회전. 끝도달 시 맨 처음으로 텔레포트</text>
+
+</svg>

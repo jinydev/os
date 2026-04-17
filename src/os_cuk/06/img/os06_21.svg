@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --proc: #1abc9c;
+        --res: #2980b9;
+        --line: #34495e;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --proc: #16a085;
+          --res: #3498db;
+          --line: #95a5a6;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 24px; font-weight: bold; }
+      .desc { font-size: 20px; font-weight: normal; }
+      .proc { fill: var(--proc); stroke: var(--bg); stroke-width: 2; }
+      .res { fill: var(--res); stroke: var(--bg); stroke-width: 2; }
+      .arrow { stroke: var(--line); stroke-width: 4; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--line)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text" text-anchor="middle" font-size="28">자원 할당 그래프 (요청선과 할당선)</text>
+
+  <!-- Left Side: Request Edge -->
+  <circle cx="200" cy="150" r="50" class="proc"/>
+  <text x="200" y="158" class="text" fill="#fff" text-anchor="middle">Pi</text>
+
+  <rect x="400" y="110" width="100" height="80" class="res"/>
+  <text x="450" y="158" class="text" fill="#fff" text-anchor="middle">Rj</text>
+
+  <path d="M 250 150 L 390 150" class="arrow"/>
+  <text x="325" y="130" class="text" text-anchor="middle">요청선 (Request)</text>
+  <text x="325" y="240" class="text desc" text-anchor="middle">프로세스 Pi가 자원 Rj를 요청: Pi → Rj</text>
+
+  <!-- Divider -->
+  <path d="M 500 80 L 500 260" stroke="var(--line)" stroke-width="2" stroke-dasharray="10 10"/>
+
+  <!-- Right Side: Assignment Edge -->
+  <rect x="550" y="110" width="100" height="80" class="res"/>
+  <text x="600" y="158" class="text" fill="#fff" text-anchor="middle">Rj</text>
+
+  <circle cx="800" cy="150" r="50" class="proc"/>
+  <text x="800" y="158" class="text" fill="#fff" text-anchor="middle">Pi</text>
+
+  <path d="M 650 150 L 740 150" class="arrow"/>
+  <text x="695" y="130" class="text" text-anchor="middle">할당선 (Assignment)</text>
+  <text x="695" y="240" class="text desc" text-anchor="middle">자원 Rj를 프로세스 Pi에 할당: Rj → Pi</text>
+
+</svg>

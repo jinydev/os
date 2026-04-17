@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" fill="none">
+    <defs>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap');
+            text { font-family: 'Inter', sans-serif; }
+            .node { rx: 45; stroke-width: 4; }
+        </style>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#0F172A"/>
+            <stop offset="100%" stop-color="#1E293B"/>
+        </linearGradient>
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#94A3B8"/>
+        </marker>
+    </defs>
+    <rect width="900" height="600" rx="20" fill="url(#bg)"/>
+    <text x="450" y="50" fill="#F8FAFC" font-size="28" font-weight="800" text-anchor="middle">중단(Suspend)을 추가한 7상태 변화 모델</text>
+
+    <!-- BG Blocks -->
+    <rect x="50" y="80" width="220" height="480" fill="#0F172A" rx="12" stroke="#334155" stroke-width="2"/>
+    <text x="160" y="120" fill="#94A3B8" font-size="20" font-weight="800" text-anchor="middle">중단 상태 (디스크 환입)</text>
+
+    <rect x="300" y="80" width="550" height="480" fill="#1E293B" rx="12" stroke="#334155" stroke-width="2"/>
+    <text x="575" y="120" fill="#94A3B8" font-size="20" font-weight="800" text-anchor="middle">활동 상태 (메모리 로드)</text>
+
+    <!-- NEW -->
+    <g transform="translate(350, 140)">
+        <rect width="100" height="100" rx="50" fill="#0EA5E9" fill-opacity="0.2" stroke="#38BDF8" stroke-width="4"/>
+        <text x="50" y="57" fill="#E0F2FE" font-size="20" font-weight="800" text-anchor="middle">생성</text>
+    </g>
+
+    <!-- READY -->
+    <g transform="translate(350, 270)">
+        <rect width="100" height="100" rx="50" fill="#3B82F6" fill-opacity="0.4" stroke="#60A5FA" stroke-width="4"/>
+        <text x="50" y="57" fill="#EFF6FF" font-size="20" font-weight="800" text-anchor="middle">준비</text>
+    </g>
+
+    <!-- RUNNING -->
+    <g transform="translate(560, 270)">
+        <rect width="100" height="100" rx="50" fill="#10B981" fill-opacity="0.4" stroke="#34D399" stroke-width="4"/>
+        <text x="50" y="57" fill="#ECFDF5" font-size="20" font-weight="800" text-anchor="middle">실행</text>
+    </g>
+
+    <!-- WAIT -->
+    <g transform="translate(350, 420)">
+        <rect width="100" height="100" rx="50" fill="#F59E0B" fill-opacity="0.4" stroke="#FBBF24" stroke-width="4"/>
+        <text x="50" y="57" fill="#FFFBEB" font-size="20" font-weight="800" text-anchor="middle">대기</text>
+    </g>
+
+    <!-- TERMINATED -->
+    <g transform="translate(720, 270)">
+        <rect width="100" height="100" rx="50" fill="#64748B" fill-opacity="0.4" stroke="#94A3B8" stroke-width="4"/>
+        <text x="50" y="57" fill="#F8FAFC" font-size="20" font-weight="800" text-anchor="middle">종료</text>
+    </g>
+
+    <!-- SUSPEND READY -->
+    <g transform="translate(100, 270)">
+        <rect width="120" height="100" rx="40" fill="#4C1D95" fill-opacity="0.4" stroke="#8B5CF6" stroke-width="4"/>
+        <text x="60" y="47" fill="#EDE9FE" font-size="18" font-weight="800" text-anchor="middle">중단된</text>
+        <text x="60" y="70" fill="#EDE9FE" font-size="18" font-weight="800" text-anchor="middle">준비</text>
+    </g>
+
+    <!-- SUSPEND WAIT -->
+    <g transform="translate(100, 420)">
+        <rect width="120" height="100" rx="40" fill="#831843" fill-opacity="0.4" stroke="#E11D48" stroke-width="4"/>
+        <text x="60" y="47" fill="#FFE4E6" font-size="18" font-weight="800" text-anchor="middle">중단된</text>
+        <text x="60" y="70" fill="#FFE4E6" font-size="18" font-weight="800" text-anchor="middle">대기</text>
+    </g>
+
+    <!-- Edges -->
+    <path d="M 390 240 L 400 270" stroke="#94A3B8" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M 450 300 L 550 300" stroke="#94A3B8" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="500" y="290" fill="#E2E8F0" font-size="16" font-weight="800" text-anchor="middle">디스패치</text>
+    
+    <path d="M 550 330 L 450 330" stroke="#94A3B8" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="500" y="350" fill="#E2E8F0" font-size="16" font-weight="800" text-anchor="middle">시간종료</text>
+    
+    <path d="M 660 320 L 710 320" stroke="#94A3B8" stroke-width="3" marker-end="url(#arrow)"/>
+    
+    <path d="M 620 370 L 440 450" stroke="#94A3B8" stroke-width="3" marker-end="url(#arrow)"/>
+    
+    <path d="M 400 420 L 400 370" stroke="#94A3B8" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="410" y="400" fill="#E2E8F0" font-size="14" font-weight="600">이벤트 완료</text>
+
+    <!-- Suspend Lines -->
+    <path d="M 350 310 L 230 310" stroke="#A78BFA" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="290" y="300" fill="#C4B5FD" font-size="16" font-weight="800" text-anchor="middle">중단 (Swap-out)</text>
+
+    <path d="M 230 340 L 350 340" stroke="#F87171" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="290" y="360" fill="#FCA5A5" font-size="16" font-weight="800" text-anchor="middle">재시작 (Swap-in)</text>
+
+    <path d="M 350 450 L 230 450" stroke="#A78BFA" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="290" y="440" fill="#C4B5FD" font-size="16" font-weight="800" text-anchor="middle">중단</text>
+
+    <path d="M 230 480 L 350 480" stroke="#F87171" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="290" y="500" fill="#FCA5A5" font-size="16" font-weight="800" text-anchor="middle">재시작</text>
+
+    <path d="M 160 410 L 160 380" stroke="#94A3B8" stroke-width="3" marker-end="url(#arrow)"/>
+    
+</svg>

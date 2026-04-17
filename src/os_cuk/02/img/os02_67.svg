@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 350" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .box { stroke: #cbd5e1; stroke-width: 2; rx: 4; }
+      .box-in { fill: #14b8a6; stroke: #0f766e; }
+      .box-ld { fill: #475569; stroke: #334155; }
+      .box-out { fill: #0284c7; stroke: #0369a1; }
+      
+      .text-title { font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 700; fill: #0f172a; }
+      .text-node { font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; fill: #ffffff; text-anchor: middle; }
+      .text-desc { font-family: 'Inter', sans-serif; font-size: 16px; fill: #0f172a; }
+      .arrow { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#arrow-md); }
+      
+      @media (prefers-color-scheme: dark) {
+        .bg { fill: #0f172a; }
+        .text-title { fill: #f8fafc; }
+        .text-desc { fill: #cbd5e1; }
+        .arrow { stroke: #94a3b8; }
+      }
+    </style>
+    <marker id="arrow-md" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="currentColor"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="100%" height="100%" />
+
+  <!-- Title -->
+  <text x="50" y="50" class="text-title">4. 링크 (link) 단계</text>
+
+  <!-- Descriptions -->
+  <circle cx="60" cy="110" r="4" fill="#3b82f6" />
+  <text x="80" y="115" class="text-desc">라이브러리 함수 및 다른 목적 파일에 있는 심볼들을 통합하여 실행파일을 생성</text>
+
+  <!-- Flow -->
+  <rect class="box box-in" x="100" y="180" width="200" height="80" />
+  <text x="200" y="215" class="text-node">오브젝트 파일</text>
+  <text x="200" y="240" class="text-node">File.o</text>
+
+  <!-- Library -->
+  <rect class="box" fill="#94a3b8" x="250" y="280" width="120" height="40" />
+  <text x="310" y="305" class="text-node" style="font-size: 14px;">표준 라이브러리</text>
+  <path class="arrow" d="M 310 280 L 310 240 L 350 240" />
+
+  <path class="arrow" d="M 300 200 L 350 200" />
+
+  <rect class="box box-ld" x="350" y="180" width="150" height="80" />
+  <text x="425" y="215" class="text-node">링커</text>
+  <text x="425" y="240" class="text-node">ld</text>
+
+  <path class="arrow" d="M 500 220 L 550 220" />
+
+  <rect class="box box-out" x="550" y="180" width="180" height="80" />
+  <text x="640" y="225" class="text-node" style="font-size: 20px;">실행파일</text>
+
+</svg>

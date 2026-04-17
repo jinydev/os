@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --box: #ecf0f1;
+        --box-bg: #dfe6e9;
+        --hl: #e74c3c;
+        --sub: #3498db;
+        --line: #2d3436;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --box: #2d3436;
+          --box-bg: #636e72;
+          --hl: #ff7675;
+          --sub: #74b9ff;
+          --line: #dfe6e9;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'JetBrains Mono', monospace, sans-serif; font-size: 18px; }
+      .title { font-family: 'Inter', sans-serif; font-size: 24px; font-weight: bold; }
+      .box { fill: var(--box); stroke: var(--line); stroke-width: 2; }
+      .box-hl { fill: var(--box-bg); stroke: var(--line); stroke-width: 2; }
+      .arrow { stroke: var(--hl); stroke-width: 4; fill: none; marker-end: url(#arrowhead); }
+      .brace { stroke: var(--line); stroke-width: 3; fill: none; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--hl)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text title" text-anchor="middle">병행 프로세스의 어셈블리 명령어 교차 실행 (Interleaving) 오류</text>
+
+  <!-- Process A -->
+  <rect x="50" y="80" width="250" height="250" class="box"/>
+  <rect x="50" y="160" width="250" height="90" class="box-hl"/>
+  <text x="175" y="120" class="text" text-anchor="middle">...</text>
+  <text x="175" y="180" class="text" text-anchor="middle">Load RegA, Data</text>
+  <text x="175" y="210" class="text" text-anchor="middle">Add RegA, 1</text>
+  <text x="175" y="240" class="text" text-anchor="middle">Store RegA, Data</text>
+  <text x="175" y="300" class="text" text-anchor="middle">...</text>
+  <text x="175" y="360" class="text title" font-size="20" text-anchor="middle">Process A</text>
+
+  <!-- Process B -->
+  <rect x="700" y="80" width="250" height="250" class="box"/>
+  <rect x="700" y="160" width="250" height="90" class="box-hl"/>
+  <text x="825" y="120" class="text" text-anchor="middle">...</text>
+  <text x="825" y="180" class="text" text-anchor="middle">Load RegB, Data</text>
+  <text x="825" y="210" class="text" text-anchor="middle">Add RegB, 1</text>
+  <text x="825" y="240" class="text" text-anchor="middle">Store RegB, Data</text>
+  <text x="825" y="300" class="text" text-anchor="middle">...</text>
+  <text x="825" y="360" class="text title" font-size="20" text-anchor="middle">Process B</text>
+
+  <!-- Memory -->
+  <rect x="400" y="80" width="200" height="250" class="box"/>
+  <rect x="400" y="180" width="200" height="50" fill="#a29bfe" stroke="var(--line)" stroke-width="2"/>
+  <text x="500" y="210" class="text" font-weight="bold" fill="#fff" text-anchor="middle">Data = 0</text>
+  <text x="500" y="360" class="text title" font-size="20" text-anchor="middle">Shared Memory</text>
+
+  <!-- Pointers -->
+  <path class="brace" d="M 310 160 C 330 160 330 205 340 205 C 330 205 330 250 310 250"/>
+  <path class="arrow" d="M 350 205 L 390 205"/>
+
+  <path class="brace" d="M 690 160 C 670 160 670 205 660 205 C 670 205 670 250 690 250"/>
+  <path class="arrow" d="M 650 205 L 610 205"/>
+
+  <!-- Legend -->
+  <text x="500" y="420" class="text" text-anchor="middle" fill="var(--sub)">순서 1 (정상): A(Load, Add, Store) -> B(Load, Add, Store) = 결과 Data 2</text>
+  <text x="500" y="450" class="text" text-anchor="middle" fill="var(--hl)">순서 2 (경쟁): A(Load, Add) -> B(Load, Add) -> A(Store) -> B(Store) = 결과 Data 1</text>
+
+</svg>

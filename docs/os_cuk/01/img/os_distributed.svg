@@ -1,0 +1,47 @@
+<svg width="100%" height="300" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow-both" viewBox="0 0 20 20" refX="10" refY="10" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 5 0 L 15 10 L 5 20 z" fill="#55A"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#1E1E1E" rx="10"/>
+
+  <!-- Cloud -->
+  <path d="M 250 150 C 250 100, 300 80, 350 100 C 380 60, 480 60, 500 100 C 560 100, 560 180, 500 200 C 480 250, 350 250, 300 220 C 240 220, 220 180, 250 150 Z" fill="#87CEEB" opacity="0.8"/>
+  <text x="405" y="165" fill="#FFF" font-size="28" font-weight="bold" font-family="sans-serif" text-anchor="middle" letter-spacing="2">LAN</text>
+
+  <!-- Connectors -->
+  <line x1="330" y1="120" x2="280" y2="80" stroke="#87CEEB" stroke-dasharray="5,5" stroke-width="2"/>
+  <line x1="420" y1="90" x2="420" y2="50" stroke="#87CEEB" stroke-dasharray="5,5" stroke-width="2"/>
+  <line x1="480" y1="120" x2="560" y2="80" stroke="#87CEEB" stroke-dasharray="5,5" stroke-width="2"/>
+  <line x1="520" y1="170" x2="600" y2="180" stroke="#87CEEB" stroke-dasharray="5,5" stroke-width="2"/>
+  <line x1="480" y1="200" x2="520" y2="240" stroke="#87CEEB" stroke-dasharray="5,5" stroke-width="2"/>
+  <line x1="350" y1="200" x2="300" y2="230" stroke="#87CEEB" stroke-dasharray="5,5" stroke-width="2"/>
+
+  <!-- Nodes -->
+  <!-- File Server -->
+  <rect x="210" y="40" width="80" height="40" fill="#FFDEAD" rx="5"/>
+  <text x="250" y="65" fill="black" font-size="16" font-weight="bold" font-family="sans-serif" text-anchor="middle">파일 서버</text>
+
+  <!-- Terminal -->
+  <rect x="380" y="10" width="80" height="40" fill="#FFDEAD" rx="5"/>
+  <text x="420" y="35" fill="black" font-size="16" font-weight="bold" font-family="sans-serif" text-anchor="middle">단말기</text>
+
+  <!-- Workstation -->
+  <rect x="560" y="50" width="120" height="40" fill="#FFDEAD" rx="5"/>
+  <text x="620" y="75" fill="black" font-size="16" font-weight="bold" font-family="sans-serif" text-anchor="middle">워크스테이션</text>
+
+  <!-- DB Server -->
+  <rect x="600" y="160" width="80" height="40" fill="#FFDEAD" rx="5"/>
+  <text x="640" y="185" fill="black" font-size="16" font-weight="bold" font-family="sans-serif" text-anchor="middle">DB 서버</text>
+
+  <!-- Print Server -->
+  <rect x="490" y="240" width="100" height="40" fill="#FFDEAD" rx="5"/>
+  <text x="540" y="265" fill="black" font-size="16" font-weight="bold" font-family="sans-serif" text-anchor="middle">프린트 서버</text>
+
+  <!-- Web Server -->
+  <rect x="220" y="220" width="80" height="40" fill="#FFDEAD" rx="5"/>
+  <text x="260" y="245" fill="black" font-size="16" font-weight="bold" font-family="sans-serif" text-anchor="middle">웹 서버</text>
+
+</svg>

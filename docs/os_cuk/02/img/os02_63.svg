@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .box { stroke: #cbd5e1; stroke-width: 2; rx: 4; }
+      .box-main { fill: #0284c7; stroke: #0369a1; }
+      .ellipse { fill: #3b82f6; stroke: #2563eb; }
+      .box-file { fill: #475569; stroke: #334155; }
+      .box-src { fill: #0d9488; stroke: #0f766e; }
+      
+      .text-title { font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 700; fill: #0f172a; }
+      .text-node { font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; fill: #ffffff; text-anchor: middle; }
+      .arrow { fill: none; stroke: #0ea5e9; stroke-width: 3; marker-end: url(#arrow-bl); }
+      .arrow-drk { fill: none; stroke: #475569; stroke-width: 2; marker-end: url(#arrow-dr); }
+      
+      @media (prefers-color-scheme: dark) {
+        .bg { fill: #0f172a; }
+        .text-title { fill: #f8fafc; }
+        .arrow-drk { stroke: #94a3b8; marker-end: url(#arrow-dr-light); }
+      }
+    </style>
+    <marker id="arrow-bl" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#0ea5e9"/>
+    </marker>
+    <marker id="arrow-dr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#475569"/>
+    </marker>
+    <marker id="arrow-dr-light" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="100%" height="100%" />
+
+  <!-- Title -->
+  <text x="50" y="50" class="text-title">GCC 컴파일러 구조 및 빌드 파이프라인</text>
+
+  <!-- GCC Root -->
+  <rect class="box box-main" x="350" y="80" width="200" height="40" />
+  <text x="450" y="108" class="text-node">gcc</text>
+
+  <!-- Source -->
+  <rect class="box box-src" x="50" y="180" width="150" height="40" />
+  <text x="125" y="208" class="text-node">소스파일 (File.c)</text>
+  <path class="arrow-drk" d="M 200 200 L 250 200" />
+
+  <!-- Stages (Ellipses) -->
+  <ellipse class="ellipse" cx="300" cy="200" rx="60" ry="25" />
+  <text x="300" y="207" class="text-node">전처리</text>
+  
+  <ellipse class="ellipse" cx="450" cy="200" rx="60" ry="25" />
+  <text x="450" y="207" class="text-node">컴파일</text>
+
+  <ellipse class="ellipse" cx="600" cy="200" rx="60" ry="25" />
+  <text x="600" y="207" class="text-node">어셈블</text>
+
+  <ellipse class="ellipse" cx="750" cy="200" rx="60" ry="25" />
+  <text x="750" y="207" class="text-node">링크</text>
+
+  <!-- Inter-stage arrows -->
+  <path class="arrow-drk" d="M 360 200 L 390 200" />
+  <path class="arrow-drk" d="M 510 200 L 540 200" />
+  <path class="arrow-drk" d="M 660 200 L 690 200" />
+
+  <!-- GCC controls -->
+  <path class="arrow" d="M 400 120 L 300 170" />
+  <path class="arrow" d="M 430 120 L 450 170" />
+  <path class="arrow" d="M 470 120 L 600 170" />
+  <path class="arrow" d="M 500 120 L 750 170" />
+
+  <!-- Intermediate Files -->
+  <rect class="box box-file" x="260" y="250" width="80" height="30" />
+  <text x="300" y="272" class="text-node" style="font-size:16px;">File.i</text>
+  <path class="arrow-drk" d="M 300 225 L 300 250" />
+
+  <rect class="box box-file" x="410" y="250" width="80" height="30" />
+  <text x="450" y="272" class="text-node" style="font-size:16px;">File.s</text>
+  <path class="arrow-drk" d="M 450 225 L 450 250" />
+
+  <rect class="box box-file" x="560" y="250" width="80" height="30" />
+  <text x="600" y="272" class="text-node" style="font-size:16px;">File.o</text>
+  <path class="arrow-drk" d="M 600 225 L 600 250" />
+
+  <!-- Final Executable & Library -->
+  <rect class="box box-file" x="710" y="250" width="80" height="30" />
+  <text x="750" y="272" class="text-node" style="font-size:16px;">실행파일</text>
+  <path class="arrow-drk" d="M 750 225 L 750 250" />
+
+  <!-- Stack of Libraries -->
+  <rect class="box box-file" x="580" y="320" width="80" height="30" />
+  <rect class="box box-file" x="570" y="310" width="80" height="30" />
+  <rect class="box box-file" x="560" y="300" width="80" height="30" />
+  <text x="600" y="322" class="text-node" style="font-size:16px;">Library</text>
+
+</svg>

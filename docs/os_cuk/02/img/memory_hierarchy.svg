@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
+    <defs>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap');
+            text { font-family: 'Inter', sans-serif; }
+        </style>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#020617"/>
+            <stop offset="100%" stop-color="#0F172A"/>
+        </linearGradient>
+    </defs>
+
+    <rect width="800" height="500" rx="20" fill="url(#bg)"/>
+    <text x="400" y="50" fill="#FFFFFF" font-size="24" font-weight="800" text-anchor="middle" letter-spacing="1">MEMORY HIERARCHY</text>
+    
+    <!-- Speed/Cost Axis Arrow -->
+    <g transform="translate(150, 150)">
+        <path d="M 0 280 L 0 0" stroke="#38BDF8" stroke-width="4" marker-end="url(#arrow)"/>
+        <text x="-20" y="140" fill="#BAE6FD" font-size="16" font-weight="600" text-anchor="end">Speed</text>
+        <text x="-20" y="160" fill="#BAE6FD" font-size="16" font-weight="600" text-anchor="end">&amp; Cost</text>
+        <path d="M -50 0 L 0 0" stroke="#38BDF8" stroke-width="2" stroke-dasharray="4"/>
+    </g>
+
+    <!-- Capacity/Access Time Axis Arrow (Inverted logic for capacity -> goes down) -->
+    <g transform="translate(650, 150)">
+        <path d="M 0 0 L 0 280" stroke="#34D399" stroke-width="4" marker-end="url(#arrow)"/>
+        <text x="20" y="140" fill="#A7F3D0" font-size="16" font-weight="600" text-anchor="start">Capacity</text>
+        <text x="20" y="160" fill="#A7F3D0" font-size="14" font-weight="400" text-anchor="start">&amp; Latency</text>
+    </g>
+    
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#fff"/>
+    </marker>
+
+    <!-- Pyramid Layers -->
+    <g transform="translate(400, 120)">
+        <!-- Layer 1: Registers -->
+        <polygon points="0,0 -40,60 40,60" fill="#E11D48" stroke="#FDA4AF" stroke-width="2"/>
+        <text x="0" y="45" fill="#FFF" font-size="16" font-weight="800" text-anchor="middle">CPU Reg</text>
+
+        <!-- Layer 2: Cache -->
+        <polygon points="-40,60 40,60 90,135 -90,135" fill="#D97706" stroke="#FCD34D" stroke-width="2"/>
+        <text x="0" y="105" fill="#FFF" font-size="20" font-weight="800" text-anchor="middle">Cache (L1, L2, L3)</text>
+
+        <!-- Layer 3: Main Memory -->
+        <polygon points="-90,135 90,135 150,225 -150,225" fill="#059669" stroke="#6EE7B7" stroke-width="2"/>
+        <text x="0" y="185" fill="#FFF" font-size="24" font-weight="800" text-anchor="middle">Main Memory (RAM)</text>
+
+        <!-- Layer 4: Storage -->
+        <polygon points="-150,225 150,225 210,315 -210,315" fill="#2563EB" stroke="#93C5FD" stroke-width="2"/>
+        <text x="0" y="275" fill="#FFF" font-size="26" font-weight="800" text-anchor="middle">Storage (SSD / HDD)</text>
+    </g>
+
+</svg>

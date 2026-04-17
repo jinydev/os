@@ -1,0 +1,102 @@
+I",,<h1 id="14강-입출력-시스템과-하드웨어-제어-io-systems">14강. 입출력 시스템과 하드웨어 제어 (I/O Systems)</h1>
+
+<h2 id="-학습-목표">🎯 학습 목표</h2>
+
+<ol>
+  <li><strong>머신 아키텍처의 이해</strong>: CPU와 외부 하드웨어(디스크, 모니터, 키보드)를 극단적인 속도 차이로부터 중재해 주는 시스템 계층형 <strong>버스(Bus)</strong>와 <strong>제어기(Controller)</strong> 로직을 그려낸다.</li>
+  <li><strong>트랜잭션 비용 최적화</strong>: 멍청하게 기다리는 폴링(Polling)에서 벗어나, 인터럽트(Interrupt)와 궁극의 하드웨어 전송 기법인 <strong>DMA(Direct Memory Access)</strong> 메커니즘의 진화 과정을 분석한다.</li>
+  <li><strong>가상화의 끝판왕, I/O 커널 계층</strong>: 무수히 쏟아지는 수 천개의 이기종 하드웨어 디바이스들을 운영체제가 어떤 마법의 추상화(Abstraction)로 지배하는지 구조를 살핀다.</li>
+  <li><strong>리눅스 장치 파일 제어</strong>: 블록 장치와 문자 장치의 개념을 잡고 <code class="language-plaintext highlighter-rouge">stat</code> API를 활용하여 시스템 장치 메타데이터를 뽑아본다.</li>
+</ol>
+
+<p><br /><br /></p>
+
+<h2 id="1-물리-하드웨어의-혈관망-버스와-제어기">1. 물리 하드웨어의 혈관망, 버스와 제어기</h2>
+
+<p>CPU는 초당 수십 억 번(GHz) 연산하지만, 키보드는 초당 몇십 번밖에 눌리지 않고 디스크 모터 역시 밀리초 단위로 매우 지연됩니다. 이 극단적인 장치 간의 속도 격차를 단일 전선(Bus)으로 연결하면 시스템 전체가 하향 평준화되는 참사가 벌어집니다.</p>
+
+<p><img src="./img/os14_pc_bus_architecture.svg" alt="시스템 버스 구조" /></p>
+
+<p>따라서 현대 컴퓨터 마더보드는 <strong>초고속 통신망(System Bus, Memory Bus)</strong>과 <strong>중고속 장치망(PCI/PCIe Bus)</strong>, 그리고 USB/키보드 등이 묶이는 <strong>저속 확장 버스(Expansion Bus)</strong>로 엄격하게 분리 후 <code class="language-plaintext highlighter-rouge">브리지(Bridge)</code>라는 나들목으로만 교통을 허가합니다.</p>
+
+<p><img src="./img/os14_io_controller.svg" alt="입출력 제어기 구조" /></p>
+
+<p>또한, CPU가 하드웨어 모터를 직접 제어하는 것은 불가능에 가깝기에 각 기기에는 <strong>“디바이스 제어기(Controller)”</strong>라는 전용 칩셋이 붙습니다. 운영체제는 기기를 통제하기 위해 이 칩 안에 있는 <code class="language-plaintext highlighter-rouge">상태(Status)</code>, <code class="language-plaintext highlighter-rouge">제어(Control)</code>, <code class="language-plaintext highlighter-rouge">데이터(Data)</code> 레지스터에 특정 비트값만을 쓰고 읽는 것으로 통신 약속을 수행합니다.</p>
+
+<p><br /><br /></p>
+
+<h2 id="2-데이터-전송-철학-polling--interrupt--dma">2. 데이터 전송 철학: Polling ➔ Interrupt ➔ DMA</h2>
+
+<p>CPU가 메모리에 올라온 프로세스의 “키보드 입력 혹은 디스크 읽기” 요청(System Call)을 받았다고 가정해 봅시다.</p>
+
+<p><img src="./img/os14_data_transfer_methods.svg" alt="I/O 데이터 전송 진화 과정" /></p>
+
+<ol>
+  <li><strong>폴링 (Polling)</strong>: CPU가 입출력 장치의 ‘상태 레지스터’ 비트를 0.001초마다 반복적으로 조회하며 끝났는지 물어보는 방식입니다. 귀중한 코어가 망만 보는 상태이므로 극도의 자원 낭비입니다.</li>
+  <li><strong>인터럽트 (Interrupt)</strong>: CPU가 명령을 지시만 해두고 쿨하게 다른 연산을 하러 떠납니다. I/O 작업이 끝나면 하드웨어 핀 배열을 통해 전기적으로 “작업 완료” 인터럽트가 걸리며, CPU가 회군하여 데이터를 처리합니다.</li>
+  <li><strong>DMA (Direct Memory Access)</strong>: 최고 성능의 끝판왕입니다. 대용량 디스크 블록을 읽을 때 바이트 하나하나를 CPU가 통제하는 것은 너무 지칩니다. 따라서 <strong>DMA 컨트롤러라는 전용 칩</strong>에게 버스 권한을 위임하면, DMA가 스스로 디스크에서 메모리로 대규모 블록을 복사(<strong>Cycle Stealing</strong>)하고 모든 작업이 완전히 종료되었을 때 딱 1번만 CPU에 인터럽트를 날립니다!</li>
+</ol>
+
+<p><br /><br /></p>
+
+<h2 id="3-커널-io-서브시스템-추상화-레이어">3. 커널 I/O 서브시스템: 추상화 레이어</h2>
+
+<p>세상에는 삼성, WD, 로지텍, NVIDIA 등 수만 개의 하드웨어 제조사가 있습니다. 프로그래머가 이들의 회로 명령들을 모두 알 수 있을까요? 절대 불가능합니다.</p>
+
+<p>Linux/UNIX 계열은 이 막막한 상황을 <strong>“모든 것은 파일이다(Everything is a file).”</strong>라는 위대한 철학으로 통합해 냈습니다.</p>
+
+<p><img src="./img/os14_kernel_io_subsystem.svg" alt="커널 I/O 서브시스템 아키텍처" /></p>
+
+<p>커널 상단은 표준 <code class="language-plaintext highlighter-rouge">open()</code>, <code class="language-plaintext highlighter-rouge">read()</code>, <code class="language-plaintext highlighter-rouge">write()</code> 인터페이스만을 노출하고, 복잡한 제품별 고유 동작은 제조사가 직접 코딩해서 삽입하는 <strong>장치 드라이버(Device Driver)</strong>로 격리시킵니다.</p>
+
+<p>OS 차원에서 하드웨어는 주로 2가지 종류로 분류되어 다루어집니다:</p>
+<ul>
+  <li><strong>블록 장치 (Block Device)</strong>: 버퍼를 가지고 자체적으로 포인터(lseek)를 이리저리 이동하며 랜덤 엑세스가 가능한 장치. (하드디스크, SSD) <code class="language-plaintext highlighter-rouge">ex&gt; /dev/sda</code></li>
+  <li><strong>문자 장치 (Character Device)</strong>: 한 줄로 끊김 없이 쭉 들어오고 쭉 나가는 스트림 기반의 순차 엑세스 장치. (키보드, 마우스, 직렬 포트) <code class="language-plaintext highlighter-rouge">ex&gt; /dev/tty</code></li>
+</ul>
+
+<p><br /><br /></p>
+
+<h2 id="4-실전-시스템-프로그래밍과-파일장치-메타데이터-검사">4. 실전 시스템 프로그래밍과 파일/장치 메타데이터 검사</h2>
+
+<p>운영체제 상의 파일이나 I/O 하드웨어 장치 노드들은 고유의 메타데이터(크기, 권한, 수정시간, 기기 번호 등)를 갖습니다. 이를 확인할 때 사용하는 대표적인 시스템 콜이 <code class="language-plaintext highlighter-rouge">stat()</code> 입니다.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">stat</span> <span class="n">info</span><span class="p">;</span>
+
+    <span class="c1">// 타겟 장치나 파일의 모든 상태 정보를 info 구조체로 덤프</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">stat</span><span class="p">(</span><span class="s">"/dev/sda"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">info</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="s">"장치 조회 실패"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 매크로를 사용하여 물리적 디바이스인지 일반 파일인지 추상화 레벨에서 판독 가능</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">S_ISBLK</span><span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">st_mode</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"/dev/sda 는 '블록(Block) I/O 장치' 입니다.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">S_ISCHR</span><span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">st_mode</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"해당 객체는 '문자(Character) I/O 장치' 입니다.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">S_ISREG</span><span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">st_mode</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"해당 객체는 '일반 파일' 입니다.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"i-node 생성 번호: %ld</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">info</span><span class="p">.</span><span class="n">st_ino</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"총 용량(크기): %lld Bytes</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">info</span><span class="p">.</span><span class="n">st_size</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /><br /></p>
+
+<h2 id="-정리하기">📝 정리하기</h2>
+
+<ul>
+  <li>현대 머신은 장치별 속도에 따른 오버헤드를 막기 위해 브리지를 둔 <strong>계층형 다중 버스(Bus)</strong> 구조를 띄고 있다.</li>
+  <li>입출력 제어 로직은 CPU 무한 대기의 폴링(Polling) 방식에서, 효율적인 <strong>인터럽트(Interrupt)</strong>를 거쳐 하드웨어가 스스로 메모리를 제어하는 <strong>DMA</strong> 기법으로 완성되었다.</li>
+  <li>수만 개의 벤더가 쏟아내는 하드웨어 파편화는, 커널 I/O 계층의 철저한 규격과 <strong>디바이스 드라이버 스택(Driver Stack)</strong>으로 완벽히 추상화되어 가려진다.</li>
+  <li>Linux 상위 응용 계층에서는 하드 디스크 역시 그저 하나의 특수한 블록 디바이스 파일(<code class="language-plaintext highlighter-rouge">/dev/sda</code>)일 뿐이며 시스템 콜을 이용해 쉽게 상태를 제어할 수 있다.</li>
+</ul>
+:ET

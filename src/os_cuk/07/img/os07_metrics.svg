@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --axis: #34495e;
+        --wait: #e67e22;
+        --exec: #2ecc71;
+        --io: #9b59b6;
+        --turn: #e74c3c;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --axis: #bdc3c7;
+          --wait: #d35400;
+          --exec: #27ae60;
+          --io: #8e44ad;
+          --turn: #c0392b;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 18px; font-weight: bold; }
+      .desc { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 14px; }
+      .title { font-size: 24px; }
+      .axis { stroke: var(--axis); stroke-width: 4; fill: none; marker-end: url(#arrowhead); }
+      .line { stroke: var(--axis); stroke-width: 2; fill: none; stroke-dasharray: 4 4; }
+      .measure { stroke: var(--turn); stroke-width: 2; fill: none; marker-start: url(#bar); marker-end: url(#bar); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--axis)"/>
+    </marker>
+    <marker id="bar" markerWidth="4" markerHeight="20" refX="2" refY="10" orient="auto">
+      <rect x="0" y="0" width="4" height="20" fill="var(--turn)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="40" class="text title" text-anchor="middle">CPU 스케줄링 성능 평가 기준 (Metrics)</text>
+
+  <!-- Timeline Axis -->
+  <path d="M 100 200 L 900 200" class="axis"/>
+  <text x="910" y="205" class="text">시간</text>
+
+  <!-- Markers -->
+  <path d="M 150 150 L 150 250" class="line"/>
+  <text x="150" y="140" class="text" text-anchor="middle">도착 시간</text>
+
+  <path d="M 850 150 L 850 250" class="line"/>
+  <text x="850" y="140" class="text" text-anchor="middle">종료 시간</text>
+
+  <path d="M 300 200 L 300 250" class="line"/>
+  <path d="M 450 200 L 450 250" class="line"/>
+  <path d="M 600 200 L 600 250" class="line"/>
+  <path d="M 750 200 L 750 250" class="line"/>
+
+  <!-- Process Blocks -->
+  <rect x="150" y="180" width="150" height="40" fill="var(--wait)"/>
+  <text x="225" y="205" class="text" fill="#fff" text-anchor="middle">Ready 큐 대기</text>
+
+  <rect x="300" y="180" width="150" height="40" fill="var(--exec)"/>
+  <text x="375" y="205" class="text" fill="#fff" text-anchor="middle">CPU 실행</text>
+
+  <rect x="450" y="180" width="150" height="40" fill="var(--io)"/>
+  <text x="525" y="205" class="text" fill="#fff" text-anchor="middle">I/O Wait 대기</text>
+
+  <rect x="600" y="180" width="150" height="40" fill="var(--wait)"/>
+  <text x="675" y="205" class="text" fill="#fff" text-anchor="middle">Ready 큐 대기</text>
+
+  <rect x="750" y="180" width="100" height="40" fill="var(--exec)"/>
+  <text x="800" y="205" class="text" fill="#fff" text-anchor="middle">CPU 잔여실행</text>
+
+  <!-- Measurements -->
+  <!-- 1. Turnaround Time -->
+  <path d="M 150 270 L 850 270" class="measure"/>
+  <text x="500" y="295" class="text" fill="var(--turn)" text-anchor="middle">반환 시간 (Turnaround Time)</text>
+  <text x="500" y="315" class="desc" text-anchor="middle">(도착부터 종료까지 시스템에 머무른 총 시간 합: 대기 + 실행 + I/O)</text>
+
+  <!-- 2. Waiting Time -->
+  <path d="M 150 350 L 300 350" class="measure" stroke="var(--wait)"/>
+  <path d="M 600 350 L 750 350" class="measure" stroke="var(--wait)"/>
+  <text x="225" y="375" class="text" fill="var(--wait)" text-anchor="middle">대기 시간</text>
+  <text x="675" y="375" class="text" fill="var(--wait)" text-anchor="middle">대기 시간</text>
+  <text x="450" y="365" class="desc" text-anchor="middle">대기 시간 (Waiting Time) = Ready 큐에서 순서를 기다린 총합</text>
+
+  <!-- 3. Response Time -->
+  <path d="M 150 100 L 300 100" class="measure" stroke="#f1c40f"/>
+  <text x="225" y="90" class="text" fill="#f1c40f" text-anchor="middle">응답 시간 (Response)</text>
+  <text x="225" y="70" class="desc" text-anchor="middle">시스템에 최초로 반응(CPU할당)하기까지의 시간</text>
+
+</svg>

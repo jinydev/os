@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 6; ry: 6; }
+      .box-highlight { fill: #eff6ff; stroke: #3b82f6; }
+      .text-title { font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 700; fill: #0f172a; text-anchor: middle; }
+      .text-sub { font-family: 'Inter', sans-serif; font-size: 14px; fill: #475569; text-anchor: middle; }
+      .text-node { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; fill: #1e293b; text-anchor: middle; }
+      .arrow { fill: none; stroke: #94a3b8; stroke-width: 2; marker-end: url(#arrow); }
+      
+      @media (prefers-color-scheme: dark) {
+        .bg { fill: #0f172a; }
+        .box { fill: #1e293b; stroke: #475569; }
+        .box-highlight { fill: #1e3a8a; stroke: #3b82f6; }
+        .text-title, .text-node { fill: #f8fafc; }
+        .text-sub { fill: #94a3b8; }
+        .arrow { stroke: #64748b; }
+      }
+    </style>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="currentColor"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="100%" height="100%" />
+  
+  <text x="400" y="40" class="text-title">입출력(I/O) 제어 방식의 발전</text>
+  <text x="400" y="65" class="text-sub">CPU 개입의 최소화를 통한 시스템 효율성 극대화</text>
+
+  <!-- Method 1: Programmed I/O -->
+  <rect class="box" x="80" y="120" width="200" height="280" />
+  <rect class="box-highlight" x="80" y="120" width="200" height="40" />
+  <text x="180" y="145" class="text-node">1. Programmed I/O</text>
+  
+  <rect class="box" x="110" y="190" width="140" height="40" />
+  <text x="180" y="215" class="text-node">CPU가 상태 지속 확인</text>
+  <text x="180" y="250" class="text-sub">- Busy Waiting (Polling)</text>
+  <text x="180" y="270" class="text-sub">- CPU 자원 낭비 심함</text>
+  <text x="180" y="320" class="text-sub" style="font-size: 13px; font-weight: bold;">(모든 입출력을 CPU가 직접)</text>
+
+  <!-- Method 2: Interrupt-driven I/O -->
+  <rect class="box" x="300" y="120" width="200" height="280" />
+  <rect class="box-highlight" x="300" y="120" width="200" height="40" />
+  <text x="400" y="145" class="text-node">2. Interrupt-driven I/O</text>
+  
+  <rect class="box" x="330" y="190" width="140" height="40" />
+  <text x="400" y="215" class="text-node">I/O 모듈이 인터럽트</text>
+  <text x="400" y="250" class="text-sub">- CPU는 다른 작업 수행</text>
+  <text x="400" y="270" class="text-sub">- 완료/에러 시 인터럽트</text>
+  <text x="400" y="320" class="text-sub" style="font-size: 13px; font-weight: bold;">(데이터 이동은 여전히 CPU가)</text>
+
+  <!-- Method 3: DMA (Direct Memory Access) -->
+  <rect class="box" x="520" y="120" width="200" height="280" />
+  <rect class="box-highlight" x="520" y="120" width="200" height="40" />
+  <text x="620" y="145" class="text-node">3. DMA (직접 메모리 접근)</text>
+  
+  <rect class="box" x="550" y="190" width="140" height="40" />
+  <text x="620" y="215" class="text-node">DMA 제어기 활용</text>
+  <text x="620" y="250" class="text-sub">- CPU는 시작/끝만 개입</text>
+  <text x="620" y="270" class="text-sub">- Memory &lt;-&gt; I/O 직접 통신</text>
+  <text x="620" y="320" class="text-sub" style="font-size: 13px; font-weight: bold;">(대용량 데이터 전송 효율 극대화)</text>
+
+  <!-- Evolution arrows -->
+  <path class="arrow" d="M 285 260 L 295 260" />
+  <path class="arrow" d="M 505 260 L 515 260" />
+
+</svg>

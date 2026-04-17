@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #2c3e50;
+        --proc: #3498db;
+        --res: #2c3e50;
+        --cycle: #e74c3c;
+        --line: #7f8c8d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --text: #ecf0f1;
+          --proc: #2980b9;
+          --res: #34495e;
+          --cycle: #ff7675;
+          --line: #b2bec3;
+        }
+      }
+      .bg { fill: var(--bg); }
+      .text { fill: var(--text); font-family: 'Inter', sans-serif; font-size: 20px; font-weight: bold; }
+      .title { font-size: 26px; font-weight: bold; }
+      .proc { fill: var(--proc); stroke: var(--text); stroke-width: 2; }
+      .res { fill: var(--res); stroke: var(--text); stroke-width: 2; }
+      .token { fill: #fff; }
+      .arrow { stroke: var(--line); stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+      .arrow-cycle { stroke: var(--cycle); stroke-width: 5; fill: none; marker-end: url(#arrowhead-cycle); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--line)"/>
+    </marker>
+    <marker id="arrowhead-cycle" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--cycle)"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="500" y="50" class="text title" text-anchor="middle">자원 할당 그래프 (Resource Allocation Graph)와 순환 대기 검출</text>
+
+  <!-- Resources (Rectangles) -->
+  <rect x="300" y="100" width="80" height="80" class="res"/>
+  <text x="340" y="90" class="text" text-anchor="middle">R1</text>
+  <circle cx="340" cy="140" r="10" class="token"/>
+
+  <rect x="620" y="100" width="80" height="80" class="res"/>
+  <text x="660" y="90" class="text" text-anchor="middle">R3</text>
+  <circle cx="660" cy="140" r="10" class="token"/>
+
+  <rect x="300" y="420" width="80" height="80" class="res"/>
+  <text x="340" y="530" class="text" text-anchor="middle">R2</text>
+  <circle cx="340" cy="445" r="10" class="token"/>
+  <circle cx="340" cy="485" r="10" class="token"/>
+
+  <rect x="620" y="420" width="80" height="120" class="res"/>
+  <text x="660" y="565" class="text" text-anchor="middle">R4 (가용 상태)</text>
+  <circle cx="660" cy="445" r="10" class="token"/>
+  <circle cx="660" cy="480" r="10" class="token"/>
+  <circle cx="660" cy="515" r="10" class="token"/>
+
+  <!-- Processes (Circles) -->
+  <circle cx="200" cy="300" r="45" class="proc"/>
+  <text x="200" y="307" class="text" fill="#fff" text-anchor="middle" font-size="24">P1</text>
+
+  <circle cx="500" cy="300" r="45" class="proc"/>
+  <text x="500" y="307" class="text" fill="#fff" text-anchor="middle" font-size="24">P2</text>
+
+  <circle cx="800" cy="300" r="45" class="proc"/>
+  <text x="800" y="307" class="text" fill="#fff" text-anchor="middle" font-size="24">P3</text>
+
+  <!-- Edges -->
+  <!-- P1 -> R1 Request -->
+  <path d="M 230 265 L 300 180" class="arrow-cycle"/>
+
+  <!-- R1 -> P2 Assignment -->
+  <path d="M 380 180 L 460 270" class="arrow"/>
+
+  <!-- P2 -> R3 Request -->
+  <path d="M 530 265 L 620 180" class="arrow-cycle"/>
+
+  <!-- P2 -> R2 Request -->
+  <path d="M 470 335 L 380 420" class="arrow-cycle"/>
+
+  <!-- R3 -> P3 Assignment -->
+  <path d="M 700 180 L 775 265" class="arrow"/>
+
+  <!-- P3 -> R2 Request -->
+  <path d="M 770 335 L 380 460" class="arrow-cycle"/>
+
+  <!-- R2 -> P1 Assignment -->
+  <path d="M 300 460 L 225 340" class="arrow-cycle"/>
+
+  <!-- R2 -> P2 Assignment -->
+  <!-- <path d="M 380 440 L 485 340" class="arrow"/> -->
+
+  <!-- Legend -->
+  <text x="150" y="500" class="text" fill="var(--cycle)">붉은색 화살표 : 탐지된 데드락 사이클</text>
+  <text x="150" y="530" class="text">사이클: P1 → R1 → P2 → R3 → P3 → R2 → P1</text>
+
+</svg>
