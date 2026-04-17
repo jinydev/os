@@ -33,15 +33,15 @@ title: "9주차: IO 디바이스 투어와 io_uring (디스크 스케줄링/RAID
 
 1~8주 차에서 시스템 상부를 가동하던 이론이 디스크를 만나 현실로 구워지는 종단점 아키텍처, I/O Subsystem의 5가지 최적화 혁명을 체험합니다.
 
-1. **[하드웨어 혈관과 커널 추상화](./01_io_subsystem/index.md)**
+1. [하드웨어 혈관과 커널 추상화](./01_io_subsystem/index.md)
    > 모든 기기를 하나의 위장 파일로 평준화시킨 UNIX 철학과 이기종 버스 체계를 통제하는 제어기(Controller)의 위엄.
-2. **[전송 철학 (Polling ➔ DMA)](./02_data_transfer/index.md)**
+2. [전송 철학 (Polling ➔ DMA)](./02_data_transfer/index.md)
    > 무식한 무한루프 점검을 벗어나 하드웨어가 쏘아올리는 인터럽트, 더 건너뛰어 CPU를 기만하고 직접 입출력하는 DMA.
-3. **[디스크 탐색 스케줄링 (C-SCAN)](./03_disk_scheduling/index.md)**
+3. [디스크 탐색 스케줄링 (C-SCAN)](./03_disk_scheduling/index.md)
    > 좌우로 오가는 엘리베이터의 한쪽 양 끝단 병목 분쟁을 해소하기 위한 Circular 로비 회기 한 방향 스크래핑 기법.
-4. **[서버 파티션: RAID 아키텍처](./04_raid/index.md)**
+4. [서버 파티션: RAID 아키텍처](./04_raid/index.md)
    > N개의 디스크를 묶어 1처럼 속이는 마법. 속도를 위한 0과 미러링 1, 그리고 현업 실무 대부인 패리티(Parity)의 5 모듈.
-5. **[OS API 한계와 io_uring의 도래](./05_api_iouring/index.md)**
+5. [OS API 한계와 io_uring의 도래](./05_api_iouring/index.md)
    > C언어 기반의 폴더 구조 분해 코드 및 최신 NVMe 드라이브에 맞춰 시스템콜 트랩 자체를 포기해 버려 속도 한계를 부순 링 버퍼 매커니즘.
 
 <hr style="margin: 40px 0;">

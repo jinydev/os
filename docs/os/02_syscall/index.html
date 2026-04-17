@@ -8,9 +8,9 @@
   <!-- 기본 메타데이터 --><meta name="description" content="Jiny linux"><meta name="author" content="HojinLee"><!-- 제목 설정 --><title>2주차: 컴퓨터 시스템 구조와 시스템 콜 (하드웨어 인터페이스와 OS 트랩)</title>
   <meta name="title" content="2주차: 컴퓨터 시스템 구조와 시스템 콜 (하드웨어 인터페이스와 OS 트랩)" /><!-- 키워드 설정 --><!-- Open Graph 메타데이터 --><meta property="og:title" content="2주차: 컴퓨터 시스템 구조와 시스템 콜 (하드웨어 인터페이스와 OS 트랩)"><meta property="og:description" content="Jiny linux"><meta property="og:type" content="website"><meta property="og:locale" content="ko">
   <meta property="og:site_name" content="linux">
-  <meta property="og:url" content="http://localhost:4001/os/02_syscall/">
+  <meta property="og:url" content="https://os.jiny.dev/os/02_syscall/">
   <!-- 대표 URL (캐노니컬) -->
-  <link rel="canonical" href="http://localhost:4001/os/02_syscall/">
+  <link rel="canonical" href="https://os.jiny.dev/os/02_syscall/">
 
   <!-- Twitter 카드 메타데이터 --><meta name="twitter:card" content="summary"><meta property="twitter:title" content="2주차: 컴퓨터 시스템 구조와 시스템 콜 (하드웨어 인터페이스와 OS 트랩)"><!-- Begin Jekyll SEO tag v2.8.0 -->
 <meta name="generator" content="Jekyll v4.2.2" />
@@ -19,14 +19,14 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너" />
 <meta property="og:description" content="개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너" />
-<link rel="canonical" href="http://localhost:4001/os/02_syscall/" />
-<meta property="og:url" content="http://localhost:4001/os/02_syscall/" />
+<link rel="canonical" href="https://os.jiny.dev/os/02_syscall/" />
+<meta property="og:url" content="https://os.jiny.dev/os/02_syscall/" />
 <meta property="og:site_name" content="소프트웨어 엔지니어링: 운영체제 (OS Curriculum)" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="2주차: 컴퓨터 시스템 구조와 시스템 콜 (하드웨어 인터페이스와 OS 트랩)" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Hojin"},"description":"개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너","headline":"2주차: 컴퓨터 시스템 구조와 시스템 콜 (하드웨어 인터페이스와 OS 트랩)","url":"http://localhost:4001/os/02_syscall/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Hojin"},"description":"개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너","headline":"2주차: 컴퓨터 시스템 구조와 시스템 콜 (하드웨어 인터페이스와 OS 트랩)","url":"https://os.jiny.dev/os/02_syscall/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -1224,22 +1224,22 @@
 <p>방대한 하드웨어 인터페이스 내용을 논리적으로 다루기 위해 4개의 서브 모듈로 구성되어 있습니다. 아래 링크를 통해 상세 내용을 학습하십시오.</p>
 
 <ol>
-  <li><strong><a href="./01_architecture/index.md">하드웨어 아키텍처와 CPU</a></strong>
+  <li><a href="./01_architecture/index.md">하드웨어 아키텍처와 CPU</a>
     <blockquote>
       <p>폰 노이먼 구조 모델과 CPU 필수 레지스터, 더 나아가 명령어 인출/실행 파이프라인(Pipelining) 사이클의 원리를 추적합니다.</p>
     </blockquote>
   </li>
-  <li><strong><a href="./02_bus_io/index.md">시스템 버스와 I/O 제어</a></strong>
+  <li><a href="./02_bus_io/index.md">시스템 버스와 I/O 제어</a>
     <blockquote>
       <p>고속 시스템 버스에서 발생하는 I/O 병목을 해결하기 위한 하드웨어 인터럽트와 DMA의 태동을 설명합니다.</p>
     </blockquote>
   </li>
-  <li><strong><a href="./03_syscall/index.md">시스템 콜 전환과 디버깅 (strace)</a></strong>
+  <li><a href="./03_syscall/index.md">시스템 콜 전환과 디버깅 (strace)</a>
     <blockquote>
       <p>유저 모드와 커널 모드를 관통하는 Trap 오버헤드의 실체를 파악하고, 강력한 커널 인터페이스 모니터링 툴인 <code class="language-plaintext highlighter-rouge">strace</code>의 사용법을 학습합니다.</p>
     </blockquote>
   </li>
-  <li><strong><a href="./04_compiler/index.md">(별첨) GCC 시스템 툴체인</a></strong>
+  <li><a href="./04_compiler/index.md">(별첨) GCC 시스템 툴체인</a>
     <blockquote>
       <p>GCC가 바이너리 파일을 구워내는 전처리 ➔ 컴파일 ➔ 어셈블 ➔ 링킹 4단계 파이프라인 연산 과정을 해부합니다.</p>
     </blockquote>

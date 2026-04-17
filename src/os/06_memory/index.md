@@ -31,15 +31,15 @@ title: "6주차: 현대 메모리 관리와 가상 메모리 매핑 설계"
 
 물리 반도체의 한계를 무한대로 확장시키는 기적의 논리, 가상 메모리 서브시스템 아키텍처를 5개 분류로 모듈화했습니다. 아래 챕터 링크로 접근하십시오.
 
-1. **[물리 주소 맵핑과 메모리 단편화](./01_physical_mapping/index.md)**
+1. [물리 주소 맵핑과 메모리 단편화](./01_physical_mapping/index.md)
    > CPU의 논리적 주소와 RAM의 물리 공간을 이어주는 칩셋 MMU와 고질적인 단편화 빈칸의 병목을 규명합니다.
-2. **[가상 메모리: 페이징과 세그먼테이션](./02_paging_segmentation/index.md)**
+2. [가상 메모리: 페이징과 세그먼테이션](./02_paging_segmentation/index.md)
    > 외부 단편화를 100% 박살내는 고정 블록 썰기 '페이징'과 권한을 통제하는 페이지화된 세그먼트 융합 체제.
-3. **[요구 페이징과 mmap() 시스템 콜](./03_demand_paging/index.md)**
+3. [요구 페이징과 mmap() 시스템 콜](./03_demand_paging/index.md)
    > 모든 걸 한 번에 올리지 않고, CPU 지연인 Page Fault 인터럽트를 유도하여 디스크를 긁어오는 현대 엔진 `mmap`의 신비.
-4. **[페이지 대치 (Replacement) 알고리즘](./04_replacement_algo/index.md)**
+4. [페이지 대치 (Replacement) 알고리즘](./04_replacement_algo/index.md)
    > 공간이 파열되었을 때 어떤 과거 기록물 프레임을 하드디스크 스왑으로 쫓아 희생양을 삼을지 결정짓는 LRU 전략 지표.
-5. **[스래싱, 워킹 셋과 커널 OOM Killer](./05_working_set_oom/index.md)**
+5. [스래싱, 워킹 셋과 커널 OOM Killer](./05_working_set_oom/index.md)
    > 너무 잦은 자리 교체로 CPU가 멈춰버리는 스래싱 굴레와, 램이 고갈되었을 때 커널이 메모리 괴물을 강의 총살시키는 OOM 디버깅 분석.
 
 <hr style="margin: 40px 0;">

@@ -27,7 +27,7 @@ title: "6주차: 터미널의 혁신, Windows Terminal"
 
 단순한 화면 꾸미기를 넘어서, 커스터마이징 가능한 JSON 환경 맵핑과 다중 셸 병합의 궁극적인 아키텍처 원 포인트를 소개합니다.
 
-1. **[Windows Terminal 아키텍처](./01_terminal_engine/index.md)**
+1. [Windows Terminal 아키텍처](./01_terminal_engine/index.md)
    > 꽉 막혔던 conhost.exe의 한계를 부수고 GPU 가속기를 태워 압도적인 속도를 내뿜는 윈도우 터미널 통합 탭 엔진의 내부 구조와 Split Pane 셋업.
 
 <hr style="margin: 40px 0;">

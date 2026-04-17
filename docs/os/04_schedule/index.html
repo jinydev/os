@@ -8,9 +8,9 @@
   <!-- 기본 메타데이터 --><meta name="description" content="Jiny linux"><meta name="author" content="HojinLee"><!-- 제목 설정 --><title>4주차: CPU 스케줄링 이론과 현대 리눅스/이종코어 스케줄러</title>
   <meta name="title" content="4주차: CPU 스케줄링 이론과 현대 리눅스/이종코어 스케줄러" /><!-- 키워드 설정 --><!-- Open Graph 메타데이터 --><meta property="og:title" content="4주차: CPU 스케줄링 이론과 현대 리눅스/이종코어 스케줄러"><meta property="og:description" content="Jiny linux"><meta property="og:type" content="website"><meta property="og:locale" content="ko">
   <meta property="og:site_name" content="linux">
-  <meta property="og:url" content="http://localhost:4001/os/04_schedule/">
+  <meta property="og:url" content="https://os.jiny.dev/os/04_schedule/">
   <!-- 대표 URL (캐노니컬) -->
-  <link rel="canonical" href="http://localhost:4001/os/04_schedule/">
+  <link rel="canonical" href="https://os.jiny.dev/os/04_schedule/">
 
   <!-- Twitter 카드 메타데이터 --><meta name="twitter:card" content="summary"><meta property="twitter:title" content="4주차: CPU 스케줄링 이론과 현대 리눅스/이종코어 스케줄러"><!-- Begin Jekyll SEO tag v2.8.0 -->
 <meta name="generator" content="Jekyll v4.2.2" />
@@ -19,14 +19,14 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너" />
 <meta property="og:description" content="개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너" />
-<link rel="canonical" href="http://localhost:4001/os/04_schedule/" />
-<meta property="og:url" content="http://localhost:4001/os/04_schedule/" />
+<link rel="canonical" href="https://os.jiny.dev/os/04_schedule/" />
+<meta property="og:url" content="https://os.jiny.dev/os/04_schedule/" />
 <meta property="og:site_name" content="소프트웨어 엔지니어링: 운영체제 (OS Curriculum)" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="4주차: CPU 스케줄링 이론과 현대 리눅스/이종코어 스케줄러" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Hojin"},"description":"개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너","headline":"4주차: CPU 스케줄링 이론과 현대 리눅스/이종코어 스케줄러","url":"http://localhost:4001/os/04_schedule/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Hojin"},"description":"개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너","headline":"4주차: CPU 스케줄링 이론과 현대 리눅스/이종코어 스케줄러","url":"https://os.jiny.dev/os/04_schedule/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -1224,27 +1224,27 @@
 <p>시간 제어와 스케줄러 아키텍처의 발전을 다룬 이번 챕터는 5개의 상세 블록으로 재구성되었습니다. 아래 링크를 통해 진입하십시오.</p>
 
 <ol>
-  <li><strong><a href="./01_architecture/index.md">스케줄러 파이프라인 아키텍처</a></strong>
+  <li><a href="./01_architecture/index.md">스케줄러 파이프라인 아키텍처</a>
     <blockquote>
       <p>CPU / IO 버스트의 빈도를 분석하고 중기(Swap) 및 단기 스케줄러의 상호 통신 파이프라인을 체득합니다.</p>
     </blockquote>
   </li>
-  <li><strong><a href="./02_metrics/index.md">선점성과 성능 평가 지표</a></strong>
+  <li><a href="./02_metrics/index.md">선점성과 성능 평가 지표</a>
     <blockquote>
       <p>1초를 수만 번 쪼개는 타이머 선점(Preemptive) 설계의 존재 이유와 응답 시간(Response) 지표의 중요성을 나열합니다.</p>
     </blockquote>
   </li>
-  <li><strong><a href="./03_classic_algo/index.md">스케줄링 고전 설계사 (FCFS/SJF)</a></strong>
+  <li><a href="./03_classic_algo/index.md">스케줄링 고전 설계사 (FCFS/SJF)</a>
     <blockquote>
       <p>단순 큐인 FCFS의 병목 원인인 호위 효과(Convoy Effect)와 SJF 모델의 불가능성을 수학적으로 분해합니다.</p>
     </blockquote>
   </li>
-  <li><strong><a href="./04_mlfq/index.md">실전 상용: 다단계 피드백 큐 (MLFQ)</a></strong>
+  <li><a href="./04_mlfq/index.md">실전 상용: 다단계 피드백 큐 (MLFQ)</a>
     <blockquote>
       <p>Windows 계열에서 활용하는 다중 계급식 큐 강등/승격(Aging) 모델의 자원 패널티 지배 방식을 뜯어봅니다.</p>
     </blockquote>
   </li>
-  <li><strong><a href="./05_modern_cfs/index.md">[현대 Linux] CFS와 이종코어 제어</a></strong>
+  <li><a href="./05_modern_cfs/index.md">[현대 Linux] CFS와 이종코어 제어</a>
     <blockquote>
       <p>O(log N) 가상 런타임을 빚어내는 리눅스 표준 CFS 및 차세대 EEVDF의 철학, 그리고 Intel 빅-리틀 코어(P/E 코어) 친화성 고정 엔지니어링(<code class="language-plaintext highlighter-rouge">taskset</code>) 환경을 다룹니다.</p>
     </blockquote>

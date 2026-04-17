@@ -1,9 +1,0 @@
-I"d<h1 id="8주차-백그라운드-제어-brew-services-launchd">8주차: 백그라운드 제어 (Brew Services, launchd)</h1>
-
-<p><br /></p>
-
-<h2 id="1-launchd-데몬과-brew-services">1. Launchd 데몬과 Brew Services</h2>
-
-<p>[실전 심화 렉처]
-Apple 의 초기화 시스템인 <code class="language-plaintext highlighter-rouge">launchd</code>가 여러분의 파일들을 감시하며 서버를 살려놓습니다. <code class="language-plaintext highlighter-rouge">brew services list</code> 명령은 바로 이 launchd 시스템에 Homebrew 파일들을 자동으로 스케줄링 시켜버립니다.</p>
-:ET

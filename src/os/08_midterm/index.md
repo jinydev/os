@@ -22,11 +22,11 @@ title: "8주차: 전반기 기술 점검 및 중간고사"
 
 단편적인 지식을 결합해 전반적인 아키텍처 장애 추적(Troubleshooting) 능력을 점검하기 위해 3개의 가이드 문서를 할당했습니다.
 
-1. **[전반기 아키텍처 복습](./01_architecture_review/index.md)**
+1. [전반기 아키텍처 복습](./01_architecture_review/index.md)
    > 1강의 시스템 레이어부터 파일시스템 구조까지 이어지는 거시적 연결선 파이프라인 리뷰.
-2. **[중간고사 실기 평가 안내](./02_assessment_guide/index.md)**
+2. [중간고사 실기 평가 안내](./02_assessment_guide/index.md)
    > 메모리 Fault와 스레드 스케줄링 로그를 분석해 내는 이론/실무 복합 문항 오버뷰.
-3. **[시스템 장애 디버깅 케이스](./03_case_study/index.md)**
+3. [시스템 장애 디버깅 케이스](./03_case_study/index.md)
    > 커널 데드락, i-node 파열, 메모리 스래싱 등 현업 운영체제 핵심 병목 트러블슈팅 복기.
 
 <hr style="margin: 40px 0;">

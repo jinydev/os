@@ -26,7 +26,7 @@ title: "10주차: 궁극의 퓨전 — VS Code Remote 아키텍처"
 
 단순한 에디터 사용법이 아닙니다. 왜 C:\ 드라이브에 git clone을 하면 I/O 딜레이 패널티를 입게 되는지를 깨닫는 공간.
 
-1. **[원격-WSL 컴파일러 이원화 메커니즘](./01_vscode_remote/index.md)**
+1. [원격-WSL 컴파일러 이원화 메커니즘](./01_vscode_remote/index.md)
    > VS Code 핵심 엔진을 WSL 안에 박아 넣고, 윈도우 앱은 껍데기가 되어 소켓 터널로 UI만 중계하는 진보된 Thin Client 셋업 철학.
 
 <hr style="margin: 40px 0;">

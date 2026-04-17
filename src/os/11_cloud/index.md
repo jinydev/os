@@ -22,11 +22,11 @@ title: "11주차: 가상화와 클라우드 OS (하이퍼바이저·K8s 개요)"
 
 단일 유닉스 단말기를 벗어나 대규모 서버 오케스트레이션과 인프라 추상화를 이루는 핵심 기술 3단계를 해부합니다.
 
-1. **[가상화와 하이퍼바이저 링(Ring) 레벨](./01_hypervisor/index.md)**
+1. [가상화와 하이퍼바이저 링(Ring) 레벨](./01_hypervisor/index.md)
    > 커널 모드보다 훨씬 아래인 Ring -1 레벨에 스텔스처럼 잠입하여 메모리 폴트를 낚아채는 KVM/VMware의 HW 가상화 원리.
-2. **[쿠버네티스(Kubernetes) 오케스트레이터](./02_kubernetes/index.md)**
+2. [쿠버네티스(Kubernetes) 오케스트레이터](./02_kubernetes/index.md)
    > 인프라를 프로그래밍 문서로 서술하는 '선언적(Declarative)' 상태 감시 패러다임과 수만 대 K8s 클러스터의 자가 복원 기술.
-3. **[서버리스와 극초기화 마이크로-VM](./03_micro_vm/index.md)**
+3. [서버리스와 극초기화 마이크로-VM](./03_micro_vm/index.md)
    > 컨테이너 격리의 한계를 부수고 VM의 단점을 걷어내어 단 150ms 만에 콜드 부팅하는 AWS Firecracker 등 차세대 엔진의 등장.
 
 <hr style="margin: 40px 0;">

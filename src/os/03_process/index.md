@@ -29,15 +29,15 @@ title: "3주차: 프로세스와 스레드 구조 및 IPC 대통합"
 
 메모리 레이아웃 구조와 비동기 자원 통신 모델을 체계적으로 서술하기 위하여 5개의 서브 모듈로 포털화되었습니다.
 
-1. **[프로세스와 코어 메모리 구조](./01_memory/index.md)**
+1. [프로세스와 코어 메모리 구조](./01_memory/index.md)
    > 단순 정적 바이너리가 운영체제의 권한을 받아 활성 메모리 세그먼트(Code, Data, Heap, Stack) 4대 요소로 태어나는 물리적 환경을 묘사합니다.
-2. **[PCB와 생명 주기 시스템](./02_pcb_lifecycle/index.md)**
+2. [PCB와 생명 주기 시스템](./02_pcb_lifecycle/index.md)
    > 문맥 교환(Context Switching) 전환 시간 동안 레지스터 덤프를 저장하는 Process Control Block의 비용 오버헤드를 추적합니다.
-3. **[공간 독립성과 fork()의 철학](./03_fork_exec/index.md)**
+3. [공간 독립성과 fork()의 철학](./03_fork_exec/index.md)
    > 빈 땅에서 창조를 허용하지 않고, 무조건 부모 자신을 복제하는 유닉스의 괴상하고도 안전한 `fork()` 와 변태 명령 `exec()`를 분석합니다.
-4. **[멀티 스레드와 GIL 코루틴](./04_thread/index.md)**
+4. [멀티 스레드와 GIL 코루틴](./04_thread/index.md)
    > 프로세스의 한계를 박살 내며 자원을 파격적으로 뚫어 공유하는 NPTL 멀티 스레드 구조와, Python 프레임워크의 코어 GIL 한계를 우회하는 비동기 이벤트를 파고듭니다.
-5. **[프로세스 간 통신(IPC) 기법](./05_ipc/index.md)**
+5. [프로세스 간 통신(IPC) 기법](./05_ipc/index.md)
    > 파이프와 시그널을 넘어 `shmget` 커널 물리 메모리 포인터 부착까지, 극단적인 제로-카피 IPC 공유 메모리 아키텍처를 학습합니다.
 
 <hr style="margin: 40px 0;">

@@ -1,0 +1,50 @@
+I"e<div align="center">
+  <img src="img/toon1.png" width="70%" style="border-radius: 10px; margin-bottom: 20px;" alt="Webtoon Splash" />
+</div>
+
+<div align="center" style="margin: 30px 0;">
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#1E1E1E" rx="10" />
+  <rect x="50" y="40" width="500" height="40" fill="#333" rx="5" />
+  <text x="70" y="65" fill="#00FF00" font-size="18" font-family="monospace">C:\&gt; dir /w /s</text>
+  <rect x="50" y="100" width="500" height="40" fill="#333" rx="5" />
+  <text x="70" y="125" fill="#00FF00" font-size="18" font-family="monospace">C:\&gt; xcopy "SRC" "DEST" /E /H /C /I</text>
+</svg>
+</div>
+
+<h1 id="2주차-터미널의-재발견-명령-프롬프트-엔진과-dos-통제">2주차: 터미널의 재발견 (명령 프롬프트 엔진과 DOS 통제)</h1>
+
+<p><img src="/Users/hojin/.gemini/antigravity/brain/28d2e8ff-2bf4-4b06-8f22-23880f1f7300/ai_window_02.png" alt="OS Core Architecture" />
+<br /></p>
+
+<p>서버가 다운되고 네트워크 데이터가 밀려 터지기 일보 직전인 위급 상황에서, 침착하게 마우스를 움직여 제어판 GUI 메뉴 깊숙한 곳을 찾아 클릭을 여러 번 하며 좀비 프로세스를 끌 수 있는 시간적 여유는 없습니다.</p>
+
+<p>이번 2주차 렉처는 유저 친화적인 마우스 UI(Graphic User Interface)를 과감하게 버리고, 가장 기계와 밀접하게 소통할 수 있는 옛 시대의 유산 <strong>‘명령 프롬프트(cmd.exe)’</strong> 터미널을 장착합니다. 
+옛 DOS 시대부터 근골격이 잡혀 서버 시스템 유지보수에 지배적인 위력을 발휘하고 있는 <code class="language-plaintext highlighter-rouge">xcopy/robocopy</code> 백업 전술과 <code class="language-plaintext highlighter-rouge">taskkill \F</code> 프로세스 처형 명령어의 아키텍처 원리를 직관합니다.</p>
+
+<hr />
+
+<h2 id="-하위-문서-목차-sub-chapters">📚 하위 문서 목차 (Sub-Chapters)</h2>
+
+<p>단순한 유닉스 명령어가 파고들지 못하는, 윈도우 환경만의 제어 생태계 엔진과 필수 명령어 2부작을 해부합니다.</p>
+
+<ol>
+  <li><a href="./01_cmd_engine/index.md">제한된 터미널과 배치 스크립트 엔진</a>
+    <blockquote>
+      <p>기초 파일 제어망 수준의 한계를 넘어서고자 했던 투박한 자동화 파일(‘.bat’ 배치 처리)의 구시대 메커니즘 엿보기.</p>
+    </blockquote>
+  </li>
+  <li><a href="./02_dos_commands/index.md">권력을 통제하는 클래식 도스 명령어</a>
+    <blockquote>
+      <p>악성 좀비 프로세스의 PID를 단박에 추적(netstat)하여 메모리에서 즉강 강제 처형(taskkill)시키는 서바이벌 시스템 명령어 스킬.</p>
+    </blockquote>
+  </li>
+</ol>
+
+<hr style="margin: 40px 0;" />
+
+<blockquote>
+  <p><strong>💡 시스템 트러블슈팅의 원칙</strong>
+“가장 긴급한 장애에 직면했을 때, 진짜 문제를 꿰뚫어 보는 엔지니어의 힘은 여러 번 클릭하는 마우스가 아니라, 단 한 줄의 터미널 명령어에서 나온다.”</p>
+</blockquote>
+:ET

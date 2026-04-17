@@ -1,9 +1,0 @@
-I"+<h1 id="2주차-windows-terminal과-ui-개조">2주차: Windows Terminal과 UI 개조</h1>
-
-<p><br /></p>
-
-<h2 id="1-괴물-터미널-windows-terminal">1. 괴물 터미널, Windows Terminal</h2>
-
-<p>[실전 심화 렉처]
-MS-DOS 시절의 <code class="language-plaintext highlighter-rouge">cmd.exe</code> 를 버리십시오! Windows Terminal은 GPU 가속 텍스트 엔진을 사용합니다. <code class="language-plaintext highlighter-rouge">settings.json</code> 스크립트를 건드려 WSL 리눅스와 PowerShell 탭을 하나에 모읍니다.</p>
-:ET

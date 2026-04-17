@@ -1,9 +1,0 @@
-I"'<h1 id="10주차-apple-silicon과-docker-가상화">10주차: Apple Silicon과 Docker 가상화</h1>
-
-<p><br /></p>
-
-<h2 id="1-apple-silicon-시대와-가상화">1. Apple Silicon 시대와 가상화</h2>
-
-<p>[실전 심화 렉처]
-M1 코어가 오면서 퍼포먼스가 미쳐버렸습니다! 하지만 컨테이너들은 기존 x86 인텔 구조입니다. <code class="language-plaintext highlighter-rouge">Rosetta 2</code> 라는 미친 바이너리 실시간 통역기 시스템을 통해 해결하고, Docker 빌드 도구를 체득합니다.</p>
-:ET

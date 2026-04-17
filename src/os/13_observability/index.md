@@ -22,11 +22,11 @@ title: "13주차: 성능 분석과 관찰성 (perf·Flame Graph)"
 
 블랙박스가 된 서버 커널 트랜잭션을 사람의 눈으로 파싱하기 위한 3단계 시각화 툴 체커 보드입니다.
 
-1. **[`top`의 한계와 perf 프로파일링](./01_perf_profiling/index.md)**
+1. [`top`의 한계와 perf 프로파일링](./01_perf_profiling/index.md)
    > 단순 Load Average 측정을 벗어나, 하드웨어 타이머와 L2 레지스터 센서에 직결되어 병목을 탐지하는 `perf`의 활용성.
-2. **[플레임 그래프(Flame Graph) 분석 지형](./02_flame_graph/index.md)**
+2. [플레임 그래프(Flame Graph) 분석 지형](./02_flame_graph/index.md)
    > 99헤르츠 샘플링된 함수 콜스택을 뚱뚱하게 렌더링 된 블록 SVG로 타겟팅하여 코드 병목을 저격하는 마스터 기술.
-3. **[마이크로서비스와 관찰성 지표](./03_observability_trend/index.md)**
+3. [마이크로서비스와 관찰성 지표](./03_observability_trend/index.md)
    > 단일 서버를 벗어나 OpenTelemetry 로그 추적과 Prometheus/Grafana 지표 대시보드를 구축하는 모던 클라우드 관찰력.
 
 <hr style="margin: 40px 0;">

@@ -8,9 +8,9 @@
   <!-- 기본 메타데이터 --><meta name="description" content="Jiny linux"><meta name="author" content="HojinLee"><!-- 제목 설정 --><title>5주차: 프로세스 동기화와 교착 상태 (멀티코어 병렬 구조와 락 메커니즘)</title>
   <meta name="title" content="5주차: 프로세스 동기화와 교착 상태 (멀티코어 병렬 구조와 락 메커니즘)" /><!-- 키워드 설정 --><!-- Open Graph 메타데이터 --><meta property="og:title" content="5주차: 프로세스 동기화와 교착 상태 (멀티코어 병렬 구조와 락 메커니즘)"><meta property="og:description" content="Jiny linux"><meta property="og:type" content="website"><meta property="og:locale" content="ko">
   <meta property="og:site_name" content="linux">
-  <meta property="og:url" content="http://localhost:4001/os/05_sync/">
+  <meta property="og:url" content="https://os.jiny.dev/os/05_sync/">
   <!-- 대표 URL (캐노니컬) -->
-  <link rel="canonical" href="http://localhost:4001/os/05_sync/">
+  <link rel="canonical" href="https://os.jiny.dev/os/05_sync/">
 
   <!-- Twitter 카드 메타데이터 --><meta name="twitter:card" content="summary"><meta property="twitter:title" content="5주차: 프로세스 동기화와 교착 상태 (멀티코어 병렬 구조와 락 메커니즘)"><!-- Begin Jekyll SEO tag v2.8.0 -->
 <meta name="generator" content="Jekyll v4.2.2" />
@@ -19,14 +19,14 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너" />
 <meta property="og:description" content="개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너" />
-<link rel="canonical" href="http://localhost:4001/os/05_sync/" />
-<meta property="og:url" content="http://localhost:4001/os/05_sync/" />
+<link rel="canonical" href="https://os.jiny.dev/os/05_sync/" />
+<meta property="og:url" content="https://os.jiny.dev/os/05_sync/" />
 <meta property="og:site_name" content="소프트웨어 엔지니어링: 운영체제 (OS Curriculum)" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="5주차: 프로세스 동기화와 교착 상태 (멀티코어 병렬 구조와 락 메커니즘)" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Hojin"},"description":"개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너","headline":"5주차: 프로세스 동기화와 교착 상태 (멀티코어 병렬 구조와 락 메커니즘)","url":"http://localhost:4001/os/05_sync/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Hojin"},"description":"개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너","headline":"5주차: 프로세스 동기화와 교착 상태 (멀티코어 병렬 구조와 락 메커니즘)","url":"https://os.jiny.dev/os/05_sync/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -1224,27 +1224,27 @@
 <p>다중 코어 레이스의 경쟁 붕괴를 막고, 안전하게 순서를 보장하기 위한 락(Lock) 알고리즘 진화 역사를 5개 모듈로 세분화했습니다. 아래 링크를 참조하세요.</p>
 
 <ol>
-  <li><strong><a href="./01_race_condition/index.md">동시성과 임계 영역 (Critical Section)</a></strong>
+  <li><a href="./01_race_condition/index.md">동시성과 임계 영역 (Critical Section)</a>
     <blockquote>
       <p>1+1 이 2가 아닌 1이 되는 어셈블리 라인 분쇄 과정과 이 오류를 회피하는 임계 영역 캡슐화 조건 3단계를 점검합니다.</p>
     </blockquote>
   </li>
-  <li><strong><a href="./02_sync_hardware/index.md">하드웨어 원자적 락 (Spinlock/Futex)</a></strong>
+  <li><a href="./02_sync_hardware/index.md">하드웨어 원자적 락 (Spinlock/Futex)</a>
     <blockquote>
       <p>쪼개지지 않는 <code class="language-plaintext highlighter-rouge">CAS</code> 원자적 명령어를 통한 스핀락의 CPU 점유 낭비와 이를 회피하기 위한 퓨텍스 체계를 진단합니다.</p>
     </blockquote>
   </li>
-  <li><strong><a href="./03_sync_os/index.md">OS 동기화 객체 (세마포어/모니터)</a></strong>
+  <li><a href="./03_sync_os/index.md">OS 동기화 객체 (세마포어/모니터)</a>
     <blockquote>
       <p>큐 기반의 <code class="language-plaintext highlighter-rouge">wait()</code>/<code class="language-plaintext highlighter-rouge">signal()</code> 신호등 제어기 세마포어와 실수를 방지하는 고급 객체 지향 락인 모니터(Monitor)를 추적합니다.</p>
     </blockquote>
   </li>
-  <li><strong><a href="./04_deadlock/index.md">교착 상태(Deadlock) 회피와 아키텍처</a></strong>
+  <li><a href="./04_deadlock/index.md">교착 상태(Deadlock) 회피와 아키텍처</a>
     <blockquote>
       <p>동기화 락의 과용으로 인해 서로 무한 대기하는 교착 상태 4대 발생 조건 및 타조 알고리즘 등 회피 매버릭을 분석합니다.</p>
     </blockquote>
   </li>
-  <li><strong><a href="./05_priority_inversion/index.md">우선순위 역전과 커널 상속</a></strong>
+  <li><a href="./05_priority_inversion/index.md">우선순위 역전과 커널 상속</a>
     <blockquote>
       <p>(특수 심화) RTOS 등에서 낮은 권한의 스레드가 높은 권한 스레드의 길을 막는 우선순위 역전(Inversion) 버그와 OS 개입 해결책을 조망합니다.</p>
     </blockquote>

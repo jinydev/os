@@ -26,9 +26,9 @@ title: "3주차: 다중 사용자 환경과 시스템 권한 제어"
 
 단순한 프로그램 개발사를 넘어 시스템 권한 통제 계층과 은폐된 에러 추적기를 탐험하는 2부작입니다.
 
-1. **[윈도우 다중 사용자 환경과 UAC](./01_multiuser_env/index.md)**
+1. [윈도우 다중 사용자 환경과 UAC](./01_multiuser_env/index.md)
    > SYSTEM 관리자 계정과 일반 사용자 격리 시스템. 화면을 어둡게 막아서는 UAC 방어막의 진정한 존재 의미 파악.
-2. **[이벤트 뷰어와 레지스트리 디버깅](./02_event_viewer/index.md)**
+2. [이벤트 뷰어와 레지스트리 디버깅](./02_event_viewer/index.md)
    > HKEY_LOCAL_MACHINE 구조 해부 및 보이지 않는 백그라운드 셧다운 원인을 붉은색 Event ID로 파밍해 내는 디버깅 스킬.
 
 <hr style="margin: 40px 0;">

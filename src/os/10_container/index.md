@@ -19,11 +19,11 @@ title: "10주차: 컨테이너 딥다이브 (Linux 네임스페이스와 cgroup)
 
 도커 마법의 실체를 3단계의 리눅스 커널 심화 핵심 모듈 컴포넌트로 해부했습니다. 
 
-1. **[도커의 정체와 네임스페이스 격리](./01_namespace_isolation/index.md)**
+1. [도커의 정체와 네임스페이스 격리](./01_namespace_isolation/index.md)
    > VM의 한계를 무너뜨린 "서로 사기를 당하고 있는 격리 프로세스". PID 통제와 시야 차단의 매직.
-2. **[cgroup(Control Groups) 하드웨어 통제](./02_cgroup_control/index.md)**
+2. [cgroup(Control Groups) 하드웨어 통제](./02_cgroup_control/index.md)
    > 호스트 CPU/RAM 100% 점유 폭주를 막는 물리적 오버헤드 감옥(Cgroup)과 OOM 개입 체계.
-3. **[OCI 규격과 이미지 레이어 (Layered FS)](./03_overlay_fs/index.md)**
+3. [OCI 규격과 이미지 레이어 (Layered FS)](./03_overlay_fs/index.md)
    > Union Mount 기술로 읽기 전용 베이스를 공유하여 파생 이미지를 무한 증식해도 디스크 낭비율이 제로인 설계.
 
 <hr style="margin: 40px 0;">

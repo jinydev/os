@@ -8,9 +8,9 @@
   <!-- 기본 메타데이터 --><meta name="description" content="Jiny linux"><meta name="author" content="HojinLee"><!-- 제목 설정 --><title>7주차: 파일 시스템 아키텍처 (i-node부터 ZFS/APFS까지)</title>
   <meta name="title" content="7주차: 파일 시스템 아키텍처 (i-node부터 ZFS/APFS까지)" /><!-- 키워드 설정 --><!-- Open Graph 메타데이터 --><meta property="og:title" content="7주차: 파일 시스템 아키텍처 (i-node부터 ZFS/APFS까지)"><meta property="og:description" content="Jiny linux"><meta property="og:type" content="website"><meta property="og:locale" content="ko">
   <meta property="og:site_name" content="linux">
-  <meta property="og:url" content="http://localhost:4001/os/07_fs/">
+  <meta property="og:url" content="https://os.jiny.dev/os/07_fs/">
   <!-- 대표 URL (캐노니컬) -->
-  <link rel="canonical" href="http://localhost:4001/os/07_fs/">
+  <link rel="canonical" href="https://os.jiny.dev/os/07_fs/">
 
   <!-- Twitter 카드 메타데이터 --><meta name="twitter:card" content="summary"><meta property="twitter:title" content="7주차: 파일 시스템 아키텍처 (i-node부터 ZFS/APFS까지)"><!-- Begin Jekyll SEO tag v2.8.0 -->
 <meta name="generator" content="Jekyll v4.2.2" />
@@ -19,14 +19,14 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너" />
 <meta property="og:description" content="개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너" />
-<link rel="canonical" href="http://localhost:4001/os/07_fs/" />
-<meta property="og:url" content="http://localhost:4001/os/07_fs/" />
+<link rel="canonical" href="https://os.jiny.dev/os/07_fs/" />
+<meta property="og:url" content="https://os.jiny.dev/os/07_fs/" />
 <meta property="og:site_name" content="소프트웨어 엔지니어링: 운영체제 (OS Curriculum)" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="7주차: 파일 시스템 아키텍처 (i-node부터 ZFS/APFS까지)" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Hojin"},"description":"개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너","headline":"7주차: 파일 시스템 아키텍처 (i-node부터 ZFS/APFS까지)","url":"http://localhost:4001/os/07_fs/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Hojin"},"description":"개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너","headline":"7주차: 파일 시스템 아키텍처 (i-node부터 ZFS/APFS까지)","url":"https://os.jiny.dev/os/07_fs/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -1226,27 +1226,27 @@
 <p>물리 매체와 파일 시스템 사이의 논리적 괴리를 파헤치는 7주차 렉처는 5개의 상세 파이프라인으로 구성되었습니다.</p>
 
 <ol>
-  <li><strong><a href="./01_directory_link/index.md">디렉터리 시스템과 링크 아키텍처</a></strong>
+  <li><a href="./01_directory_link/index.md">디렉터리 시스템과 링크 아키텍처</a>
     <blockquote>
       <p>낭비적인 트리 모델을 극복한 비순환 그래프의 공용 권한과 ‘하드 링크 / 소프트 링크’ 바로가기의 차이를 분석.</p>
     </blockquote>
   </li>
-  <li><strong><a href="./02_inode/index.md">UNIX 메타데이터: i-node 색인</a></strong>
+  <li><a href="./02_inode/index.md">UNIX 메타데이터: i-node 색인</a>
     <blockquote>
       <p>거대한 볼륨 폭증을 대비해 직접/1중/2중/3중 포인터로 디스크 할당을 기적적으로 확장해 내는 핵심 트리 철학.</p>
     </blockquote>
   </li>
-  <li><strong><a href="./03_allocation/index.md">디스크 블록 공간 할당 모델</a></strong>
+  <li><a href="./03_allocation/index.md">디스크 블록 공간 할당 모델</a>
     <blockquote>
       <p>외부 단편화 방식을 남기는 연속 배열형, 꼬리잡기식 연결 할당, 색인 파일 할당 3대장의 트레이드 오프.</p>
     </blockquote>
   </li>
-  <li><strong><a href="./04_lseek/index.md">포인터 제어 lseek 시스템 콜</a></strong>
+  <li><a href="./04_lseek/index.md">포인터 제어 lseek 시스템 콜</a>
     <blockquote>
       <p>C언어 개발자가 직접 파일 디스크립터(FD)에 접근하여 임의의 번지로 오프셋 스캔/수정을 날리는 핵심 매커니즘.</p>
     </blockquote>
   </li>
-  <li><strong><a href="./05_journal_cow/index.md">저널링과 현대 CoW 스냅샷</a></strong>
+  <li><a href="./05_journal_cow/index.md">저널링과 현대 CoW 스냅샷</a>
     <blockquote>
       <p>커밋 로그를 남겨 디스크 박살을 피하는 ext4의 저널과 원본 비파괴 참조 스냅샷을 0.1초 만에 떠버리는 최신 APFS 기술.</p>
     </blockquote>

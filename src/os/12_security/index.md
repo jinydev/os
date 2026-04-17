@@ -23,11 +23,11 @@ title: "12주차: 현대 OS 보안 (Linux 권한·SELinux·eBPF)"
 
 단편적인 폴더 막기를 넘어 클라우드 컨테이너와 커널 내부 깊숙이 파고드는 3단계의 현대 리눅스 샌드박스 메커니즘을 해부합니다.
 
-1. **[DAC 통제와 SetUID 특권 마법](./01_dac_setuid/index.md)**
+1. [DAC 통제와 SetUID 특권 마법](./01_dac_setuid/index.md)
    > 단순 주인의 권한(DAC) 한계를 벗어나, 실행되는 찰나의 순간에만 일회용 루트 권한을 부여하는 트릭 모델.
-2. **[MAC 강제 제어 (SELinux/AppArmor)](./02_mac_selinux/index.md)**
+2. [MAC 강제 제어 (SELinux/AppArmor)](./02_mac_selinux/index.md)
    > 운영체제 1인자 루트(Root)마저 해킹당했을 때, 정책(Policy)과 라벨링 기반으로 커널에서 파괴 명령을 차단하는 원리.
-3. **[Seccomp와 괴물 해킹 탐지망 eBPF](./03_ebpf_seccomp/index.md)**
+3. [Seccomp와 괴물 해킹 탐지망 eBPF](./03_ebpf_seccomp/index.md)
    > 의심스러운 시스템 콜 인터럽트 접근을 백리스팅하고, 커널 안에서 실시간 C코드를 돌려 수상한 통신을 끊어버리는 eBPF 관제 철학.
 
 <hr style="margin: 40px 0;">

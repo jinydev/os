@@ -27,9 +27,9 @@ title: "8주차: Windows 네이티브 프로그래밍과 C#"
 
 무거운 IDE 도구를 버리고 운영체제의 엔진(CLR)과 직접 맞붙는 빌드업 구조 투어.
 
-1. **[윈도우 네이티브 객체, C#](./01_dotnet_native/index.md)**
+1. [윈도우 네이티브 객체, C#](./01_dotnet_native/index.md)
    > 객체지향 닷넷(.NET) 공통 언어 런타임(CLR) 과 메모리의 가비지 컬렉션 아키텍처 이해.
-2. **[터미널 기반 네이티브 빌드](./02_cli_compile/index.md)**
+2. [터미널 기반 네이티브 빌드](./02_cli_compile/index.md)
    > IDE를 거치지 않고 소스코드를 네이티브 윈도우즈의 컴파일러 `csc.exe` 에 직접 던져넣는 .EXE 파일 타격 방식.
 
 <hr style="margin: 40px 0;">

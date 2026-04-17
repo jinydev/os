@@ -8,9 +8,9 @@
   <!-- 기본 메타데이터 --><meta name="description" content="Jiny linux"><meta name="author" content="HojinLee"><!-- 제목 설정 --><title>9주차: IO 디바이스 투어와 io_uring (디스크 스케줄링/RAID)</title>
   <meta name="title" content="9주차: IO 디바이스 투어와 io_uring (디스크 스케줄링/RAID)" /><!-- 키워드 설정 --><!-- Open Graph 메타데이터 --><meta property="og:title" content="9주차: IO 디바이스 투어와 io_uring (디스크 스케줄링/RAID)"><meta property="og:description" content="Jiny linux"><meta property="og:type" content="website"><meta property="og:locale" content="ko">
   <meta property="og:site_name" content="linux">
-  <meta property="og:url" content="http://localhost:4001/os/09_io/">
+  <meta property="og:url" content="https://os.jiny.dev/os/09_io/">
   <!-- 대표 URL (캐노니컬) -->
-  <link rel="canonical" href="http://localhost:4001/os/09_io/">
+  <link rel="canonical" href="https://os.jiny.dev/os/09_io/">
 
   <!-- Twitter 카드 메타데이터 --><meta name="twitter:card" content="summary"><meta property="twitter:title" content="9주차: IO 디바이스 투어와 io_uring (디스크 스케줄링/RAID)"><!-- Begin Jekyll SEO tag v2.8.0 -->
 <meta name="generator" content="Jekyll v4.2.2" />
@@ -19,14 +19,14 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너" />
 <meta property="og:description" content="개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너" />
-<link rel="canonical" href="http://localhost:4001/os/09_io/" />
-<meta property="og:url" content="http://localhost:4001/os/09_io/" />
+<link rel="canonical" href="https://os.jiny.dev/os/09_io/" />
+<meta property="og:url" content="https://os.jiny.dev/os/09_io/" />
 <meta property="og:site_name" content="소프트웨어 엔지니어링: 운영체제 (OS Curriculum)" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="9주차: IO 디바이스 투어와 io_uring (디스크 스케줄링/RAID)" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Hojin"},"description":"개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너","headline":"9주차: IO 디바이스 투어와 io_uring (디스크 스케줄링/RAID)","url":"http://localhost:4001/os/09_io/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Hojin"},"description":"개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너","headline":"9주차: IO 디바이스 투어와 io_uring (디스크 스케줄링/RAID)","url":"https://os.jiny.dev/os/09_io/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -1228,27 +1228,27 @@
 <p>1~8주 차에서 시스템 상부를 가동하던 이론이 디스크를 만나 현실로 구워지는 종단점 아키텍처, I/O Subsystem의 5가지 최적화 혁명을 체험합니다.</p>
 
 <ol>
-  <li><strong><a href="./01_io_subsystem/index.md">하드웨어 혈관과 커널 추상화</a></strong>
+  <li><a href="./01_io_subsystem/index.md">하드웨어 혈관과 커널 추상화</a>
     <blockquote>
       <p>모든 기기를 하나의 위장 파일로 평준화시킨 UNIX 철학과 이기종 버스 체계를 통제하는 제어기(Controller)의 위엄.</p>
     </blockquote>
   </li>
-  <li><strong><a href="./02_data_transfer/index.md">전송 철학 (Polling ➔ DMA)</a></strong>
+  <li><a href="./02_data_transfer/index.md">전송 철학 (Polling ➔ DMA)</a>
     <blockquote>
       <p>무식한 무한루프 점검을 벗어나 하드웨어가 쏘아올리는 인터럽트, 더 건너뛰어 CPU를 기만하고 직접 입출력하는 DMA.</p>
     </blockquote>
   </li>
-  <li><strong><a href="./03_disk_scheduling/index.md">디스크 탐색 스케줄링 (C-SCAN)</a></strong>
+  <li><a href="./03_disk_scheduling/index.md">디스크 탐색 스케줄링 (C-SCAN)</a>
     <blockquote>
       <p>좌우로 오가는 엘리베이터의 한쪽 양 끝단 병목 분쟁을 해소하기 위한 Circular 로비 회기 한 방향 스크래핑 기법.</p>
     </blockquote>
   </li>
-  <li><strong><a href="./04_raid/index.md">서버 파티션: RAID 아키텍처</a></strong>
+  <li><a href="./04_raid/index.md">서버 파티션: RAID 아키텍처</a>
     <blockquote>
       <p>N개의 디스크를 묶어 1처럼 속이는 마법. 속도를 위한 0과 미러링 1, 그리고 현업 실무 대부인 패리티(Parity)의 5 모듈.</p>
     </blockquote>
   </li>
-  <li><strong><a href="./05_api_iouring/index.md">OS API 한계와 io_uring의 도래</a></strong>
+  <li><a href="./05_api_iouring/index.md">OS API 한계와 io_uring의 도래</a>
     <blockquote>
       <p>C언어 기반의 폴더 구조 분해 코드 및 최신 NVMe 드라이브에 맞춰 시스템콜 트랩 자체를 포기해 버려 속도 한계를 부순 링 버퍼 매커니즘.</p>
     </blockquote>
