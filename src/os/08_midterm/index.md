@@ -4,38 +4,32 @@ title: "8주차: 전반기 기술 점검 및 중간고사"
 ---
 
 <div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="100" fill="white" font-size="28" font-family="monospace" text-anchor="middle">OS Midterm</text></svg>
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="100" fill="white" font-size="28" font-family="monospace" text-anchor="middle">OS Midterm Checkpoint</text></svg>
 </div>
 
-# 8주차: 전반기 기술 점검 및 중간고사
-
+# 8주차: 전반기 딥테크 기술 점검 및 중간고사
 
 ![OS Core Architecture](/Users/hojin/.gemini/antigravity/brain/28d2e8ff-2bf4-4b06-8f22-23880f1f7300/ai_os_08.png)
 <br>
 
+지난 7주 간의 상반기 일정을 통해, 우리는 그저 애플리케이션 코드를 짜는 유저 생태계를 벗어나, 거대한 메인보드 칩셋과 하드웨어 레지스터를 직결 제어하는 **시스템 마스터(System Master)**의 시야를 확보했습니다.
 
-
-## 1. 운영체제 전반기 아키텍처 복습
-
-[실전 심화 렉처]
-7주 차까지 우리는 시스템 콜의 하부 경로, 프로세스와 스레드의 본질적 파이프라인, 거대한 가상 메모리 맵과 페이지 폴트 메커니즘, 디스크 I/O가 얽히는 Inode와 트리 구조까지 전반적 아키텍처를 통과해 왔습니다!
-현대 클라우드 서버 장비를 이해하기 위한 가장 강력한 기반이 다져진 것입니다.
-이번 중간고사 점검은 단순 문법이나 암기를 위한 것이 아닙니다. 주어진 에러 스트림을 읽고 OS 어느 계층(CPU L1 캐싱 미스인지, 디스크 블록 할당 지연인지, 커널 권한 탈락인지)에서 병목이 발생했는가 직관적으로 추적하는 체질 개선에 포커스를 맞춥니다.
+이번 8주차 중간고사 주간은 단순한 지식의 나열과 암기를 테스트하는 시간이 아닙니다. 지금까지 누적해 온 `프로세스-메모리-스케줄러-동기화-디스크`의 5단계 파이프라인이 하나의 서버 인프라 위에서 어떻게 맞물려 돌아가는가를 총체적으로 검증하는 실전 엔지니어링 리포팅 타임입니다.
 
 ---
 
-<div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="100" fill="#E81123" font-size="24" font-family="monospace" text-anchor="middle">Summary Assessment</text></svg>
-</div>
+## 📚 하위 문서 목차 (Sub-Chapters)
 
-## [평가 안내] 중간고사 이론-실기 병합 평가
+단편적인 지식을 결합해 전반적인 아키텍처 장애 추적(Troubleshooting) 능력을 점검하기 위해 3개의 가이드 문서를 할당했습니다.
 
-OS의 커널 층, 가상 메모리 공간 계산, CFS 스케줄러 지연율 및 inode 생성 원리가 핵심 문항으로 출제됩니다. 터미널에서의 `top`, `strace` 분석 스크린샷 판독이 동반됩니다.
+1. **[전반기 아키텍처 복습](./01_architecture_review/index.md)**
+   > 1강의 시스템 레이어부터 파일시스템 구조까지 이어지는 거시적 연결선 파이프라인 리뷰.
+2. **[중간고사 실기 평가 안내](./02_assessment_guide/index.md)**
+   > 메모리 Fault와 스레드 스케줄링 로그를 분석해 내는 이론/실무 복합 문항 오버뷰.
+3. **[시스템 장애 디버깅 케이스](./03_case_study/index.md)**
+   > 커널 데드락, i-node 파열, 메모리 스래싱 등 현업 운영체제 핵심 병목 트러블슈팅 복기.
 
-<div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="65" fill="#00FF00" font-size="18" font-family="monospace" text-anchor="middle">Review 1~7 Weeks</text></svg>
-</div>
+<hr style="margin: 40px 0;">
 
-## [리포팅] 시스템 장애 복서 케이스 리뷰
-
-실전 데드락, 메모리 캐시 미스 등을 디버깅했던 과제를 복기하며 엔지니어 뇌 구조를 형성합니다.
+> **🔥 튜터 격려사**
+> 중간고사의 난도가 매우 높습니다만, 이 관문을 통과하고 나면 더 이상 에러 로그가 두렵지 않은 시스템 엔지니어의 강력한 디버깅 눈을 가지게 될 것입니다. 행운을 빕니다!

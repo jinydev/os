@@ -2,82 +2,82 @@ main:
 - subitems:
   - title: 📋 학습 시작/개요
     url: /window/01_history/
-  - title: '[심화 렉처] MS-DOS: 윈도우의 기원'
-    url: /window/01_history/#심화-렉처-ms-dos-윈도우의-기원
-  - title: '[심화 렉처] NT커널과 진정한 플랫폼'
-    url: /window/01_history/#심화-렉처-nt커널과-진정한-플랫폼
+  - title: 1. MS-DOS와 C:\ 경로의 기원
+    url: /window/01_history/01_ms_dos/
+  - title: 2. NT 커널과 진정한 OS 아키텍처
+    url: /window/01_history/02_nt_kernel/
   title: '1주차: 윈도우 컴퓨터란? 시작과 역사적 배경'
   url: /window/01_history/
 - subitems:
   - title: 📋 학습 시작/개요
     url: /window/02_cmd/
-  - title: '[심화 렉처] 전통을 지배하는 도스 명령어'
-    url: /window/02_cmd/#심화-렉처-전통을-지배하는-도스-명령어
-  - title: '[심화 렉처] 권력의 제어'
-    url: /window/02_cmd/#심화-렉처-권력의-제어
+  - title: 1. 제한된 터미널과 배치 스크립트
+    url: /window/02_cmd/01_cmd_engine/
+  - title: 2. 권력을 통제하는 도스 명령어
+    url: /window/02_cmd/02_dos_commands/
   title: '2주차: 명령 프롬프트(CMD)와 DOS 명령어의 부활'
   url: /window/02_cmd/
 - subitems:
   - title: 📋 학습 시작/개요
     url: /window/03_multiuser/
-  - title: '[심화 렉처] 윈도우 다중 사용자 환경'
-    url: /window/03_multiuser/#심화-렉처-윈도우-다중-사용자-환경
-  - title: '[심화 렉처] 이벤트 뷰어로 에러 뚫어보기'
-    url: /window/03_multiuser/#심화-렉처-이벤트-뷰어로-에러-뚫어보기
+  - title: 1. 윈도우 다중 사용자 환경과 UAC
+    url: /window/03_multiuser/01_multiuser_env/
+  - title: 2. 이벤트 뷰어와 레지스트리 디버깅
+    url: /window/03_multiuser/02_event_viewer/
   title: '3주차: 다중 사용자 환경과 시스템 권한 제어'
   url: /window/03_multiuser/
 - subitems:
   - title: 📋 학습 시작/개요
     url: /window/04_path/
-  - title: '[심화 렉처] 터미널의 동맥 망, 환경 변수'
-    url: /window/04_path/#심화-렉처-터미널의-동맥-망-환경-변수
-  - title: '[심화 렉처] 변수 조작과 오염 방지망'
-    url: /window/04_path/#심화-렉처-변수-조작과-오염-방지망
+  - title: 1. 터미널의 동맥 망, 환경 변수
+    url: /window/04_path/01_environment_vars/
+  - title: 2. 변수 셋업 튜닝과 오염 방어
+    url: /window/04_path/02_path_manipulation/
   title: '4주차: 컴퓨터의 핏줄, 환경 변수와 경로(PATH)'
   url: /window/04_path/
 - subitems:
   - title: 📋 학습 시작/개요
     url: /window/05_powershell/
-  - title: '[심화 렉처] 파워셸(PowerShell)의 탄생과 닷넷 객체 지향'
-    url: /window/05_powershell/#심화-렉처-파워셸powershell의-탄생과-닷넷-객체-지향
-  - title: '[심화 렉처] 개발자 셸 환경 구축'
-    url: /window/05_powershell/#심화-렉처-개발자-셸-환경-구축
+  - title: 1. 객체기반 셸의 탄생
+    url: /window/05_powershell/01_powershell_intro/
+  - title: 2. 개발자 셸 셋업과 프로필
+    url: /window/05_powershell/02_dev_shell/
   title: '5주차: 차세대 프레임워크, PowerShell 객체 셸'
   url: /window/05_powershell/
 - subitems:
   - title: 📋 학습 시작/개요
     url: /window/06_terminal/
-  - title: '[심화 렉처] 터미널 엔진의 진화, Windows Terminal'
-    url: /window/06_terminal/#심화-렉처-터미널-엔진의-진화-windows-terminal
+  - title: 1. Windows Terminal 아키텍처
+    url: /window/06_terminal/01_terminal_engine/
   title: '6주차: 터미널의 혁신, Windows Terminal'
   url: /window/06_terminal/
 - subitems:
   - title: 📋 학습 시작/개요
     url: /window/07_package/
-  - title: '[심화 렉처] 패키지 자동 셋업과 분리 공간'
-    url: /window/07_package/#심화-렉처-패키지-자동-셋업과-분리-공간
+  - title: 1. 패키지 관리자의 도입과 격리
+    url: /window/07_package/01_package_manager/
   title: '7주차: 패키지 관리자의 도입과 개발 환경 렌더링'
   url: /window/07_package/
 - subitems:
   - title: 📋 학습 시작/개요
     url: /window/08_csharp/
-  - title: '[심화 렉처] 윈도우 네이티브의 본질: C# (.NET)'
-    url: /window/08_csharp/#심화-렉처-윈도우-네이티브의-본질-c-net
-  - title: '[심화 렉처] 터미널 기반 Hello World 네이티브 컴파일'
-    url: /window/08_csharp/#심화-렉처-터미널-기반-hello-world-네이티브-컴파일
+  - title: 1. 윈도우 네이티브 객체, C#
+    url: /window/08_csharp/01_dotnet_native/
+  - title: 2. 터미널 기반 네이티브 빌드
+    url: /window/08_csharp/02_cli_compile/
   title: '8주차: Windows 네이티브 프로그래밍과 C#'
   url: /window/08_csharp/
 - subitems:
   - title: 📋 학습 시작/개요
     url: /window/09_wsl2/
-  - title: '[심화 렉처] WSL2 의 극강 통신 아키텍처'
-    url: /window/09_wsl2/#심화-렉처-wsl2-의-극강-통신-아키텍처
+  - title: 1. 극강 통신 아키텍처
+    url: /window/09_wsl2/01_wsl2_architecture/
   title: '9주차: 하이브리드 엔진, WSL2 아키텍처'
   url: /window/09_wsl2/
 - subitems:
   - title: 📋 학습 시작/개요
     url: /window/10_vscode/
-  - title: '[심화 렉처] Remote-WSL 아키텍처'
-    url: /window/10_vscode/#심화-렉처-remote-wsl-아키텍처
+  - title: 1. 원격-WSL 이원화 메커니즘
+    url: /window/10_vscode/01_vscode_remote/
   title: '10주차: 궁극의 퓨전 — VS Code Remote 아키텍처'
   url: /window/10_vscode/

@@ -1,0 +1,44 @@
+I"Q<h1 id="5-프로세스-보안-장벽-극복-ipc-통신">5. 프로세스 보안 장벽 극복: IPC 통신</h1>
+
+<p>마치 멀티 스레드의 자유처럼, 보안으로 철저하게 단절된 각 프로세스끼리 통신하기 위해서는 메모리 벽을 허물기 위해 반드시 커널을 호출해 거쳐야만 하는 4가지 <strong>IPC(Inter-Process Communication)</strong> 기법이 존속합니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">분류</th>
+      <th style="text-align: left">물리적 메커니즘 패러다임</th>
+      <th style="text-align: left">용도 및 예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>시그널 (Signal)</strong></td>
+      <td style="text-align: left">특정 에러, <code class="language-plaintext highlighter-rouge">kill</code> 명령 등에 반응하게 PCB 플래그를 수정. OS 인터럽트 방식.</td>
+      <td style="text-align: left">예외 딥-이벤트 트리거 (SIGINT, SIGKILL)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>파이프 (Pipe)</strong></td>
+      <td style="text-align: left">부모와 자식 노드만이 File Descriptor <code class="language-plaintext highlighter-rouge">fd[0]</code>, <code class="language-plaintext highlighter-rouge">fd[1]</code> 을 물고 바이트 스트림 통신</td>
+      <td style="text-align: left">쉘 커맨드 체이닝 <code class="language-plaintext highlighter-rouge">ls -la \| grep "test"</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>FIFO (Named Pipe)</strong></td>
+      <td style="text-align: left">파일과 하드 디스크 I/O 네임스페이스를 의도적으로 개방하여 부모자식 무관 남남 프로세스 스트리밍</td>
+      <td style="text-align: left">양방향 브로드캐스트 로깅</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>공유 메모리 (Shared)</strong></td>
+      <td style="text-align: left"><strong>shmget/shmat</strong>. 커널 물리 메모리를 복사 없이 양방향 프로세스의 가상 주소 테이블에 직빵으로 ‘포인터 부착’</td>
+      <td style="text-align: left">딥러닝 고속 매트릭스 교환 (제로-카피)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>파이프와 시그널은 송/수신 간 커널 메모리 버퍼로 데이터를 덤프하고 꺼내는 느린 단계가 필수적이지만, 가장 강력한 퍼포먼스가 필요한 영역에서는 <strong>공유 메모리(Shared Memory)</strong>가 답입니다.</p>
+
+<p><img src="./img/os09_54.svg" alt="공유 메모리 아키텍처 부착 원리" /></p>
+
+<p>커널 물리 메모리에 거대한 매핑 블록을 세팅한 후, <code class="language-plaintext highlighter-rouge">어태치(shmat)</code>를 통해 두 프로세스의 주소를 물리적으로 동시에 가리킴으로써 <strong>커널 개입 0%의 최적 속도</strong>를 자랑합니다. 통신을 위해 램 복사(Copy)를 하지 않는 완전한 제로-카피 철학입니다.</p>
+
+<p>단, 속도가 빛처럼 빠른 대신 스레드 환경과 완벽히 동일하게 두 프로세스가 동시에 써버리는 데이터 붕괴(Race Condition)가 상시 작동할 위험이 있으므로, 이 방식은 향후 다룰 <strong>세마포어/동기화 락 제어 구조</strong>와 절대적으로 바늘과 실처럼 붙어 다녀야 합니다.</p>
+:ET

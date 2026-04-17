@@ -7,48 +7,29 @@ title: "11주차: 가상화와 클라우드 OS (하이퍼바이저·K8s 개요)"
   <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="60" fill="white" font-size="20" font-family="monospace" text-anchor="middle">Type 1 Bare Metal (KVM/ESXi)</text><text x="300" y="130" fill="white" font-size="20" font-family="monospace" text-anchor="middle">Type 2 Hosted (VirtualBox)</text></svg>
 </div>
 
-# 11주차: 가상화와 클라우드 OS (하이퍼바이저·K8s 개요)
-
+# 11주차: 가상화와 클라우드 OS 마스터 (하이퍼바이저·K8s 개요)
 
 ![OS Core Architecture](/Users/hojin/.gemini/antigravity/brain/28d2e8ff-2bf4-4b06-8f22-23880f1f7300/ai_os_11.png)
 <br>
 
+지난 10주차 컨테이너(Docker)의 세계 너머에는, 아예 물리 하드웨어와 거대한 서버 팜 자체를 통째로 가상 생태계로 덮고 찍어내는 궁극의 **가상화(Virtualization) 인프라**가 기다리고 있습니다. 
 
-
-
-## 1. 하드웨어 가상화와 하이퍼바이저 링 레벨
-
-[실전 심화 렉처]
-컨테이너가 리눅스 내의 프로세스 꼼수라면, 완전한 이종 커널 간의 동기화(맥북 안에서 MS 윈도우 커널 데우스 실행)는 물리 하드웨어 가상화 장비인 Type-1 패링 기능(Hypervisor)이 없으면 절대 성립하지 않습니다.
-Intel VT-x 나 AMD-V 같은 CPU 전용 가상화 명령어 세트가 부팅부터 Ring -1 레벨(커널보다 더 밑바닥 특권층)로 개입하여 게스트 OS의 모든 메모리 간섭 현상 페이지 폴트를 중간에서 꿀꺽 집어삼키고 몰래 하드웨어 처리를 대리수행(Shadow Paging & EPC) 시켜 줍니다. AWS 클라우드 KVM 기반 무수한 가상 서버도 이렇게 하드웨어 CPU 특권 명령의 은폐된 트릭으로 유지됩니다.
-
-## 2. 쿠버네티스(Kubernetes) 오케스트레이터의 철학
-
-[실전 심화 렉처]
-컨테이너가 10개일 때는 도커 데우스 배포가 먹히지만, 1만 대의 클러스터 장비에 수작업은 자살 행위입니다.
-쿠버네티스(K8s)는 OS를 대규모로 추상화한 '메타-운영체제 플랫폼'입니다. 서버 노드 하나가 갑자기 화재로 소실되면 마스터 제어 노드가 즉각 수명을 다한 컨테이너(Pod)의 목숨을 판별하고 인근 정상 노드에 렉처 없이 즉각 부활(Auto-Healing/Replication)시켜버립니다.
-이 모든 인프라스트럭처 제어 구조는 "결과적으로 목표치 3대의 파드가 돌아야 한다"고 종이에 써두는(Declarative, 선언적 메커니즘) yaml 문서의 지속 제어 아키텍처에서 비롯됩니다.
-
-## 3. Serverless와 마이크로-VM 아키텍처 (Firecracker)
-
-[실전 심화 렉처]
-AWS Lambda 처럼 사용자가 1초만 켰다 끄는 코드를 돌릴 때 거대한 리눅스 VM을 돌리는 것은 미친 낭비입니다.
-현대 클라우드 벤더는 KVM 런타임을 극도로 뼈대만 남기어 150밀리초 만에 부팅시키는 '초경량 가상머신(Micro-VM)'을 오픈소스로 만들어버렸습니다(Firecracker 등). 보안 때문에 컨테이너 격리만으로는 불안한 퍼블릭 클라우드 한계를 뛰어넘어 컨테이너의 가벼움과 VM의 강철 보안 격리를 동시에 쟁취해버린 현대 클라우드 네이티브 메커니즘을 경험하십시오.
+이번 11주차 모듈에서는 물리적 CPU 칩셋에 숨겨진 또 다른 절대 권력자 '하이퍼바이저(Hypervisor)'의 링 권한을 분석합니다. 또한 만 대가 넘는 무수한 서버 대군과 도커 컨테이너들을 마치 하나의 유기적인 컴퓨터인 것처럼 자가 치유(Auto-Healing)하며 조율해 내는 클라우드 OS의 진수, **쿠버네티스(Kubernetes) 오케스트레이터의 아키텍처**와 0.1초 만에 부팅하는 **차세대 Micro-VM 체계**를 통합 파악합니다.
 
 ---
 
-<div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><circle cx="300" cy="100" r="50" fill="none" stroke="#E81123" stroke-width="4"/><circle cx="300" cy="100" r="20" fill="#0078D7"/><text x="300" y="180" fill="#00FF00" font-size="18" font-family="monospace" text-anchor="middle">K8s: Node -> Pod -> Container</text></svg>
-</div>
+## 📚 하위 문서 목차 (Sub-Chapters)
 
-## [전공 심화] 하이퍼바이저 링(Ring) -1 패러다임
+단일 유닉스 단말기를 벗어나 대규모 서버 오케스트레이션과 인프라 추상화를 이루는 핵심 기술 3단계를 해부합니다.
 
-OS 커널이 Ring 0 특권 레벨을 지배할 때, 그 커널 모여앉아 가짜 하드웨어를 분배해주는 또 다른 황제가 하이퍼바이저입니다. Type1 계층의 KVM과 최신 AMD-V/VT-x 하드웨어 지원 가상화 덕택에 클라우드 서버 VM들은 거의 물리 서버와 유사한(99.9%) 속도를 자랑할 수 있게 되었습니다.
+1. **[가상화와 하이퍼바이저 링(Ring) 레벨](./01_hypervisor/index.md)**
+   > 커널 모드보다 훨씬 아래인 Ring -1 레벨에 스텔스처럼 잠입하여 메모리 폴트를 낚아채는 KVM/VMware의 HW 가상화 원리.
+2. **[쿠버네티스(Kubernetes) 오케스트레이터](./02_kubernetes/index.md)**
+   > 인프라를 프로그래밍 문서로 서술하는 '선언적(Declarative)' 상태 감시 패러다임과 수만 대 K8s 클러스터의 자가 복원 기술.
+3. **[서버리스와 극초기화 마이크로-VM](./03_micro_vm/index.md)**
+   > 컨테이너 격리의 한계를 부수고 VM의 단점을 걷어내어 단 150ms 만에 콜드 부팅하는 AWS Firecracker 등 차세대 엔진의 등장.
 
-<div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="65" fill="#E81123" font-size="18" font-family="monospace" text-anchor="middle">Immutable Infrastructure Principle</text></svg>
-</div>
+<hr style="margin: 40px 0;">
 
-## [전공 심화] 쿠버네티스(K8s) 행성 관제탑
-
-만약 1,000대의 서버와 1만 개의 도커 컨테이너가 있다면 어떻게 네트워크를 연결하고 트래픽을 분산할까요? 구글의 내재 인프라 제어기가 오픈소스로 풀린 쿠베네티스는 모든 컨테이너들을 팟(Pod)으로 묶고 도커가 아닌 '전체 클라우드 행성 OS'의 레벨로 인프라를 추상화시켜 버리는 스케일링 엔진입니다.
+> **💡 클라우드 인프라의 철학**
+> "클라우드의 본질은 남의 컴퓨터를 쓰는 것이 아니다. 수만 개의 쇠덩이 컴퓨터 칩셋을 논리적 소프트웨어 시스템 코드로 완전히 추상화하여(Infrastructure as Code) 단 한 줄의 코드로 통제하는 사상이다."

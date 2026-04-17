@@ -4,56 +4,35 @@ title: "8주차: Windows 네이티브 프로그래밍과 C#"
 ---
 
 <div align='center'>
-  <img src='img/toon1.png' width='70%' style='border-radius: 10px; margin-bottom: 20px;' alt='Webtoon Splash' />
+  <img src='../01_history/img/toon1.png' width='70%' style='border-radius: 10px; margin-bottom: 20px;' alt='Webtoon Splash' />
 </div>
 
 <div align='center' style='margin: 30px 0;'>
   <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><rect x="50" y="50" width="120" height="100" fill="#5C2D91" rx="5"/><text x="110" y="105" fill="white" font-size="16" font-family="monospace" text-anchor="middle">C# Source</text><path d="M 180 100 L 250 100" stroke="white" stroke-width="3" marker-end="url(#a)"/><rect x="250" y="50" width="120" height="100" fill="#333" rx="5"/><text x="310" y="105" fill="#00FF00" font-size="16" font-family="monospace" text-anchor="middle">csc.exe</text><path d="M 380 100 L 450 100" stroke="white" stroke-width="3" marker-end="url(#a)"/><rect x="450" y="50" width="120" height="100" fill="#0078D7" rx="5"/><text x="510" y="105" fill="white" font-size="16" font-family="monospace" text-anchor="middle">Hello.exe</text><defs><marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="white"/></marker></defs></svg>
 </div>
 
-# 8주차: Windows 네이티브 프로그래밍과 C#
+# 8주차: Windows 네이티브 객체 생태계 - C#
 
 ![OS Core Architecture](/Users/hojin/.gemini/antigravity/brain/28d2e8ff-2bf4-4b06-8f22-23880f1f7300/ai_window_08.png)
 <br>
 
-- **대주제**: Windows 네이티브 프로그래밍과 C#
-- **세부학습목표**: 윈도우 OS를 구성하는 핵심 철학인 .NET 프레임워크와 마이크로소프트의 주력 언어 C#을 체험한다.
+파이썬 개발자나 자바 스프링 개발자가 윈도우용 응용 프로그램을 만들고 싶다면 그건 외래종 언어로 커널을 어설프게 건드리는 것에 불과합니다. 만약 윈도우 깊숙한 곳의 메모리와 사용자 화면(GUI)을 극한으로 매끄럽게 통제하고 싶다면 마이크로소프트의 공식 혈통, **C#** 을 만나야 합니다.
 
-#### 📌 8-1. C# 이란 무엇인가?
-1. C, C++, Java 사이에서 태어난 가장 모던한 객체지향 언어
-2. 닷넷(.NET) 공통 언어 런타임(CLR) 과 가비지 컬렉션 아키텍처
-3. Visual Studio, C# 컴파일러(CSC) 호출 작동 원리
-
-#### 📌 8-2. Hello World! 그리고 GUI 앱 제작
-1. `.cs` 파일 작성 후 네이티브 터미널에서 콘솔 앱 컴파일 및 `Hello World`
-2. WinForms 와 WPF (Windows Presentation Foundation) 구조 개요
-3. C# 응용프로그램이 윈도우 메모리(RAM)와 운영체제 핸들을 제어하는 방법
+이번 시간은 단순히 C# 문법을 배우는 코딩 튜토리얼이 아닙니다. 
+무거운 통합 개발 환경(Visual Studio)의 마법 같은 클릭 플레이를 치워버리고, 오직 평문 텍스트 코드 조각이 윈도우 깊은 곳의 `.NET` 컴파일러 엔진(`csc.exe`)을 터미널에서 강제로 거쳐 어떻게 실행 가능한 기계어(`Hello.exe`) 덩어리로 변환되는지 그 원초적 블랙박스를 터미널 환경에서 타격합니다.
 
 ---
 
+## 📚 하위 문서 목차 (Sub-Chapters)
 
-<div align='center'>
-  <img src='img/toon2.png' width='70%' style='border-radius: 10px; margin-bottom: 20px;' alt='Concept Art' />
-</div>
+무거운 IDE 도구를 버리고 운영체제의 엔진(CLR)과 직접 맞붙는 빌드업 구조 투어.
 
-<div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><circle cx="300" cy="100" r="80" fill="none" stroke="#68217A" stroke-width="6"/><text x="300" y="105" fill="#68217A" font-size="24" font-family="monospace" text-anchor="middle">.NET Core CLR</text><text x="300" y="130" fill="gray" font-size="14" font-family="monospace" text-anchor="middle">(Garbage Collector)</text></svg>
-</div>
+1. **[윈도우 네이티브 객체, C#](./01_dotnet_native/index.md)**
+   > 객체지향 닷넷(.NET) 공통 언어 런타임(CLR) 과 메모리의 가비지 컬렉션 아키텍처 이해.
+2. **[터미널 기반 네이티브 빌드](./02_cli_compile/index.md)**
+   > IDE를 거치지 않고 소스코드를 네이티브 윈도우즈의 컴파일러 `csc.exe` 에 직접 던져넣는 .EXE 파일 타격 방식.
 
+<hr style="margin: 40px 0;">
 
-
----
-
-## [심화 렉처] 윈도우 네이티브의 본질: C# (.NET)
-
-C, C++의 구조적 복잡성을 탈피하고 닷넷 프레임워크의 강력한 가비지 컬렉터의 혜택을 받는 언어가 C# 입니다. 윈도우 커널과 메모리를 가장 유기적으로 제어할 수 있습니다.
-
-
-<div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="65" fill="#00FF00" font-size="18" font-family="monospace" text-anchor="middle">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe</text></svg>
-</div>
-
-
-## [심화 렉처] 터미널 기반 Hello World 네이티브 컴파일
-
-무거운 Visual Studio 를 켜지 않고 메모장으로 `Program.cs`를 작성한 뒤 터미널 `csc.exe` 빌드 훅을 날려 `Hello.exe` 파일을 직접 찍어내면서 닷넷 컴파일의 파이프라인 구조를 확인합니다.
+> **💡 개발 환경의 본질**
+> "단순히 초록색 '실행' 화살표를 누르고 결과만 기다리는 것은 개발에 종속되는 것이다. 진정한 개발자는 텍스트가 기계어로 응집되는 그 파이프라인의 조종 권한을 터미널에서 제어한다."

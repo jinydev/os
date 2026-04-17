@@ -1,54 +1,48 @@
 ---
 layout: default
-title: "5주차: 동기화와 공유 자원 (멀티코어 병렬 프로그래밍)"
+title: "5주차: 프로세스 동기화와 교착 상태 (멀티코어 병렬 구조와 락 메커니즘)"
 ---
 
 <div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><rect x="200" y="80" width="200" height="40" fill="#E81123" rx="5"/><text x="300" y="105" fill="white" font-size="16" font-family="monospace" text-anchor="middle">Critical Section</text><rect x="150" y="60" width="100" height="20" fill="#00FF00" rx="5"/><rect x="350" y="120" width="100" height="20" fill="#0078D7" rx="5"/></svg>
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><rect x="200" y="80" width="200" height="40" fill="#E81123" rx="5"/><text x="300" y="105" fill="white" font-size="16" font-family="monospace" text-anchor="middle">Critical Section Lock</text><rect x="150" y="60" width="100" height="20" fill="#00FF00" rx="5"/><rect x="350" y="120" width="100" height="20" fill="#0078D7" rx="5"/><circle cx="200" cy="180" r="10" fill="none" stroke="#E81123" stroke-width="4"/><circle cx="400" cy="180" r="10" fill="none" stroke="#0078D7" stroke-width="4"/><path d="M 230 180 L 370 180" stroke="#00FF00" stroke-width="2" marker-end="url(#a)"/><text x="300" y="195" fill="gray" font-size="12" font-family="monospace" text-anchor="middle">Deadlock Avoidance</text><defs><marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#00FF00"/></marker></defs></svg>
 </div>
 
-# 5주차: 동기화와 공유 자원 (멀티코어 병렬 프로그래밍)
+# 5주차: 동기화와 교착 상태 (멀티코어 병렬 구조와 락 메커니즘)
 
+다중 스레드 환경에서 메모리와 힙(Heap)을 공유하는 것은 통신 속도 측정에 엄청난 축복이지만, 순서와 접근 권한 제어에 실패할 경우 모든 시스템을 다운시키는 파멸의 씨앗이 됩니다. 이번 강좌에서는 병렬 프로세싱에서 발생하는 **경쟁 상태(Race Condition)**의 어셈블리 측면 원리와 이를 방어하는 **상호배제(Mutex, Semaphore)**, 그리고 락의 남용이 가져오는 최악의 항구적 마비인 **교착 상태(Deadlock)**의 방어 아키텍처를 하나로 연결하여 딥-테크 레벨로 분석합니다.
 
-![OS Core Architecture](/Users/hojin/.gemini/antigravity/brain/28d2e8ff-2bf4-4b06-8f22-23880f1f7300/ai_os_05.png)
+---
+
+## 🎯 통합 핵심 학습 목표
+
+1. **병행성 오류 규명**: 경쟁 상태에서 발생하는 데이터 유실 메커니즘을 어셈블리어 레벨에서 설명할 수 있다.
+2. **임계 영역(Critical Section) 아키텍처**: 안전한 동기화를 위한 진입/퇴출 구역 설계 및 상호배제, 진행, 한정 대기의 3조건을 검증한다.
+3. **하드웨어 제어와 퓨텍스(Futex)**: 원자적 연산(`TestAndSet`, CAS) 명령어의 스핀락 한계와 유저 모드 락 트위킹을 파악한다.
+4. **고급 OS 동기화 객체**: 세마포어(Semaphore) 카운팅과 모니터(Monitor) 객체의 내부 블로킹 파이프라인을 활용할 수 있다.
+5. **데드락과 자원 회피**: 교착 상태 4대 발생 조건을 이해하고, 은행원 알고리즘(Banker's)과 락 오더링(Lock Ordering) 등 현대적 극복 방안을 체득한다.
+
 <br>
 
-
-
-
-## 1. 멀티스레드의 악몽: 경쟁 조건(Race Condition)
-
-[실전 심화 렉처]
-두 스레드가 `counter = counter + 1`을 동시에 수행했을 때, 1+1이 2가 아니라 1이 될 수 있다는 사실을 이해했다면 OS 심화 과정의 절반을 넘은 것입니다!
-어셈블리 레벨에서 이 코드는 메모리 읽기(Load) -> 레지스터에서 더하기(Add) -> 메모리에 쓰기(Store)의 3단계로 이루어집니다. A 스레드가 Load를 마친 찰나의 순간에 B 스레드가 파고들어서 Load를 해버리면 지옥문이 열립니다. 이를 방지하기 위한 OS의 핵심 보호 구역을 '임계 구역(Critical Section)'이라고 합니다.
-
-## 2. 락(Lock), 뮤텍스(Mutex), 그리고 페타슨의 알고리즘
-
-[실전 심화 렉처]
-임계 구역에 오직 한 놈만 들여보내기 위해 현대 OS는 Mutex(Mutual Exclusion) 오브젝트를 제공합니다. 스레드는 커널에 "문 잠그고 나 들어갈게"라고 요청합니다(`lock()`).
-하지만 성능에 민감한 C/C++ 게임 서버들은 OS에게 부탁하는 커널 호출 시간을 아까워합니다. 이 때문에 하드웨어 계층의 CAS(Compare-and-Swap) 명령어(Atomic Operation)를 이용한 Lock-Free 구조체나 락을 커널 레벨로 넘기기 전에 유저 레벨에서 짧게 뺑뺑이 도는 퓨텍스(Futex)를 혼합하여 지연을 극한으로 단축시킵니다.
-
-## 3. 교착 상태(Deadlock) 추적과 해결 메커니즘
-
-[실전 심화 렉처]
-현업에서 만나는 가장 끔찍한 서버 다운 원인은 데드락입니다.
-A 스레드는 데이터베이스 연결 락을 쥔 채 로그 파일 락을 기다리고, B 스레드는 로그 파일 락을 쥔 채 데이터베이스 연결 락을 대기합니다. 영원히 풀리지 않는 교착 상태가 발생하죠.
-이를 추적하기 위해서는 프로세스 덤프(Core Dump)를 떠서 스레드 호출 스택 상태를 분석해야 하며, 근본적으로는 **자원 할당 순서를 일관되게 고정(Lock Ordering)** 하거나 현대적인 타임아웃 메커니즘(Timeout and Retry)으로 소프트웨어가 스스로 락 경합을 포기하게 만들어 아키텍처를 안전하게 수호해야 합니다.
-
 ---
 
-<div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><circle cx="200" cy="100" r="50" fill="none" stroke="#E81123" stroke-width="4"/><circle cx="400" cy="100" r="50" fill="none" stroke="#0078D7" stroke-width="4"/><path d="M 250 80 L 350 80" stroke="#00FF00" stroke-width="4" marker-end="url(#a)"/><path d="M 350 120 L 250 120" stroke="#00FF00" stroke-width="4" marker-end="url(#a)"/><text x="300" y="195" fill="gray" font-size="16" font-family="monospace" text-anchor="middle">Deadlock (Circular Wait)</text><defs><marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#00FF00"/></marker></defs></svg>
-</div>
+## 📚 하위 문서 목차 (Sub-Chapters)
 
-## [전공 심화] 경쟁 조건이 발생시키는 죗값
+다중 코어 레이스의 경쟁 붕괴를 막고, 안전하게 순서를 보장하기 위한 락(Lock) 알고리즘 진화 역사를 5개 모듈로 세분화했습니다. 아래 링크를 참조하세요.
 
-공동 은행 계좌에서 스레드 A와 스레드 B가 동시에 잔액을 조회하고 차감할 경우, 최악의 시나리오가 펼쳐집니다. 어셈블리어 단계에서 데이터를 가져오는(Load) 것과 빼는(Sub), 저장하는(Store) 행위 중간에 나이프처럼 스케줄러가 끼어들어 컨텍스트 스위칭을 발생시키면 정보가 분쇄되는 현상을 '경쟁 조건(Race Condition)'이라고 부릅니다.
+1. **[동시성과 임계 영역 (Critical Section)](./01_race_condition/index.md)**
+   > 1+1 이 2가 아닌 1이 되는 어셈블리 라인 분쇄 과정과 이 오류를 회피하는 임계 영역 캡슐화 조건 3단계를 점검합니다.
+2. **[하드웨어 원자적 락 (Spinlock/Futex)](./02_sync_hardware/index.md)**
+   > 쪼개지지 않는 `CAS` 원자적 명령어를 통한 스핀락의 CPU 점유 낭비와 이를 회피하기 위한 퓨텍스 체계를 진단합니다.
+3. **[OS 동기화 객체 (세마포어/모니터)](./03_sync_os/index.md)**
+   > 큐 기반의 `wait()`/`signal()` 신호등 제어기 세마포어와 실수를 방지하는 고급 객체 지향 락인 모니터(Monitor)를 추적합니다.
+4. **[교착 상태(Deadlock) 회피와 아키텍처](./04_deadlock/index.md)**
+   > 동기화 락의 과용으로 인해 서로 무한 대기하는 교착 상태 4대 발생 조건 및 타조 알고리즘 등 회피 매버릭을 분석합니다.
+5. **[우선순위 역전과 커널 상속](./05_priority_inversion/index.md)**
+   > (특수 심화) RTOS 등에서 낮은 권한의 스레드가 높은 권한 스레드의 길을 막는 우선순위 역전(Inversion) 버그와 OS 개입 해결책을 조망합니다.
 
-<div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="65" fill="#E81123" font-size="18" font-family="monospace" text-anchor="middle">Mutex (1) vs Semaphore (N)</text></svg>
-</div>
+<hr style="margin: 40px 0;">
 
-## [전공 심화] 소프트웨어를 죽이는 데드락 모형
-
-경쟁을 피하기 위해 임계 구역(락)을 남용하면 모든 스레드가 잠금 장치에 매달려 정지해버리는 '교착 상태(Deadlock)'의 벽에 직면합니다. A가 B키를, B가 A키를 기다리며 영원히 무한 굴레에 빠지는 상황을 진단하고 예방하는 것은 현대 병렬 프로그래밍 수명 주기의 핵심입니다.
+> **📚 참고문헌**
+> * Abraham Silberschatz, 『Operating System Concepts』, J. Wiley & Sons.
+> * 『Linux Kernel Source Tree』 (futex.c implementation)
+> * 에츠허르 다익스트라 논문 리뷰 시리즈 (임계 구역과 은행원 정리)

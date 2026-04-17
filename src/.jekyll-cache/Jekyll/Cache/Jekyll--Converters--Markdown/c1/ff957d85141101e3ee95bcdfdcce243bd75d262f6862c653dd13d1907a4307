@@ -1,0 +1,24 @@
+I"^
+<h1 id="1-ms-dos-윈도우의-기원">1. MS-DOS: 윈도우의 기원</h1>
+
+<p>여러분은 윈도우(Windows)를 단순히 파란 배경의 잘 짜인 GUI 시스템으로만 알고 있을 수 있습니다. 그러나 지금 당장 키보드에서 <code class="language-plaintext highlighter-rouge">윈도우 키 + R</code>을 눌러 <code class="language-plaintext highlighter-rouge">cmd</code> 를 타이핑해 보십시오.</p>
+
+<p>여러분의 눈앞에 나타나는 시컴한 콘솔 터미널은 단순한 프로그램이 아닙니다. 이것은 과거 1980년대, 빌 게이츠가 IBM 시스템에 처음 납품하여 세상을 지배하기 시작했던 바로 그 <strong>MS-DOS(디스크 운영체제)의 근본 유산</strong>이 아직까지도 살아서 숨 쉬고 있는 흔적입니다.</p>
+
+<h2 id="파일-경로가-왜-c-부터-시작할까요">파일 경로가 왜 C:\ 부터 시작할까요?</h2>
+
+<p>우리는 항상 하드디스크를 <code class="language-plaintext highlighter-rouge">C:\</code> 드라이브라고 부릅니다. A와 B는 어디로 갔을까요?</p>
+
+<p>초창기 데스크톱 16비트 시장에서 컴퓨터를 켤 수 있었던 유일한 장치는 플로피 디스켓이었습니다. 그 시절 A: 와 B: 드라이브는 이 부팅용/데이터용 플로피 디스켓의 예약석이었습니다. 
+이후 비싸고 거대한 용량(당시 수십 메가바이트)의 튼튼한 하드디스크(HDD)가 처음 발명되어 컴퓨터에 장착되자, 당시 비어있던 알파벳 중 가장 남는 첫 문자열인 <code class="language-plaintext highlighter-rouge">C:</code> 가 자연스럽게 하드디스크의 예약 명칭으로 지정되었고 그것이 40년이 지난 지금까지도 유지되고 있는 것입니다.</p>
+
+<div align="center" style="margin: 30px 0;">
+  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#1E1E1E" rx="10" />
+  <text x="300" y="50" fill="white" font-size="24" font-family="monospace" text-anchor="middle">C:\ : HDD / SSD Core</text>
+  <text x="300" y="90" fill="#00FF00" font-size="16" font-family="monospace" text-anchor="middle">A: / B: (Floppy Disk Legacy History)</text>
+</svg>
+</div>
+
+<p>만약 여러분이 윈도우 디렉토리의 루트로 이동하고 싶을 때 <code class="language-plaintext highlighter-rouge">/</code> 가 아닌 치명적인 역슬래시(<code class="language-plaintext highlighter-rouge">\</code>)를 고집해야만 하는 이유 역시, 이 MS-DOS가 과거 타이프라이터 스위치에서 차용했던 경로 구분 방식의 진한 유산 때문입니다.</p>
+:ET

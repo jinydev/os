@@ -1,0 +1,15 @@
+I"E<h1 id="3-serverless와-마이크로-vm-아키텍처-firecracker">3. Serverless와 마이크로-VM 아키텍처 (Firecracker)</h1>
+
+<p>일반적인 엔터프라이즈 환경에서 AWS Lambda와 같은 ‘서버리스(Serverless)’ 환경을 구축하려 할 때, 사용자가 고작 “1초”만 돌리고 끄는 단일 계산 코드를 위해 부팅 프로세스가 수분이 걸리는 거대한 리눅스 가상머신(VM)을 통째로 켜는 것은 엄청난 리소스 낭비입니다.</p>
+
+<p>그렇다고 다른 이웃 유저들과 같은 컴퓨터 기반에서 하나의 커널을 공유하는 ‘컨테이너(Docker)’ 격리만 믿고 퍼블릭 클라우드 서비스를 구성하기엔 보안상 너무나도 불안전합니다 (컨테이너 탈옥 취약점 등).</p>
+
+<div align="center" style="margin: 30px 0;">
+  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10" /><text x="300" y="65" fill="#E81123" font-size="18" font-family="monospace" text-anchor="middle">Immutable Infrastructure Principle</text></svg>
+</div>
+
+<h2 id="firecracker-초경량-가상머신의-도래">Firecracker: 초경량 가상머신의 도래</h2>
+<p>이 문제를 타파하기 위해 거대 클라우드 벤더(AWS)는 Linux KVM 하이퍼바이저 런타임을 무자비하게 해체하여, 기존 불필요한 장치 에뮬레이션을 몽땅 걷어내고 뼈대만 남기어 고작 <strong>150밀리초(ms) 만에 부팅</strong>시켜버리는 <strong>‘초경량 마이크로 가상머신(Micro-VM)’</strong> 엔진을 오픈소스로 만들어버렸습니다 (예: <strong>Firecracker</strong> 등).</p>
+
+<p>이 특수한 KVM 모델을 통해, 시스템은 <strong>가벼운 도커 컨테이너급의 빛의 속도로 코드를 복제/실행하면서 동시에 하드웨어 VM(하이퍼바이저)급의 완벽하고 단단한 강철 보안 격리</strong>라는 두 마리 토끼(가벼움 + 보안성)를 동시에 쟁취해 버리는 현대 최고조의 클라우드 네이티브 메커니즘을 완성시켰습니다.</p>
+:ET

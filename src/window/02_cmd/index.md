@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "2주차: 명령 프롬프트(CMD)와 DOS 명령어의 부활"
+title: "2주차: 명령 프롬프트(CMD)와 DOS 명령어"
 ---
 
 <div align='center'>
@@ -17,60 +17,28 @@ title: "2주차: 명령 프롬프트(CMD)와 DOS 명령어의 부활"
 </svg>
 </div>
 
-# 2주차: 명령 프롬프트(CMD)와 DOS 명령어의 부활
+# 2주차: 터미널의 재발견 (명령 프롬프트 엔진과 DOS 통제)
 
 ![OS Core Architecture](/Users/hojin/.gemini/antigravity/brain/28d2e8ff-2bf4-4b06-8f22-23880f1f7300/ai_window_02.png)
 <br>
 
-- **대주제**: 명령 프롬프트(CMD)와 DOS 명령어의 부활
-- **세부학습목표**: GUI 마우스를 버리고, 현재까지도 위력을 발휘하는 쉘인 CMD 환경에서 필수 DOS 명령어들을 다듬어 낸다.
+서버가 다운되고 네트워크 데이터가 밀려 터지기 일보 직전인 위급 상황에서, 침착하게 마우스를 움직여 제어판 GUI 메뉴 깊숙한 곳을 찾아 클릭을 여러 번 하며 좀비 프로세스를 끌 수 있는 시간적 여유는 없습니다.
 
-#### 📌 2-1. 명령 프롬프트 엔진
-1. `cmd.exe` 프로세스의 한계 및 작동 원리
-2. 배치 스크립트(`.bat`)의 문법 체계
-
-#### 📌 2-2. 클래식 DOS 명령어 실전
-1. 디렉토리 탐색기: `dir`, `cd`, `mkdir`, `tree`
-2. 파일 복사/이동 종결자: `copy`, `xcopy`, `robocopy` 의 성능 차이
-3. 네트워킹과 포트 점검: `ipconfig`, `ping`, `tracert`, `netstat -ano`
-4. 프로세스 제어: `tasklist`, `taskkill`
+이번 2주차 렉처는 유저 친화적인 마우스 UI(Graphic User Interface)를 과감하게 버리고, 가장 기계와 밀접하게 소통할 수 있는 옛 시대의 유산 **'명령 프롬프트(cmd.exe)'** 터미널을 장착합니다. 
+옛 DOS 시대부터 근골격이 잡혀 서버 시스템 유지보수에 지배적인 위력을 발휘하고 있는 `xcopy/robocopy` 백업 전술과 `taskkill \F` 프로세스 처형 명령어의 아키텍처 원리를 직관합니다.
 
 ---
 
+## 📚 하위 문서 목차 (Sub-Chapters)
 
-<div align='center'>
-  <img src='img/toon2.png' width='70%' style='border-radius: 10px; margin-bottom: 20px;' alt='Concept Art' />
-</div>
+단순한 유닉스 명령어가 파고들지 못하는, 윈도우 환경만의 제어 생태계 엔진과 필수 명령어 2부작을 해부합니다.
 
-<div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
-  <rect width="100%" height="100%" fill="#1E1E1E" rx="10"/>
-  <circle cx="200" cy="100" r="40" fill="#E81123"/>
-  <text x="200" y="105" fill="white" font-size="16" font-family="monospace" text-anchor="middle">PID: 4012</text>
-  <path d="M 250 100 L 350 100" stroke="white" stroke-width="4"/>
-  <rect x="360" y="70" width="180" height="60" fill="#4B4B4B" rx="5"/>
-  <text x="450" y="105" fill="#00FF00" font-size="16" font-family="monospace" text-anchor="middle">taskkill /F /PID 4012</text>
-</svg>
-</div>
+1. **[제한된 터미널과 배치 스크립트 엔진](./01_cmd_engine/index.md)**
+   > 기초 파일 제어망 수준의 한계를 넘어서고자 했던 투박한 자동화 파일('.bat' 배치 처리)의 구시대 메커니즘 엿보기.
+2. **[권력을 통제하는 클래식 도스 명령어](./02_dos_commands/index.md)**
+   > 악성 좀비 프로세스의 PID를 단박에 추적(netstat)하여 메모리에서 즉강 강제 처형(taskkill)시키는 서바이벌 시스템 명령어 스킬.
 
+<hr style="margin: 40px 0;">
 
-
----
-
-## [심화 렉처] 전통을 지배하는 도스 명령어
-
-아직도 윈도우 서버 스크립트에는 Unix `ls` 가 아니라 `dir` 이 박혀 있습니다. 이전의 레거시 DOS 명령어를 모르면 구형 유지보수가 불가능합니다.
-`mkdir` 과 디렉토리 파괴(`rmdir /s /q`), 그리고 빠른 파일 복사 로직인 `xcopy` 나 단선 네트워크 서버 백업 전술인 `robocopy` 를 체감해야 합니다.
-
-
-<div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg">
-  <rect width="100%" height="100%" fill="#1E1E1E" rx="10"/>
-  <text x="300" y="60" fill="white" font-size="20" font-family="monospace" text-anchor="middle">Networking: netstat -ano | findstr :8080</text>
-</svg>
-</div>
-
-
-## [심화 렉처] 권력의 제어
-
-당신의 컴퓨터 포트를 누가 갉아먹고 있는지 알아내려면 `netstat -ano` 와 `tasklist` 로 PID를 추적해야 합니다. 멈춰버린 프로세스를 터미널에서 즉시 폭파시키는 `taskkill /F /PID 2043` 은 모든 윈도우 엔지니어의 핵심 스킬입니다.
+> **💡 시스템 트러블슈팅의 원칙**
+> "가장 긴급한 장애에 직면했을 때, 진짜 문제를 꿰뚫어 보는 엔지니어의 힘은 여러 번 클릭하는 마우스가 아니라, 단 한 줄의 터미널 명령어에서 나온다."

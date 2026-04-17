@@ -1,56 +1,49 @@
 ---
 layout: default
-title: "6주차: 현대 메모리 관리 (가상 메모리·mmap·ASLR)"
+title: "6주차: 현대 메모리 관리와 가상 메모리 매핑 설계"
 ---
 
 <div align='center' style='margin: 30px 0;'>
   <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><rect x="50" y="60" width="100" height="80" fill="#005A9E" rx="5"/><text x="100" y="105" fill="white" font-size="16" font-family="monospace" text-anchor="middle">Virtual Mem</text><path d="M 160 100 L 260 100" stroke="#00FF00" stroke-width="4"/><rect x="270" y="40" width="60" height="120" fill="#333" rx="5"/><text x="300" y="105" fill="#00FF00" font-size="16" font-family="monospace" text-anchor="middle">MMU</text><path d="M 340 100 L 440 100" stroke="#00FF00" stroke-width="4"/><rect x="450" y="60" width="100" height="80" fill="#4B4B4B" rx="5"/><text x="500" y="105" fill="white" font-size="16" font-family="monospace" text-anchor="middle">Physical</text></svg>
 </div>
 
-# 6주차: 현대 메모리 관리 (가상 메모리·mmap·ASLR)
+# 6주차: 현대 메모리 관리와 가상 메모리 매핑 설계
 
+소프트웨어 시스템 구조에서 가장 거대하고 위대한 마술은 단연코 **가상 메모리(Virtual Memory)**입니다. 여러분이 다루고 프로그래밍하는 최신 애플리케이션들은 프로그램 스스로가 수십 기가바이트의 거대한 메모리 영역 전체를 통째로 오롯이 혼자서 장악해버렸다고 착각합니다. 그들의 실제 하드웨어 서버 RAM은 4GB나 8GB밖에 없더라도 말입니다.
 
-![OS Core Architecture](/Users/hojin/.gemini/antigravity/brain/28d2e8ff-2bf4-4b06-8f22-23880f1f7300/ai_os_06.png)
-<br>
-
-
-
-
-## 1. 가상 메모리(Virtual Memory)의 위대한 환상
-
-[실전 심화 렉처]
-운영체제 역사상 가장 마법 같은 추상화입니다!
-여러분이 개발하는 프로그램은 자신이 마치 거대한 16헥사바이트(64비트 시스템) 메모리를 혼자서 모두 독점하고 있다고 착각하게 만듭니다. 실제 RAM 칩이 8GB밖에 없더라도 말입니다.
-OS는 '페이지 테이블(Page Table)'이라는 맵핑 장부를 통해 가짜 주소(Virtual Address)를 진짜 RAM 주소(Physical Address)로 실시간 번역해 줍니다. 
-메모리가 진짜 부족하면 쓰지 않는 페이지를 디스크로 잠시 빼돌려(Swap Out) 감쪽같이 시스템을 연명시킵니다.
-
-## 2. 페이지 폴트(Page Fault)와 mmap()
-
-[실전 심화 렉처]
-물리 메모리에 데이터가 없는 가짜 주소를 읽으려고 할 때, CPU(MMU 장치)는 즉각 에러 인터럽트(Page Fault)를 날립니다. 이때 커널이 쏜살같이 개입해서 디스크에서 데이터를 RAM으로 퍼 올린 뒤 프로세스를 재개시킵니다.
-`mmap()` 시스템 콜은 이를 역이용한 천재적인 함수입니다. 10GB짜리 거대 파일을 메모리에 `mmap()` 치면 파일을 변수에 직접 복사하지 않습니다! 그저 파일의 주소를 가상 메모리 포인터에 연결해두고(Zero-Copy 접근), 프로그래머가 포인터를 읽으려 할 때만 Page Fault가 발생해 필요한 블록만 RAM으로 가져오기 때문에 엄청난 I/O 퍼포먼스를 뽐냅니다. 다수의 NoSQL DB가 이 아키텍처를 사용합니다.
-
-## 3. OOM Killer와 메모리 보안 (ASLR)
-
-[실전 심화 렉처]
-모든 스왑 파티션마저 고갈되어 시스템 붕괴 직전에 몰리면, Linux 커널은 비장의 무기를 꺼냅니다: 바로 **OOM (Out-of-Memory) Killer**입니다.
-`badness()` 점수를 매겨 가장 뚱뚱하고 덜 중요한 프로세스를 찾아 자가 처형(SIGKILL) 시켜버립니다. 여러분의 `java`나 `python` 서버가 아무 로그도 없이 강제 종료되었다면 커널 로그 `dmesg`를 뒤져 OOM 발생 이력을 반드시 확인하십시오.
-또한, 이 가상 메모리 체계 덕택에 OS는 매번 프로그램이 실행될 때마다 코드와 스택의 메모리 주소를 랜덤으로 마구 뒤섞어버릴 수 있습니다. (ASLR) 해커가 버퍼 오버플로우 공격 시 타겟 주소를 예측하지 못하게 만들어 시스템을 수호하는 핵심 방어벽입니다.
+본 강의 모듈에서는 기초적인 물리/논리 주소 맵핑부터 치명적인 단편화 패널티를 돌파하는 기법인 페이징(Paging)을 거쳐, 현대 Linux의 `mmap` 백엔드 엔진과 최후 방어선인 OOM Killer 강제 탈환 시스템에 이르기까지 메모리 아키텍처의 세계를 딥 다이브 파이프라인으로 해부합니다.
 
 ---
 
-<div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="100" fill="#00FF00" font-size="24" font-family="monospace" text-anchor="middle">Page Fault / mmap()</text></svg>
-</div>
+## 🎯 통합 핵심 학습 목표
 
-## [전공 심화] 가상 메모리 매핑의 마술
+1. **물리 주소와 단편화(Fragmentation)**: MMU의 하드웨어 주소 변환 원리와 내부/외부 단편화 메모리 낭비 패턴을 규명한다.
+2. **페이징과 세그먼테이션의 융합**: 현대 페이지화된 세그먼트 아키텍처가 메모리 권한 보호와 외부 단편화 방지를 어떻게 동시 달성하는지 파악한다.
+3. **요구 페이징 체계 (Demand Paging)**: Page Fault 발생 시 디스크에서 필요한 코드만 끌고 오는 지연 적재와 `mmap()`의 제로 카피 I/O 성능을 엮어 이해한다.
+4. **추방자 선출과 LRU 메커니즘**: 램 메모리가 가득 찼을 때 어떤 페이지를 퇴출할 것인지, 스왑 공간 교체 교리 LRU의 위력을 입증한다.
+5. **[엔지니어링 코어] 스래싱과 OOM Killer**: 커널이 다중 프로세스를 넘다 스래싱 붕괴로 치닫는 것을 막고 최후 방어벽 OOM Killer의 `badness` 타겟 선정 로직을 학습한다.
 
-모든 프로세스는 자기가 램을 1TB쯤 혼자 다 쓴다고 착각하고 있습니다. 이 장대한 환상을 만드는 곳이 CPU의 MMU(메모리 매니지먼트 유닛) 단과 OS의 페이지 테이블 설계입니다. 메모리가 단편화되어 찢어져 있어도 가상 구역에선 한 줄로 나타나고, 실행할 때서야 부리나케 물리 램으로 페이지 크기만큼 복사되는 Page Fault 기법의 우아함을 탐색합니다.
+<br>
 
-<div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="65" fill="#E81123" font-size="18" font-family="monospace" text-anchor="middle">TLB Miss Penalty</text></svg>
-</div>
+---
 
-## [전공 심화] mmap과 OOM Killer
+## 📚 하위 문서 목차 (Sub-Chapters)
 
-100GB짜리 로그 파일을 어떻게 메모리에 올려 분석할까요? 파일 구조를 그대로 램에 '사상' 시켜버리는 `mmap()` 함수는 극강의 스토리지 I/O 부스터 역할을 담당합니다. 하지만 시스템 메모리가 파탄에 이르렀을 때, 리눅스 커널이 점수(OOM Score)를 매겨 무작위 프로세스의 뒤통수를 쏴 죽여버리는 OOM Killer의 메커니즘을 숙지하여 상용 DB 폭파 사태를 예방합니다.
+물리 반도체의 한계를 무한대로 확장시키는 기적의 논리, 가상 메모리 서브시스템 아키텍처를 5개 분류로 모듈화했습니다. 아래 챕터 링크로 접근하십시오.
+
+1. **[물리 주소 맵핑과 메모리 단편화](./01_physical_mapping/index.md)**
+   > CPU의 논리적 주소와 RAM의 물리 공간을 이어주는 칩셋 MMU와 고질적인 단편화 빈칸의 병목을 규명합니다.
+2. **[가상 메모리: 페이징과 세그먼테이션](./02_paging_segmentation/index.md)**
+   > 외부 단편화를 100% 박살내는 고정 블록 썰기 '페이징'과 권한을 통제하는 페이지화된 세그먼트 융합 체제.
+3. **[요구 페이징과 mmap() 시스템 콜](./03_demand_paging/index.md)**
+   > 모든 걸 한 번에 올리지 않고, CPU 지연인 Page Fault 인터럽트를 유도하여 디스크를 긁어오는 현대 엔진 `mmap`의 신비.
+4. **[페이지 대치 (Replacement) 알고리즘](./04_replacement_algo/index.md)**
+   > 공간이 파열되었을 때 어떤 과거 기록물 프레임을 하드디스크 스왑으로 쫓아 희생양을 삼을지 결정짓는 LRU 전략 지표.
+5. **[스래싱, 워킹 셋과 커널 OOM Killer](./05_working_set_oom/index.md)**
+   > 너무 잦은 자리 교체로 CPU가 멈춰버리는 스래싱 굴레와, 램이 고갈되었을 때 커널이 메모리 괴물을 강의 총살시키는 OOM 디버깅 분석.
+
+<hr style="margin: 40px 0;">
+
+> **📚 참고문헌**
+> * A. Silberschatz 등 3인, 『운영체제(Operating System Concepts)』, J. Wiley & Sons. 
+> * Linux Kernel Documentation (`mm/oom_kill.c` & `mmap(2)`)

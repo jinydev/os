@@ -1,55 +1,49 @@
 ---
 layout: default
-title: "7주차: 파일 시스템 총정리 (ext4·ZFS·APFS)"
+title: "7주차: 파일 시스템 아키텍처 (i-node부터 ZFS/APFS까지)"
 ---
 
 <div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="60" fill="white" font-size="20" font-family="monospace" text-anchor="middle">The inode Structure</text><circle cx="300" cy="120" r="50" fill="#0078D7"/><text x="300" y="125" fill="white" font-size="16" font-family="monospace" text-anchor="middle">Index 281</text></svg>
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="50" fill="white" font-size="20" font-family="monospace" text-anchor="middle">UNIX i-node Architecture</text><circle cx="150" cy="120" r="40" fill="#0078D7"/><text x="150" y="125" fill="white" font-size="14" font-family="monospace" text-anchor="middle">Direct</text><circle cx="300" cy="120" r="40" fill="#E81123"/><text x="300" y="125" fill="white" font-size="14" font-family="monospace" text-anchor="middle">Indirect</text><circle cx="450" cy="120" r="40" fill="#00FF00"/><text x="450" y="125" fill="#333" font-size="14" font-family="monospace" text-anchor="middle">Double Ind.</text></svg>
 </div>
 
-# 7주차: 파일 시스템 총정리 (ext4·ZFS·APFS)
+# 7주차: 파일 시스템 아키텍처 (i-node, 블록 할당, CoW/ZFS)
 
+여러분이 데스크탑 화면에서 더블 클릭하는 화려한 '폴더 아이콘'과 '텍스트 파일명'은 인간의 인지 편향을 유도하기 위해 빚어낸 위대한 허구(Abstraction)에 불과합니다. Linux 커널에게 진정한 파일의 실체는 오직 **아이노드(inode) 고유 번호표**뿐이며, 화려한 폴더계층은 그저 번호들을 나열한 색인표일 뿐입니다. 
 
-![OS Core Architecture](/Users/hojin/.gemini/antigravity/brain/28d2e8ff-2bf4-4b06-8f22-23880f1f7300/ai_os_07.png)
+이번 주차에서는 디지털 파일 데이터가 자력선형 디스크 블록 위에 어떤 전략적 할당으로 심어지는지 추적하고, 갑작스러운 하드웨어 전원이 끊겨도 데이터를 완벽하게 수호하는 데에서 나아가 타임머신 스냅샷까지 찍어버리는 현대 OS의 최전선 **저널링(Journaling)** 및 **CoW(Copy-on-Write)** 철학을 배웁니다.
+
+---
+
+## 🎯 통합 핵심 학습 목표
+
+1. **디렉터리와 링크**: 비순환 그래프 모델에 종속된 Linux 디렉터리 파싱 구조와 하드 링크/소프트 링크의 참조 카운팅 분자 구조를 체득한다.
+2. **UNIX 인덱스 트리**: 141바이트 고정된 메타데이터 블록(i-node) 정체가 어떻게 간접(Indirect) 포인터 확장을 통해 수백 기가바이트의 파일을 오차 없이 즉시 색인해 내는 원리를 설명한다.
+3. **블록 할당 트레이드오프**: 연속 할당(단편화 낭비), 연결 할당(디스크 색인탐색 지연율), 색인 할당(인덱스 결합 구조) 방식의 스토리지 파편화 병목 장/단점을 분석한다.
+4. **저수준 C 커서 제어**: OS 커널의 파일 지정자 자원 반환과 오프셋 포인터 레코드를 임의 조작, 점프하는 `lseek()` C언어 인터페이스 기법을 익힌다.
+5. **[엔지니어링 코어] 스토리지 안전망 진화**: 예고 없는 치명적 정전(Power Loss) 참사에 대비해 트랜잭션 기록을 남는 ext4/NTFS 저널(Journal) 기법과 APFS 스냅샷(CoW) 덮어쓰기 무력화 엔진의 본질을 분해한다.
+
 <br>
 
-
-
-
-## 1. Inode와 루트 폴더부터 타고 내려가기
-
-[실전 심화 렉처]
-화면에 보이는 '폴더 아이콘'과 'test.txt' 파일명은 인간을 위한 허구입니다.
-Linux 커널에게 진정한 파일의 이름은 **아이노드(inode) 번호**입니다. 디렉토리(폴더)라는 건 단지 "문자열 파일명 -> inode 번호"를 매치해 놓은 텍스트 장부 파일에 불과합니다.
-파일 권한이 꼬이거나 디스크 공간은 널널한데 "No space left on device" 에러가 뜬다면, 백발백중 너무 작은 파일 수백만 개를 생성하여 디스크의 전체 Inode 개수 고갈 한계점에 부딪힌 것입니다. `df -i`로 모니터링해야 하는 심화 관리 포인트입니다.
-
-## 2. 하드 링크(Hard Link) vs 심볼릭 링크(Soft Link)
-
-[실전 심화 렉처]
-하드 링크는 아주 독특한 복제 메커니즘입니다. 원본 파일을 다른 폴더에 `ln` 복사하면, 데이터 블록을 2배로 쓰지 않고 "동일한 inode 번호"를 가리키는 디렉토리 이름표만 새로 발급합니다! 양쪽 파일 중 하나를 수정하면 데이터 원본이 같으므로 다른 쪽도 100% 동일하게 실시간 반영됩니다. `ls -l`에서 보이는 링크 카운트(숫자)가 바로 이를 식별하는 증표입니다.
-반면 단축 아이콘 격인 심볼릭 링크(Soft Link)는 원본의 '경로 문자열'만 가리키고 있기 때문에 원본 파일을 날려버리면 "Broken Link(빨간색 폴더)"가 되는 극단적 차이를 가집니다.
-
-## 3. 저널링, CoW, 스냅샷 (ZFS, APFS, ext4)
-
-[실전 심화 렉처]
-파일 1GB를 저장하다 전원이 뚝 끊기면 데이터는 어떻게 보장될까요?
-현대 파일 시스템(ext4 등)은 실제 디스크에 쓰기 전에 `저널(Journal)` 영역에 "지금부터 이런 작업을 할 거야"라고 스케줄 로그를 선기록합니다. 부팅 시 저널을 검사해 누락된 작업을 마저 이행하는 안전 장치(Recovery)입니다.
-더 나아가 APFS(애플)나 Btrfs, ZFS 등은 파괴적 덮어쓰기를 절대 허가하지 않는 CoW (Copy-on-Write) 아키텍처를 가집니다. 특정 블록을 수정할 때 쓰던 블록을 밀어버리지 않고, 새 위치에 쓴 뒤 인덱스만 싹 교체하므로 단 1초 만에 전체 디스크 시점 백업을 복사(Snapshot)해낼 권능을 가질 수 있습니다.
-
 ---
 
-<div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="100" fill="#E81123" font-size="24" font-family="monospace" text-anchor="middle">Journaling vs FAT32</text></svg>
-</div>
+## 📚 하위 문서 목차 (Sub-Chapters)
 
-## [전공 심화] 인덱스 노드(inode) 구조의 분별
+물리 매체와 파일 시스템 사이의 논리적 괴리를 파헤치는 7주차 렉처는 5개의 상세 파이프라인으로 구성되었습니다.
 
-하드디스크에서 '파일의 입구'는 파일 이름이 아니라 번호(inode)입니다. 이름표는 디렉터리 테이블에 텍스트 데이터로서 번호와 매핑될 뿐입니다. 그래서 하나의 파일에 수십 개의 다른 이름을 부여하는 하드 링크(Hard Link) 같은 분신술이 가능해지는 구조를 파악합니다.
+1. **[디렉터리 시스템과 링크 아키텍처](./01_directory_link/index.md)**
+   > 낭비적인 트리 모델을 극복한 비순환 그래프의 공용 권한과 '하드 링크 / 소프트 링크' 바로가기의 차이를 분석.
+2. **[UNIX 메타데이터: i-node 색인](./02_inode/index.md)**
+   > 거대한 볼륨 폭증을 대비해 직접/1중/2중/3중 포인터로 디스크 할당을 기적적으로 확장해 내는 핵심 트리 철학.
+3. **[디스크 블록 공간 할당 모델](./03_allocation/index.md)**
+   > 외부 단편화 방식을 남기는 연속 배열형, 꼬리잡기식 연결 할당, 색인 파일 할당 3대장의 트레이드 오프.
+4. **[포인터 제어 lseek 시스템 콜](./04_lseek/index.md)**
+   > C언어 개발자가 직접 파일 디스크립터(FD)에 접근하여 임의의 번지로 오프셋 스캔/수정을 날리는 핵심 매커니즘.
+5. **[저널링과 현대 CoW 스냅샷](./05_journal_cow/index.md)**
+   > 커밋 로그를 남겨 디스크 박살을 피하는 ext4의 저널과 원본 비파괴 참조 스냅샷을 0.1초 만에 떠버리는 최신 APFS 기술.
 
-<div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="65" fill="#00FF00" font-size="18" font-family="monospace" text-anchor="middle">Copy-on-Write (ZFS, Btrfs, APFS)</text></svg>
-</div>
+<hr style="margin: 40px 0;">
 
-## [전공 심화] Journaling 과 CoW 의 진화
-
-컴퓨터 코드를 저장하던 도중 플러그가 뽑혀버린다면 파일 시스템은 어떻게 살아남을까요? 미리 저장할 내역을 외상장부(Journal)에 적고, 부팅 시 복원하는 방식 기반인 ext4/NTFS에서 나아가, 아예 원본 파일블록을 덮어쓰지 않고 최신 블록에 신규 내용을 쌓은 뒤 포인터만 교체하는 현대 스냅샷의 완성체 CoW(APFS / ZFS) 파일 시스템의 진화를 체험합니다.
+> **📚 참고문헌**
+> * A. Silberschatz 등 3인, 『운영체제(Operating System Concepts)』, J. Wiley & Sons. 
+> * M. McKusick, 『The Design and Implementation of the 4.4BSD Operating System』 (UFS/inode)

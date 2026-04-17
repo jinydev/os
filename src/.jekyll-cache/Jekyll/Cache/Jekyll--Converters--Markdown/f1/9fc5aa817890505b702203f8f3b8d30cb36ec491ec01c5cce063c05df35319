@@ -1,0 +1,56 @@
+I"U<div align="center">
+  <img src="img/toon1.png" width="70%" style="border-radius: 10px; margin-bottom: 20px;" alt="Webtoon Splash" />
+</div>
+
+<div align="center" style="margin: 30px 0;">
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#1E1E1E" rx="10" />
+  <rect x="50" y="50" width="100" height="100" fill="#005A9E" rx="5" />
+  <text x="100" y="105" fill="white" font-size="20" font-family="monospace" text-anchor="middle">Hardware</text>
+  <path d="M 160 100 L 240 100" stroke="#00FF00" stroke-width="4" marker-end="url(#arrow)" />
+  <rect x="250" y="50" width="100" height="100" fill="#0078D7" rx="5" />
+  <text x="300" y="105" fill="white" font-size="20" font-family="monospace" text-anchor="middle">NT Kernel</text>
+  <path d="M 360 100 L 440 100" stroke="#00FF00" stroke-width="4" marker-end="url(#arrow)" />
+  <rect x="450" y="50" width="100" height="100" fill="#4B4B4B" rx="5" />
+  <text x="500" y="105" fill="white" font-size="18" font-family="monospace" text-anchor="middle">User App</text>
+  <text x="300" y="30" fill="#00FF00" font-size="16" font-family="monospace" text-anchor="middle">The HAL (Hardware Abstraction Layer)</text>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#00FF00" /></marker></defs>
+</svg>
+</div>
+
+<h1 id="1주차-윈도우-컴퓨터란-시작과-역사적-배경">1주차: 윈도우 컴퓨터란? 시작과 역사적 배경</h1>
+
+<p><img src="/Users/hojin/.gemini/antigravity/brain/28d2e8ff-2bf4-4b06-8f22-23880f1f7300/ai_window_01.png" alt="OS Core Architecture" />
+<br /></p>
+
+<p>전 세계의 90% 이상의 클라이언트 PC를 지배하고 있는 거대한 제국, 마이크로소프트의 윈도우(Windows). 
+하지만 진지한 컴퓨터 공학과 시스템 파이프라인의 시선에서 들여다본다면 윈도우는 그저 화려한 마우스 클릭 화면 껍데기가 아닙니다.</p>
+
+<p>이번 1주차 렉처에서는 1980년대 검은 도스(MS-DOS) 프롬프트 위에서 알파벳 <code class="language-plaintext highlighter-rouge">C:\</code>가 왜 우리의 하드디스크 드라이브 표준으로 각인되었는지, 그리고 그 불안정했던 껍데기를 박살 내고 기업용 시장을 장악한 <strong>강철 아키텍처 NT 커널</strong>이 어떤 철학으로 설계되어 리눅스와 견줄 만한 현대적 운영체제의 근간이 되었는지 심해의 역사를 역추적합니다.</p>
+
+<hr />
+
+<h2 id="-하위-문서-목차-sub-chapters">📚 하위 문서 목차 (Sub-Chapters)</h2>
+
+<p>단순한 프로그램 개발사를 넘어 하드웨어 제어 철학의 변천 과정을 따라가는 핵심 2부작입니다.</p>
+
+<ol>
+  <li><strong><a href="./01_ms_dos/index.md">MS-DOS와 C:\ 경로의 기원</a></strong>
+    <blockquote>
+      <p>윈도우 키+R <code class="language-plaintext highlighter-rouge">cmd</code>를 치면 나오는 콘솔 화면의 실체. A와 B 플로피 시대를 지나 하드디스크 C 드라이브에 정착한 역사적 기원.</p>
+    </blockquote>
+  </li>
+  <li><strong><a href="./02_nt_kernel/index.md">NT 커널과 진정한 OS 아키텍처</a></strong>
+    <blockquote>
+      <p>커널 모드와 유저 모드가 나뉘지 않아 시스템 셧다운이 일상이던 DOS/Win98 시절을 파괴하고, 프로세스의 완벽한 하드웨어 격리를 이뤄낸 신기술(New Technology) 커널 엔진.</p>
+    </blockquote>
+  </li>
+</ol>
+
+<hr style="margin: 40px 0;" />
+
+<blockquote>
+  <p><strong>💡 개발자를 위한 조언</strong>
+“자신이 매일 코드를 작성해 띄워 올리는 윈도우가 어떤 시대를 거쳐 지금의 파일 스펙을 만들었는지 모른 채 개발된 툴 위에서만 코딩하는 것은, 엑셀 칸 채우기와 다를 바 없습니다.”</p>
+</blockquote>
+:ET

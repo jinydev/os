@@ -1,0 +1,19 @@
+---
+layout: default
+title: "2. 쿠버네티스(Kubernetes) 오케스트레이터"
+---
+
+# 2. 쿠버네티스(Kubernetes) 오케스트레이터의 철학
+
+컨테이너 시스템이 1대~10대 규모일 때는 도커 데몬을 수동 배포하는 것이 먹히지만, 1만 대의 거대한 글로벌 클러스터 장비군을 수작업으로 파악하는 것은 자살 행위입니다. 만약 1,000대의 서버와 1만 개의 도커 컨테이너가 복잡하게 얽혀있다면 어떻게 네트워크를 연결하고 트래픽을 자동 분산할까요?
+
+## 쿠버네티스(K8s): 대규모 클라우드 행성 OS
+구글(Google)의 막대한 자체 내재 인프라 제어기 시스템 노하우가 오픈소스로 풀린 것이 바로 **쿠버네티스(Kubernetes, K8s)**입니다. 쿠버네티스는 단순한 단일 서버 OS가 아니라 서버 수천 대를 통째로 묶어 거대한 1개의 '메타-운영체제 플랫폼'으로 취급하는 스케일링 오케스트레이터 엔진입니다.
+
+<div align='center' style='margin: 30px 0;'>
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><circle cx="300" cy="100" r="50" fill="none" stroke="#E81123" stroke-width="4"/><circle cx="300" cy="100" r="20" fill="#0078D7"/><text x="300" y="180" fill="#00FF00" font-size="18" font-family="monospace" text-anchor="middle">K8s: Node -> Pod -> Container</text></svg>
+</div>
+
+서버 노드 컴퓨터 하나가 갑자기 정전이나 화재로 물리적 소실이 발생하면, 쿠버네티스 마스터 제어 노드가 즉각 내부 심박수(Health Check)를 감지하여 수명을 다한 컨테이너(Pod)의 목숨을 판별하고 인근에 있는 다른 정상 서버 노드에 시스템콜 렉처 개입 없이 즉각 부활(**Auto-Healing & Replication**)시켜버립니다. 
+
+이 놀라운 인프라스트럭처 자가 치유 제어 구조는 엔지니어가 절차를 지시하는 게 아니라 "결과적으로 프론트엔드 파드(Pod) 3대가 무조건 돌고 있어야 한다" 라고 종이에 적어두기만 하는 **선언적(Declarative) 상태 일치 아키텍처** 패러다임에서 비롯됩니다.

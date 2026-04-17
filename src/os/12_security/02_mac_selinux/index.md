@@ -1,0 +1,19 @@
+---
+layout: default
+title: "2. MAC과 SELinux 강제 감옥"
+---
+
+# 2. MAC 강제 제어 (SELinux와 AppArmor)
+
+만약 해커가 최상위 루트(Root) 권한을 가진 채로 돌아가고 있는 웹 서버 프로그램의 취약점을 해킹해 시스템 전체 `/etc/passwd` 파일 등 금고를 통째로 털어버리면 시스템은 어떻게 방어해야 할까요? 일반적인 리눅스(DAC)에서는 모든 것이 박살나고 돌이킬 수 없게 됩니다.
+
+<div align='center' style='margin: 30px 0;'>
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="60" fill="white" font-size="20" font-family="monospace" text-anchor="middle">MAC (Mandatory Access Control)</text><rect x="150" y="90" width="300" height="50" fill="#E81123" rx="5"/><text x="300" y="120" fill="white" font-size="16" font-family="monospace" text-anchor="middle">SELinux Enforcing</text></svg>
+</div>
+
+## 군사 규격 보안: MAC (Mandatory Access Control)
+현대 클라우드/엔터프라이즈 시스템 보안은 위와 같은 참사를 멈추기 위해 시스템 룰북 기반의 **MAC(강제 접근 제어)** 감옥을 이중으로 깔아버립니다.
+
+NSA(미 국방성 안보국)가 주도해 만든 RedHat 계열의 `SELinux` 나, 우분투 베이스의 `AppArmor`는 아무리 최상위 루트 권한을 탈취한 웹 서버 프로세스라도 해도, 각 파일 단위에 붙은 MAC 보안 라벨(`Security Context`)과 사전에 정의된 행동 룰북(Policy)에 벗어나는 이상 행동(예: `/bin/sh` 같은 치명적 쉘 호출이나 다른 임의 포트 통신망 바인딩)을 하려 들면 **강제적으로 커널 레벨에서 시도를 원천 박살내 절단**시켜버립니다. 
+
+즉, DAC 권한 체계를 넘어선 "대통령(루트)이라도 정해진 수칙 이상은 넘어갈 수 없다"는 가장 단단한 커널 지배 모듈 방패이자 보안 격벽입니다.

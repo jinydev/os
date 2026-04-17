@@ -2,148 +2,197 @@ main:
 - subitems:
   - title: 📋 학습 시작/개요
     url: /os/01_intro/
-  - title: 1. 운영체제의 핵심 역할 파고들기
-    url: /os/01_intro/#1-운영체제의-핵심-역할-파고들기
-  - title: 2. 현대 OS 생태계와 커널 분석
-    url: /os/01_intro/#2-현대-os-생태계와-커널-분석
-  - title: 3. UNIX 철학과 다중 사용자(Multi-User)
-    url: /os/01_intro/#3-unix-철학과-다중-사용자multi-user
+  - title: 1. 시스템 구성과 역할
+    url: /os/01_intro/01_components/
+  - title: 2. 운영체제 4대 서비스
+    url: /os/01_intro/02_services/
+  - title: 3. 커널 아키텍처와 링 모델
+    url: /os/01_intro/03_architecture/
+  - title: 4. OS 발전사와 리눅스 계보
+    url: /os/01_intro/04_history/
+  - title: 5. 실습 환경 셋업 (WSL)
+    url: /os/01_intro/05_setup/
   title: '1주차: 운영체제란 무엇인가 (현대 OS의 역할과 구조)'
   url: /os/01_intro/
+
 - subitems:
   - title: 📋 학습 시작/개요
     url: /os/02_syscall/
-  - title: 1. 시스템 콜 (System Call) 작동 원리
-    url: /os/02_syscall/#1-시스템-콜-system-call-작동-원리
-  - title: 2. strace와 디버깅 예술
-    url: /os/02_syscall/#2-strace와-디버깅-예술
-  - title: 3. 소프트웨어 인터럽트와 하드웨어 인터럽트
-    url: /os/02_syscall/#3-소프트웨어-인터럽트와-하드웨어-인터럽트
-  title: '2주차: 시스템 콜 (소프트웨어가 OS에 요청하는 방법)'
+  - title: 1. 하드웨어 아키텍처와 CPU
+    url: /os/02_syscall/01_architecture/
+  - title: 2. 시스템 버스와 I/O 제어
+    url: /os/02_syscall/02_bus_io/
+  - title: 3. 시스템 콜 전환과 디버깅
+    url: /os/02_syscall/03_syscall/
+  - title: 4. GCC 시스템 툴체인
+    url: /os/02_syscall/04_compiler/
+  title: '2주차: 컴퓨터 시스템 구조와 시스템 콜 (하드웨어 인터페이스와 OS 트랩)'
   url: /os/02_syscall/
+
 - subitems:
   - title: 📋 학습 시작/개요
     url: /os/03_process/
   - title: 1. 프로세스와 코어 메모리 구조
-    url: /os/03_process/#1-프로세스와-코어-메모리-구조
-  - title: 2. 스레드 (Thread) 스케일 구조
-    url: /os/03_process/#2-스레드-thread-스케일-구조
-  - title: 3. 코루틴과 비동기 논블로킹 I/O
-    url: /os/03_process/#3-코루틴과-비동기-논블로킹-io
-  title: '3주차: 프로세스와 스레드 (현대 멀티코어 환경의 실행 단위)'
+    url: /os/03_process/01_memory/
+  - title: 2. PCB와 생명 주기 시스템
+    url: /os/03_process/02_pcb_lifecycle/
+  - title: 3. 공간 독립성과 fork()의 철학
+    url: /os/03_process/03_fork_exec/
+  - title: 4. 멀티 스레드와 GIL 코루틴
+    url: /os/03_process/04_thread/
+  - title: 5. 프로세스 통신(IPC) 기법
+    url: /os/03_process/05_ipc/
+  title: '3주차: 프로세스와 스레드 구조 및 IPC 통신 대통합'
   url: /os/03_process/
+
 - subitems:
   - title: 📋 학습 시작/개요
     url: /os/04_schedule/
-  - title: 1. CPU 스케줄러의 타임 퀀텀
-    url: /os/04_schedule/#1-cpu-스케줄러의-타임-퀀텀
-  - title: 2. Linux CFS 및 EEVDF 알고리즘
-    url: /os/04_schedule/#2-linux-cfs-및-eevdf-알고리즘
-  - title: 3. 멀티 코어와 이종 코어(P-Core/E-Core) 지배
-    url: /os/04_schedule/#3-멀티-코어와-이종-코어p-coree-core-지배
-  title: '4주차: 현대 CPU 스케줄링 (멀티코어·이종코어 스케줄러)'
+  - title: 1. 스케줄러 파이프라인 아키텍처
+    url: /os/04_schedule/01_architecture/
+  - title: 2. 선점성과 성능 평가 지표
+    url: /os/04_schedule/02_metrics/
+  - title: 3. 스케줄링 고전 설계사 (FCFS/SJF)
+    url: /os/04_schedule/03_classic_algo/
+  - title: 4. 실전 상용&#58; 다단계 피드백 큐 (MLFQ)
+    url: /os/04_schedule/04_mlfq/
+  - title: 5. 현대 Linux CFS와 이종코어 제어
+    url: /os/04_schedule/05_modern_cfs/
+  title: '4주차: CPU 스케줄링 이론과 현대 리눅스/이종코어 스케줄러'
   url: /os/04_schedule/
+
 - subitems:
   - title: 📋 학습 시작/개요
     url: /os/05_sync/
-  - title: '1. 멀티스레드의 악몽: 경쟁 조건(Race Condition)'
-    url: /os/05_sync/#1-멀티스레드의-악몽-경쟁-조건race-condition
-  - title: 2. 락(Lock), 뮤텍스(Mutex), 그리고 페타슨의 알고리즘
-    url: /os/05_sync/#2-락lock-뮤텍스mutex-그리고-페타슨의-알고리즘
-  - title: 3. 교착 상태(Deadlock) 추적과 해결 메커니즘
-    url: /os/05_sync/#3-교착-상태deadlock-추적과-해결-메커니즘
-  title: '5주차: 동기화와 공유 자원 (멀티코어 병렬 프로그래밍)'
+  - title: 1. 동시성과 임계 영역 (Critical Section)
+    url: /os/05_sync/01_race_condition/
+  - title: 2. 하드웨어 원자적 락 (Spinlock/Futex)
+    url: /os/05_sync/02_sync_hardware/
+  - title: 3. OS 동기화 객체 (세마포어/모니터)
+    url: /os/05_sync/03_sync_os/
+  - title: 4. 교착 상태(Deadlock) 발생 조건과 회피
+    url: /os/05_sync/04_deadlock/
+  - title: 5. 우선순위 역전과 커널 상속
+    url: /os/05_sync/05_priority_inversion/
+  title: '5주차: 동기화와 교착 상태 (멀티코어 병렬 구조와 락 메커니즘)'
   url: /os/05_sync/
+
 - subitems:
   - title: 📋 학습 시작/개요
     url: /os/06_memory/
-  - title: 1. 가상 메모리(Virtual Memory)의 위대한 환상
-    url: /os/06_memory/#1-가상-메모리virtual-memory의-위대한-환상
-  - title: 2. 페이지 폴트(Page Fault)와 mmap()
-    url: /os/06_memory/#2-페이지-폴트page-fault와-mmap
-  - title: 3. OOM Killer와 메모리 보안 (ASLR)
-    url: /os/06_memory/#3-oom-killer와-메모리-보안-aslr
-  title: '6주차: 현대 메모리 관리 (가상 메모리·mmap·ASLR)'
+  - title: 1. 물리 주소 맵핑과 메모 단편화
+    url: /os/06_memory/01_physical_mapping/
+  - title: 2. 가상 메모리&#58; 페이징과 세그먼테이션
+    url: /os/06_memory/02_paging_segmentation/
+  - title: 3. 요구 페이징과 mmap() 시스템 콜
+    url: /os/06_memory/03_demand_paging/
+  - title: 4. 페이지 대치 (Replacement) 알고리즘
+    url: /os/06_memory/04_replacement_algo/
+  - title: 5. 스래싱과 워킹 셋, OOM Killer
+    url: /os/06_memory/05_working_set_oom/
+  title: '6주차: 현대 메모리 관리와 가상 메모리 매핑 설계'
   url: /os/06_memory/
+
 - subitems:
   - title: 📋 학습 시작/개요
     url: /os/07_fs/
-  - title: 1. Inode와 루트 폴더부터 타고 내려가기
-    url: /os/07_fs/#1-inode와-루트-폴더부터-타고-내려가기
-  - title: 2. 하드 링크(Hard Link) vs 심볼릭 링크(Soft Link)
-    url: /os/07_fs/#2-하드-링크hard-link-vs-심볼릭-링크soft-link
-  - title: 3. 저널링, CoW, 스냅샷 (ZFS, APFS, ext4)
-    url: /os/07_fs/#3-저널링-cow-스냅샷-zfs-apfs-ext4
-  title: '7주차: 파일 시스템 총정리 (ext4·ZFS·APFS)'
+  - title: 1. 디렉터리 시스템과 링크 아키텍처
+    url: /os/07_fs/01_directory_link/
+  - title: 2. UNIX 메타데이터&#58; i-node 색인
+    url: /os/07_fs/02_inode/
+  - title: 3. 디스크 블록 공간 할당 모델
+    url: /os/07_fs/03_allocation/
+  - title: 4. 포인터 제어 lseek 시스템 콜
+    url: /os/07_fs/04_lseek/
+  - title: 5. 저널링과 현대 CoW 스냅샷
+    url: /os/07_fs/05_journal_cow/
+  title: '7주차: 파일 시스템 아키텍처 (i-node, 블록 할당, CoW/ZFS)'
   url: /os/07_fs/
+
 - subitems:
   - title: 📋 학습 시작/개요
     url: /os/08_midterm/
-  - title: 1. 운영체제 전반기 아키텍처 복습
-    url: /os/08_midterm/#1-운영체제-전반기-아키텍처-복습
+  - title: 1. 전반기 아키텍처 복습
+    url: /os/08_midterm/01_architecture_review/
+  - title: 2. 중간고사 실기 평가 안내
+    url: /os/08_midterm/02_assessment_guide/
+  - title: 3. 시스템 장애 디버깅 케이스
+    url: /os/08_midterm/03_case_study/
   title: '8주차: 전반기 기술 점검 및 중간고사'
   url: /os/08_midterm/
+
 - subitems:
   - title: 📋 학습 시작/개요
     url: /os/09_io/
-  - title: 1. 모든 것은 파일이다 (Everything is a file)
-    url: /os/09_io/#1-모든-것은-파일이다-everything-is-a-file
-  - title: 2. DMA(Direct Memory Access)와 인터럽트 전술
-    url: /os/09_io/#2-dmadirect-memory-access와-인터럽트-전술
-  - title: '3. io_uring: 괴물 같은 비동기 패러다임'
-    url: /os/09_io/#3-io_uring-괴물-같은-비동기-패러다임
-  title: '9주차: 장치 관리와 I/O (현대 드라이버 모델과 io_uring)'
+  - title: 1. 하드웨어 혈관과 커널 추상화
+    url: /os/09_io/01_io_subsystem/
+  - title: 2. 전송 철학 (Polling ➔ DMA)
+    url: /os/09_io/02_data_transfer/
+  - title: 3. 디스크와 탐색 스케줄링 (C-SCAN)
+    url: /os/09_io/03_disk_scheduling/
+  - title: 4. 서버 파티션&#58; RAID 아키텍처
+    url: /os/09_io/04_raid/
+  - title: 5. OS API 한계와 io_uring의 도래
+    url: /os/09_io/05_api_iouring/
+  title: '9주차: I/O 디바이스 모델링 (DMA, 디스크 스케줄링, RAID 및 io_uring)'
   url: /os/09_io/
+
 - subitems:
   - title: 📋 학습 시작/개요
     url: /os/10_container/
-  - title: 1. 도커(Docker)의 정체와 네임스페이스 격리
-    url: /os/10_container/#1-도커docker의-정체와-네임스페이스-격리
-  - title: 2. cgroup(Control Groups)을 통한 하드웨어 통제
-    url: /os/10_container/#2-cgroupcontrol-groups을-통한-하드웨어-통제
-  - title: 3. OCI 규격과 이미지 레이어(Layered FS)
-    url: /os/10_container/#3-oci-규격과-이미지-레이어layered-fs
+  - title: 1. 도커의 정체와 네임스페이스 격리
+    url: /os/10_container/01_namespace_isolation/
+  - title: 2. cgroup을 통한 하드웨어 통제
+    url: /os/10_container/02_cgroup_control/
+  - title: 3. OCI 규격과 Layered FS
+    url: /os/10_container/03_overlay_fs/
   title: '10주차: 컨테이너 딥다이브 (Linux 네임스페이스와 cgroup)'
   url: /os/10_container/
+
 - subitems:
   - title: 📋 학습 시작/개요
     url: /os/11_cloud/
-  - title: 1. 하드웨어 가상화와 하이퍼바이저 링 레벨
-    url: /os/11_cloud/#1-하드웨어-가상화와-하이퍼바이저-링-레벨
-  - title: 2. 쿠버네티스(Kubernetes) 오케스트레이터의 철학
-    url: /os/11_cloud/#2-쿠버네티스kubernetes-오케스트레이터의-철학
-  - title: 3. Serverless와 마이크로-VM 아키텍처 (Firecracker)
-    url: /os/11_cloud/#3-serverless와-마이크로-vm-아키텍처-firecracker
+  - title: 1. 가상화와 하이퍼바이저 링 레벨
+    url: /os/11_cloud/01_hypervisor/
+  - title: 2. 쿠버네티스 오케스트레이터
+    url: /os/11_cloud/02_kubernetes/
+  - title: 3. 서버리스와 마이크로-VM
+    url: /os/11_cloud/03_micro_vm/
   title: '11주차: 가상화와 클라우드 OS (하이퍼바이저·K8s 개요)'
   url: /os/11_cloud/
+
 - subitems:
   - title: 📋 학습 시작/개요
     url: /os/12_security/
-  - title: 1. 심층 DAC 권한과 SetUID 비트
-    url: /os/12_security/#1-심층-dac-권한과-setuid-비트
-  - title: 2. MAC 강제 제어 (SELinux와 AppArmor)
-    url: /os/12_security/#2-mac-강제-제어-selinux와-apparmor
-  - title: '3. eBPF: 괴물 같은 관찰 및 보안 동맥 추적'
-    url: /os/12_security/#3-ebpf-괴물-같은-관찰-및-보안-동맥-추적
+  - title: 1. DAC 통제와 SetUID
+    url: /os/12_security/01_dac_setuid/
+  - title: 2. MAC 강제 제어 (SELinux)
+    url: /os/12_security/02_mac_selinux/
+  - title: 3. Seccomp와 eBPF 구조
+    url: /os/12_security/03_ebpf_seccomp/
   title: '12주차: 현대 OS 보안 (Linux 권한·SELinux·eBPF)'
   url: /os/12_security/
+
 - subitems:
   - title: 📋 학습 시작/개요
     url: /os/13_observability/
-  - title: 1. `top` / `htop` / `strace` 의 한계 돌파
-    url: /os/13_observability/#1-top-htop-strace-의-한계-돌파
-  - title: 2. 플레임 그래프(Flame Graph) 분석 지형
-    url: /os/13_observability/#2-플레임-그래프flame-graph-분석-지형
-  - title: 3. 마이크로서비스와 관찰성(Observability) 분산 지표
-    url: /os/13_observability/#3-마이크로서비스와-관찰성observability-분산-지표
+  - title: 1. 탑(top)의 한계와 perf 프로파일링
+    url: /os/13_observability/01_perf_profiling/
+  - title: 2. 플레임 그래프(Flame Graph)
+    url: /os/13_observability/02_flame_graph/
+  - title: 3. 마이크로서비스와 관찰성 지표
+    url: /os/13_observability/03_observability_trend/
   title: '13주차: 성능 분석과 관찰성 (perf·Flame Graph)'
   url: /os/13_observability/
+
 - subitems:
   - title: 📋 학습 시작/개요
     url: /os/14_final/
-  - title: 1. 운영체제 커리큘럼 아키텍처 대통합
-    url: /os/14_final/#1-운영체제-커리큘럼-아키텍처-대통합
-  - title: 2. 딥 드라이빙 설계 프로젝트와 평가
-    url: /os/14_final/#2-딥-드라이빙-설계-프로젝트와-평가
+  - title: 1. OS 커리큘럼 대통합
+    url: /os/14_final/01_curriculum_integration/
+  - title: 2. 딥 드라이빙 설계와 최종 검증
+    url: /os/14_final/02_final_project_eval/
+  - title: 3. 인프라 방향성과 회고
+    url: /os/14_final/03_retro_sre/
   title: '14주차: 시스템 마스터 최종 검증'
   url: /os/14_final/

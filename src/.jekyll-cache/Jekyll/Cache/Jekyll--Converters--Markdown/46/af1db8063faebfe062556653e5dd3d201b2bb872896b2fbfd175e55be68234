@@ -1,0 +1,18 @@
+I"/<h1 id="1-명령-프롬프트-엔진의-한계">1. 명령 프롬프트 엔진의 한계</h1>
+
+<p>윈도우에서 <code class="language-plaintext highlighter-rouge">cmd.exe</code> 프로세스를 열었을 때 나오는 쉘(명령 프롬프트)은 리눅스의 <code class="language-plaintext highlighter-rouge">bash</code>나 <code class="language-plaintext highlighter-rouge">zsh</code>처럼 아주 강력하고 거대한 문법의 프로그래밍 언어 지원 모듈이 아닙니다. 이것은 옛날 80년대 DOS 시절부터 쓰이던 기초적인 파일 제어 수준의 프로그램일 뿐입니다.</p>
+
+<p>그래도 우리는 수많은 서버와 컴퓨터의 일괄 작업을 지배하기 위해 <code class="language-plaintext highlighter-rouge">.bat</code> (배치 스크립트)이라는 텍스트 파일에 명령어를 세로로 주르륵 써놓고 한 방에 실행시키는 자동화 문법을 써야 했습니다.</p>
+
+<div align="center" style="margin: 30px 0;">
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#1E1E1E" rx="10" />
+  <rect x="50" y="40" width="500" height="40" fill="#333" rx="5" />
+  <text x="70" y="65" fill="#00FF00" font-size="18" font-family="monospace">@echo off</text>
+  <rect x="50" y="100" width="500" height="40" fill="#333" rx="5" />
+  <text x="70" y="125" fill="#00FF00" font-size="18" font-family="monospace">echo Running Scripts...</text>
+</svg>
+</div>
+
+<p>만약 여러분이 수억 원짜리 구형 공장 설비 라인(Legacy Windows) 인프라로 발령받거나 아주 예전부터 사용 중이던 엔터프라이즈 사내 백업 툴셋을 열어보게 된다면, 파이썬이나 노드(Node.js)가 아니라 십중팔구 투박한 <code class="language-plaintext highlighter-rouge">.bat</code> 배치 명령어 텍스트들만이 시리얼 장비들을 통제하고 있는 모습을 볼 확률이 극히 높습니다. 따라서 고전 터미널 명령어와 배치문법의 역사를 최소한도로 이해하는 것은 기본 생존 스킬입니다.</p>
+:ET

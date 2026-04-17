@@ -9,55 +9,39 @@ title: "1주차: 운영체제란 무엇인가 (현대 OS의 역할과 구조)"
 
 # 1주차: 운영체제란 무엇인가 (현대 OS의 역할과 구조)
 
-
-![OS Core Architecture](/Users/hojin/.gemini/antigravity/brain/28d2e8ff-2bf4-4b06-8f22-23880f1f7300/ai_os_01.png)
-<br>
-
-
-
-
-## 1. 운영체제의 핵심 역할 파고들기
-
-[실전 심화 렉처] 
-많은 초보자들이 착각하는 것은 '운영체제 = 윈도우 UI 화면'이라고 생각하는 점입니다. 하지만 시니어 엔지니어링 레벨에서 바라보는 OS는 **[추상화, 자원 중재, 권한 제어]** 시스템의 집약체입니다.
-가장 먼저 여러분은 링 모델(Ring Model)과 커널(Kernel)이라는 용어를 체득해야 합니다.
-모든 사용자 애플리케이션(브라우저, 게임, 파이썬 스크립트)은 Ring 3(User Mode)에서 동작합니다. 하지만 이들은 절대 물리적 메모리나 하드디스크에 직접 데이터를 쓸 수 없습니다. 모든 하드웨어 제어는 Ring 0(Kernel Mode)가 독점하며, 우리는 반드시 OS에게 '문서를 프린트해 주세요', '네트워크로 패킷을 보내주세요'라고 부탁(System Call)해야만 합니다.
-
-이러한 강력한 격리(Isolation)와 추상화(Abstraction)가 없다면, 크롬 브라우저에 오류가 날 때마다 컴퓨터는 완전히 블루스크린을 띄우거나 전원이 차단되었을 것입니다.
-
-## 2. 현대 OS 생태계와 커널 분석
-
-[실전 심화 렉처]
-우리가 다루는 서버 대부분은 Linux입니다. Linux는 '모놀리식 커널(Monolithic Kernel)'입니다. 모든 기능이 커널 메모리에 올라가 있어 매우 빠르지만, 드라이버 하나가 충돌하면 전체 커널 패닉을 일으킬 수 있는 구조입니다.
-반면 임베디드 단의 QNX(자동차 OS) 등은 '마이크로커널(Microkernel)'을 씁니다. 커널 영역에는 최소한의 통신 모듈만 두고 나머지 파일 시스템 등은 유저 스페이스로 내려 안정성을 극대화한 설계입니다. MacOS(XNU)나 Windows NT는 두 가지 장점을 섞은 하이브리드 커널입니다.
-
-엔지니어라면 현재 내 커널이 어떻게 구축되어 있는지 파라미터를 읽을 줄 알아야 합니다.
-```bash
-$ uname -r
-$ dmesg | head -n 10
-```
-위 명령어를 통해 부팅 시 커널이 메모리에 어떻게 적재되고 어떤 모듈들을 초기화했는지 살펴보십시오.
-
-## 3. UNIX 철학과 다중 사용자(Multi-User)
-
-[실전 심화 렉처]
-단순히 "계정이 여러 개다"를 넘어서, OS가 스레드 풀과 메모리 주소 공간을 어떻게 철저히 격리(Isolation)하는지 시각화해야 합니다.
-`who`, `w`, `last` 명령어는 단순 로그인 로그가 아닙니다. 현재 터미널 환경이 어떤 `pts` 포트에 매핑되어 SSH 데몬(sshd)에 의해 어떻게 TTY를 포크(fork)했는지 구조를 보여줍니다.
+운영체제(Operating System, OS)는 사용자와 컴퓨터 하드웨어 사이의 중재자 역할을 수행하는 가장 핵심적인 시스템 소프트웨어입니다. 본 강의에서는 운영체제의 학술적 기본 개념부터 현대적 리눅스 커널 분석 및 실무 아키텍처까지 포괄적인 딥-테크 이론을 학습합니다.
 
 ---
 
-<div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><circle cx="300" cy="100" r="80" fill="none" stroke="#0078D7" stroke-width="4"/><circle cx="300" cy="100" r="40" fill="#0078D7"/><text x="300" y="105" fill="white" font-size="14" font-family="monospace" text-anchor="middle">Kernel Mode</text><text x="300" y="195" fill="#00FF00" font-size="16" font-family="monospace" text-anchor="middle">Ring 3 (User) vs Ring 0 (Kernel)</text></svg>
-</div>
+## 🎯 핵심 학습 목표
 
-## [전공 심화] 운영체제 패러다임 시스템의 추상화
+* **운영체제의 개념과 목적**을 명확히 설명할 수 있다.
+* 운영체제가 제공하는 **핵심 기능과 주요 4대 서비스**를 이해한다.
+* 시대별 **시분할 체계 등 운영체제 특성 및 발전 과정**을 구분할 수 있다.
+* **운영체제 아키텍처(Monolithic vs Microkernel)**의 특징을 실무 관점에서 비교한다.
+* 현대 **링 모델(Ring Model)** 과 권한 증명 메커니즘을 파악한다.
 
-하드웨어는 결국 0과 1의 전기 신호일 뿐입니다. 운영체제(OS)의 가장 위대한 발명은 이 전선을 '파일'이라는 개념으로, 트랜지스터 연산을 '프로세스'라는 개념으로 논리적으로 감싸 올렸다는 것입니다. 우리가 마우스로 클릭을 하거나 파이썬으로 `print`를 치는 모든 순간이 이 거대한 추상화 계층(Abstraction Layer)의 중재를 거쳐 하드웨어로 전달됩니다.
+<br>
 
-<div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="65" fill="#00FF00" font-size="20" font-family="monospace" text-anchor="middle">Monolithic Kernel vs Microkernel</text></svg>
-</div>
+---
 
-## [전공 심화] 멀티유저와 권한 분리의 기원
+## 📚 하위 문서 목차 (Sub-Chapters)
 
-Unix가 탄생한 1970년대, 컴퓨터는 집 한 채만 한 크기의 메인프레임이었습니다. 수백 명의 연구원이 모니터(터미널)만 연결해 하나의 CPU 자원을 시분할(Time-Sharing)하여 사용해야 했기에, 내가 남의 파일을 지우지 못하도록 하는 '유저 권한 식별(UID)' 메커니즘이 OS 설계의 가장 기저에 하드코딩되었습니다.
+아래 링크를 통해 1주차의 상세 학습 내용과 커널 구조의 핵심 파트들을 순차적으로 학습하실 수 있습니다.
+
+1. **[시스템 구성과 역할](./01_components/index.md)**
+   > 하드웨어와 응용 프로그램 사이의 강력한 중재자 브리지로서의 운영체제 역할을 분석합니다.
+2. **[운영체제 4대 서비스 및 시스템 콜](./02_services/index.md)**
+   > 운영체제가 내부 자원을 어떻게 관리하며, 부팅부터 시스템 콜(System Call)을 통한 권한 노출까지 어떻게 서비스하는지 파악합니다.
+3. **[커널 아키텍처와 링 모델](./03_architecture/index.md)**
+   > Ring 3 (유저 모드)와 Ring 0 (커널 모드)의 구조적 단절과, 모놀리식/마이크로 커널 아키텍처의 트레이드오프를 확인합니다.
+4. **[OS 발전사와 리눅스 계보](./04_history/index.md)**
+   > 시분할(Time-sharing) 시스템부터 시작된 유닉스 다중 사용자 철학과 리눅스 커널/윈도우의 발전 역사를 추적합니다.
+5. **[실습 환경 준비](./05_setup/index.md)**
+   > 터미널 기반의 쉘 조작과 디버깅 분석을 위한 권장 리눅스(Ubuntu/WSL) 셋업 가이드입니다.
+
+<hr style="margin: 40px 0;">
+
+> **📚 참고문헌**
+> * A. Silberschatz 등 3인, 『운영체제(Operating System Concepts)』, 조유근 외 번역, 초판, 교보문고, 2014.
+> * 구현회, 『운영체제 - 그림으로 배우는 구조와 원리』, 한빛아카데미, 2016.

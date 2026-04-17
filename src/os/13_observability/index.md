@@ -7,49 +7,29 @@ title: "13주차: 성능 분석과 관찰성 (perf·Flame Graph)"
   <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="50" fill="white" font-size="20" font-family="monospace" text-anchor="middle">Flame Graph Profiling</text><rect x="250" y="90" width="100" height="20" fill="#E81123"/><rect x="200" y="110" width="200" height="20" fill="#E95420"/><rect x="150" y="130" width="300" height="20" fill="#F4D03F"/></svg>
 </div>
 
-# 13주차: 성능 분석과 관찰성 (perf·Flame Graph)
-
+# 13주차: 성능 관찰성과 SRE 딥다이브 (perf·Flame Graph)
 
 ![OS Core Architecture](/Users/hojin/.gemini/antigravity/brain/28d2e8ff-2bf4-4b06-8f22-23880f1f7300/ai_os_13.png)
 <br>
 
+서버가 다운되진 않았는데 원인 모를 병목으로 CPU 사용량은 치솟고 유저 응답 지연율이 5초를 넘어가고 있습니까? 우리는 더 이상 터미널에서 바보같이 `top` 유틸리티 하나만 바라보고 원인을 예측할 수 없습니다.
 
-
-
-## 1. `top` / `htop` / `strace` 의 한계 돌파
-
-[실전 심화 렉처]
-여러분이 마주할 실무 환경은 `top` 명령 하나만 치고 앉아 로드 애버리지(Load Average) 숫자만 바라보는 레벨이 아닙니다. 왜 CPU는 100%로 풀 로드 중인데 쿼리 전송량은 0인 블랙아웃에 빠졌을까요?
-엔지니어는 `perf stat` 등 리눅스 프로파일링 도구를 즉각 집어넣어야 합니다! `perf`는 CPU 내부에 하드웨어 레벨로 칩셋에 심어진 '이벤트 카운터 센서 레지스터' 값들을 싹 다 긁어들여와 브랜치(Branch Pred.) 예측 실패율이 얼마나 막대한지, L2 캐시 미스가 얼마나 CPU를 굶겨 죽이고 있는가를 가장 적나라하게 분석 데이터로 던져 버립니다. 
-
-## 2. 플레임 그래프(Flame Graph) 분석 지형
-
-[실전 심화 렉처]
-문자의 홍수만으로는 스파게티 코드의 끔찍한 병목 포인트를 사람 눈으로 찾아낼 수 없습니다.
-넷플릭스의 천재 엔지니어(Brendan Gregg)가 창시한 **플레임 그래프(Flame Graph)**에 주목하십시오. `perf record -F 99`로 99헤르츠 비율의 콜스택 조각들을 실시간으로 표본 분석(Sampling)한 뒤, 이 기나긴 스택을 가로 길이 블록 기반의 시각적 형태 "불꽃 모양"의 SVG 화상 지도로 전개합니다!
-제일 두꺼운 불꽃 덩어리(블록 구간)가 바로 여러분 서버 성능을 가장 많이 까먹고 있는 악성 재귀 함수이거나 불필요한 시스템 콜 락(Lock) 무한 경합 블록인 것을 눈먼 장님이라도 즉각 타겟팅할 수 있게 됩니다.
-
-## 3. 마이크로서비스와 관찰성(Observability) 분산 지표
-
-[실전 심화 렉처]
-이제는 서버가 1대 아닙니다! 분산 아키텍처 세계관(K8s)에서는 수십 개의 컨테이너 서비스가 거미줄처럼 동기화되어 통신 릴레이를 처리합니다.
-유저 버튼 클릭 한 번이 A 앱 → B 게이트웨이 → C 인증망 → D 데이터베이스로 흘러가는 거대한 통신 지연을 "OpenTelemetry" 로그와 "Jaeger" 분산 추적(Distributed Tracing) ID 배지들을 달아 시각적으로 싹 추적해냅니다.
-어디 노드 구간에서 Latency 가 심각하게 정체(Spike)되는지를 단박에 잡아내는 Prometheus & Grafana 모니터링 데몬 연계 메트릭 체계가 오늘날 클라우드 기술력의 정점에 서게 된 모멘텀입니다.
+이번 13주차 렉처는 운영체제 관리를 넘어선 **SRE(Site Reliability Engineering)**의 정수를 향해 달립니다. 하드웨어 CPU 칩셋 자체의 브랜치 캐시 미스를 긁어오는 `perf` 카운터부터, 넷플릭스 아키텍트가 발명한 시각적 킬러 툴 **플레임 그래프(Flame Graph)**, 그리고 수천 대의 MSA 파드들을 엮어 지표를 슬러핑하는 **프로메테우스/그라파나** 관찰성 패러다임까지 분산 서버 시스템의 '시야(Sight)'를 장착합니다.
 
 ---
 
-<div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="100" fill="#00FF00" font-size="24" font-family="monospace" text-anchor="middle">perf stat -e cache-misses</text></svg>
-</div>
+## 📚 하위 문서 목차 (Sub-Chapters)
 
-## [전공 심화] perf와 Flame Graph로 지연 분쇄하기
+블랙박스가 된 서버 커널 트랜잭션을 사람의 눈으로 파싱하기 위한 3단계 시각화 툴 체커 보드입니다.
 
-시스템이 느려질 때, CPU 코어 내의 L1/L2 캐시 적중률과 하드웨어 스톨(Stall) 현상을 찾아내기 위해 `perf` 하드웨어 카운터를 활용합니다. 함수 추적 스택 샘플링 데이터를 불꽃놀이처럼 시각화한 프렌단 그레그의 마스터피스, '플레임 그래프(Flame Graph)'를 그리는 방법을 숙달합니다.
+1. **[`top`의 한계와 perf 프로파일링](./01_perf_profiling/index.md)**
+   > 단순 Load Average 측정을 벗어나, 하드웨어 타이머와 L2 레지스터 센서에 직결되어 병목을 탐지하는 `perf`의 활용성.
+2. **[플레임 그래프(Flame Graph) 분석 지형](./02_flame_graph/index.md)**
+   > 99헤르츠 샘플링된 함수 콜스택을 뚱뚱하게 렌더링 된 블록 SVG로 타겟팅하여 코드 병목을 저격하는 마스터 기술.
+3. **[마이크로서비스와 관찰성 지표](./03_observability_trend/index.md)**
+   > 단일 서버를 벗어나 OpenTelemetry 로그 추적과 Prometheus/Grafana 지표 대시보드를 구축하는 모던 클라우드 관찰력.
 
-<div align='center' style='margin: 30px 0;'>
-  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10"/><text x="300" y="65" fill="#0078D7" font-size="18" font-family="monospace" text-anchor="middle">Prometheus &amp; Grafana Observability</text></svg>
-</div>
+<hr style="margin: 40px 0;">
 
-## [전공 심화] Cloud Observability 트렌드
-
-수백 대 분리된 마이크로서비스 지표는 더 이상 쉘에서 `vmstat` 를 타이핑하고 앉아 있을 수 없습니다. 모든 OS 매트릭스 정보를 시계열 DB(Prometheus)가 동기화로 슬러핑(Slurping)해 오고, 이를 그라파나 대시보드로 시각화하는 SRE 표준 사이트 신뢰성 엔지니어링 패러다임을 체험합니다.
+> **💡 현대 성능 엔지니어링 마인드셋**
+> "최고의 최적화는 무작정 코드를 고치는 것이 아니라, 가장 병목이 심한 뜨거운 불꽃(가장 넓은 블록)을 정확히 정밀 타격하여 증명해 내는 시각적 관찰력에서 파생된다."

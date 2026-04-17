@@ -2,13 +2,13 @@
   url: /os/01_intro/
 
 - title: 맥(macOS)
-  url: /mac/01_intro/
+  url: /mac/
 
 - title: 윈도우(Windows)
-  url: /window/01_intro/
+  url: /window/
 
 - title: 환경_기타(Others)
-  url: /others/01_dos_era/
+  url: /others/
 
 - title: 리눅스(Linux)
   url: https://linux.jiny.dev

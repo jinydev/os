@@ -5,16 +5,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- 기본 메타데이터 --><meta name="description" content="Jiny linux"><meta name="author" content="HojinLee"><!-- 제목 설정 --><title>5주차: 동기화와 공유 자원 (멀티코어 병렬 프로그래밍)</title>
-  <meta name="title" content="5주차: 동기화와 공유 자원 (멀티코어 병렬 프로그래밍)" /><!-- 키워드 설정 --><!-- Open Graph 메타데이터 --><meta property="og:title" content="5주차: 동기화와 공유 자원 (멀티코어 병렬 프로그래밍)"><meta property="og:description" content="Jiny linux"><meta property="og:type" content="website"><meta property="og:locale" content="ko">
+  <!-- 기본 메타데이터 --><meta name="description" content="Jiny linux"><meta name="author" content="HojinLee"><!-- 제목 설정 --><title>5주차: 프로세스 동기화와 교착 상태 (멀티코어 병렬 구조와 락 메커니즘)</title>
+  <meta name="title" content="5주차: 프로세스 동기화와 교착 상태 (멀티코어 병렬 구조와 락 메커니즘)" /><!-- 키워드 설정 --><!-- Open Graph 메타데이터 --><meta property="og:title" content="5주차: 프로세스 동기화와 교착 상태 (멀티코어 병렬 구조와 락 메커니즘)"><meta property="og:description" content="Jiny linux"><meta property="og:type" content="website"><meta property="og:locale" content="ko">
   <meta property="og:site_name" content="linux">
   <meta property="og:url" content="http://localhost:4001/os/05_sync/">
   <!-- 대표 URL (캐노니컬) -->
   <link rel="canonical" href="http://localhost:4001/os/05_sync/">
 
-  <!-- Twitter 카드 메타데이터 --><meta name="twitter:card" content="summary"><meta property="twitter:title" content="5주차: 동기화와 공유 자원 (멀티코어 병렬 프로그래밍)"><!-- Begin Jekyll SEO tag v2.8.0 -->
+  <!-- Twitter 카드 메타데이터 --><meta name="twitter:card" content="summary"><meta property="twitter:title" content="5주차: 프로세스 동기화와 교착 상태 (멀티코어 병렬 구조와 락 메커니즘)"><!-- Begin Jekyll SEO tag v2.8.0 -->
 <meta name="generator" content="Jekyll v4.2.2" />
-<meta property="og:title" content="5주차: 동기화와 공유 자원 (멀티코어 병렬 프로그래밍)" />
+<meta property="og:title" content="5주차: 프로세스 동기화와 교착 상태 (멀티코어 병렬 구조와 락 메커니즘)" />
 <meta name="author" content="Hojin" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너" />
@@ -24,9 +24,9 @@
 <meta property="og:site_name" content="소프트웨어 엔지니어링: 운영체제 (OS Curriculum)" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="5주차: 동기화와 공유 자원 (멀티코어 병렬 프로그래밍)" />
+<meta property="twitter:title" content="5주차: 프로세스 동기화와 교착 상태 (멀티코어 병렬 구조와 락 메커니즘)" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Hojin"},"description":"개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너","headline":"5주차: 동기화와 공유 자원 (멀티코어 병렬 프로그래밍)","url":"http://localhost:4001/os/05_sync/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Hojin"},"description":"개발자를 위한 현대 운영체제 심화 지식: 리눅스 커널, 스레드, Docker, 컨테이너","headline":"5주차: 프로세스 동기화와 교착 상태 (멀티코어 병렬 구조와 락 메커니즘)","url":"http://localhost:4001/os/05_sync/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -247,15 +247,15 @@
             </li>
             
             <li class="nav-item">
-              <a class="nav-link py-2 px-0 px-lg-2" href="/mac/01_intro/">맥(macOS)</a>
+              <a class="nav-link py-2 px-0 px-lg-2" href="/mac/">맥(macOS)</a>
             </li>
             
             <li class="nav-item">
-              <a class="nav-link py-2 px-0 px-lg-2" href="/window/01_intro/">윈도우(Windows)</a>
+              <a class="nav-link py-2 px-0 px-lg-2" href="/window/">윈도우(Windows)</a>
             </li>
             
             <li class="nav-item">
-              <a class="nav-link py-2 px-0 px-lg-2" href="/others/01_dos_era/">환경_기타(Others)</a>
+              <a class="nav-link py-2 px-0 px-lg-2" href="/others/">환경_기타(Others)</a>
             </li>
             
             <li class="nav-item">
@@ -354,23 +354,37 @@
               </li>
               
               <li>
-                <a href="/os/01_intro/#1-운영체제의-핵심-역할-파고들기"
+                <a href="/os/01_intro/01_components/"
                   class="bd-links-link d-inline-block rounded ">
-                  1. 운영체제의 핵심 역할 파고들기
+                  1. 시스템 구성과 역할
                 </a>
               </li>
               
               <li>
-                <a href="/os/01_intro/#2-현대-os-생태계와-커널-분석"
+                <a href="/os/01_intro/02_services/"
                   class="bd-links-link d-inline-block rounded ">
-                  2. 현대 OS 생태계와 커널 분석
+                  2. 운영체제 4대 서비스
                 </a>
               </li>
               
               <li>
-                <a href="/os/01_intro/#3-unix-철학과-다중-사용자multi-user"
+                <a href="/os/01_intro/03_architecture/"
                   class="bd-links-link d-inline-block rounded ">
-                  3. UNIX 철학과 다중 사용자(Multi-User)
+                  3. 커널 아키텍처와 링 모델
+                </a>
+              </li>
+              
+              <li>
+                <a href="/os/01_intro/04_history/"
+                  class="bd-links-link d-inline-block rounded ">
+                  4. OS 발전사와 리눅스 계보
+                </a>
+              </li>
+              
+              <li>
+                <a href="/os/01_intro/05_setup/"
+                  class="bd-links-link d-inline-block rounded ">
+                  5. 실습 환경 셋업 (WSL)
                 </a>
               </li>
               
@@ -388,7 +402,7 @@
             class="bd-links-link bd-links-btn btn d-inline-flex align-items-center rounded border-0 collapsed w-100"
             data-bs-toggle="collapse" data-bs-target="#collapse-2"
             aria-expanded="false">
-            2주차: 시스템 콜 (소프트웨어가 OS에 요청하는 방법)
+            2주차: 컴퓨터 시스템 구조와 시스템 콜 (하드웨어 인터페이스와 OS 트랩)
             <svg class="bi ms-auto" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
               xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd"
@@ -406,23 +420,30 @@
               </li>
               
               <li>
-                <a href="/os/02_syscall/#1-시스템-콜-system-call-작동-원리"
+                <a href="/os/02_syscall/01_architecture/"
                   class="bd-links-link d-inline-block rounded ">
-                  1. 시스템 콜 (System Call) 작동 원리
+                  1. 하드웨어 아키텍처와 CPU
                 </a>
               </li>
               
               <li>
-                <a href="/os/02_syscall/#2-strace와-디버깅-예술"
+                <a href="/os/02_syscall/02_bus_io/"
                   class="bd-links-link d-inline-block rounded ">
-                  2. strace와 디버깅 예술
+                  2. 시스템 버스와 I/O 제어
                 </a>
               </li>
               
               <li>
-                <a href="/os/02_syscall/#3-소프트웨어-인터럽트와-하드웨어-인터럽트"
+                <a href="/os/02_syscall/03_syscall/"
                   class="bd-links-link d-inline-block rounded ">
-                  3. 소프트웨어 인터럽트와 하드웨어 인터럽트
+                  3. 시스템 콜 전환과 디버깅
+                </a>
+              </li>
+              
+              <li>
+                <a href="/os/02_syscall/04_compiler/"
+                  class="bd-links-link d-inline-block rounded ">
+                  4. GCC 시스템 툴체인
                 </a>
               </li>
               
@@ -440,7 +461,7 @@
             class="bd-links-link bd-links-btn btn d-inline-flex align-items-center rounded border-0 collapsed w-100"
             data-bs-toggle="collapse" data-bs-target="#collapse-3"
             aria-expanded="false">
-            3주차: 프로세스와 스레드 (현대 멀티코어 환경의 실행 단위)
+            3주차: 프로세스와 스레드 구조 및 IPC 통신 대통합
             <svg class="bi ms-auto" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
               xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd"
@@ -458,23 +479,37 @@
               </li>
               
               <li>
-                <a href="/os/03_process/#1-프로세스와-코어-메모리-구조"
+                <a href="/os/03_process/01_memory/"
                   class="bd-links-link d-inline-block rounded ">
                   1. 프로세스와 코어 메모리 구조
                 </a>
               </li>
               
               <li>
-                <a href="/os/03_process/#2-스레드-thread-스케일-구조"
+                <a href="/os/03_process/02_pcb_lifecycle/"
                   class="bd-links-link d-inline-block rounded ">
-                  2. 스레드 (Thread) 스케일 구조
+                  2. PCB와 생명 주기 시스템
                 </a>
               </li>
               
               <li>
-                <a href="/os/03_process/#3-코루틴과-비동기-논블로킹-io"
+                <a href="/os/03_process/03_fork_exec/"
                   class="bd-links-link d-inline-block rounded ">
-                  3. 코루틴과 비동기 논블로킹 I/O
+                  3. 공간 독립성과 fork()의 철학
+                </a>
+              </li>
+              
+              <li>
+                <a href="/os/03_process/04_thread/"
+                  class="bd-links-link d-inline-block rounded ">
+                  4. 멀티 스레드와 GIL 코루틴
+                </a>
+              </li>
+              
+              <li>
+                <a href="/os/03_process/05_ipc/"
+                  class="bd-links-link d-inline-block rounded ">
+                  5. 프로세스 통신(IPC) 기법
                 </a>
               </li>
               
@@ -492,7 +527,7 @@
             class="bd-links-link bd-links-btn btn d-inline-flex align-items-center rounded border-0 collapsed w-100"
             data-bs-toggle="collapse" data-bs-target="#collapse-4"
             aria-expanded="false">
-            4주차: 현대 CPU 스케줄링 (멀티코어·이종코어 스케줄러)
+            4주차: CPU 스케줄링 이론과 현대 리눅스/이종코어 스케줄러
             <svg class="bi ms-auto" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
               xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd"
@@ -510,23 +545,37 @@
               </li>
               
               <li>
-                <a href="/os/04_schedule/#1-cpu-스케줄러의-타임-퀀텀"
+                <a href="/os/04_schedule/01_architecture/"
                   class="bd-links-link d-inline-block rounded ">
-                  1. CPU 스케줄러의 타임 퀀텀
+                  1. 스케줄러 파이프라인 아키텍처
                 </a>
               </li>
               
               <li>
-                <a href="/os/04_schedule/#2-linux-cfs-및-eevdf-알고리즘"
+                <a href="/os/04_schedule/02_metrics/"
                   class="bd-links-link d-inline-block rounded ">
-                  2. Linux CFS 및 EEVDF 알고리즘
+                  2. 선점성과 성능 평가 지표
                 </a>
               </li>
               
               <li>
-                <a href="/os/04_schedule/#3-멀티-코어와-이종-코어p-coree-core-지배"
+                <a href="/os/04_schedule/03_classic_algo/"
                   class="bd-links-link d-inline-block rounded ">
-                  3. 멀티 코어와 이종 코어(P-Core/E-Core) 지배
+                  3. 스케줄링 고전 설계사 (FCFS/SJF)
+                </a>
+              </li>
+              
+              <li>
+                <a href="/os/04_schedule/04_mlfq/"
+                  class="bd-links-link d-inline-block rounded ">
+                  4. 실전 상용&#58; 다단계 피드백 큐 (MLFQ)
+                </a>
+              </li>
+              
+              <li>
+                <a href="/os/04_schedule/05_modern_cfs/"
+                  class="bd-links-link d-inline-block rounded ">
+                  5. 현대 Linux CFS와 이종코어 제어
                 </a>
               </li>
               
@@ -544,7 +593,7 @@
             class="bd-links-link bd-links-btn btn d-inline-flex align-items-center rounded border-0  w-100"
             data-bs-toggle="collapse" data-bs-target="#collapse-5"
             aria-expanded="true">
-            5주차: 동기화와 공유 자원 (멀티코어 병렬 프로그래밍)
+            5주차: 동기화와 교착 상태 (멀티코어 병렬 구조와 락 메커니즘)
             <svg class="bi ms-auto" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
               xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd"
@@ -562,23 +611,37 @@
               </li>
               
               <li>
-                <a href="/os/05_sync/#1-멀티스레드의-악몽-경쟁-조건race-condition"
-                  class="bd-links-link d-inline-block rounded active">
-                  1. 멀티스레드의 악몽: 경쟁 조건(Race Condition)
+                <a href="/os/05_sync/01_race_condition/"
+                  class="bd-links-link d-inline-block rounded ">
+                  1. 동시성과 임계 영역 (Critical Section)
                 </a>
               </li>
               
               <li>
-                <a href="/os/05_sync/#2-락lock-뮤텍스mutex-그리고-페타슨의-알고리즘"
-                  class="bd-links-link d-inline-block rounded active">
-                  2. 락(Lock), 뮤텍스(Mutex), 그리고 페타슨의 알고리즘
+                <a href="/os/05_sync/02_sync_hardware/"
+                  class="bd-links-link d-inline-block rounded ">
+                  2. 하드웨어 원자적 락 (Spinlock/Futex)
                 </a>
               </li>
               
               <li>
-                <a href="/os/05_sync/#3-교착-상태deadlock-추적과-해결-메커니즘"
-                  class="bd-links-link d-inline-block rounded active">
-                  3. 교착 상태(Deadlock) 추적과 해결 메커니즘
+                <a href="/os/05_sync/03_sync_os/"
+                  class="bd-links-link d-inline-block rounded ">
+                  3. OS 동기화 객체 (세마포어/모니터)
+                </a>
+              </li>
+              
+              <li>
+                <a href="/os/05_sync/04_deadlock/"
+                  class="bd-links-link d-inline-block rounded ">
+                  4. 교착 상태(Deadlock) 발생 조건과 회피
+                </a>
+              </li>
+              
+              <li>
+                <a href="/os/05_sync/05_priority_inversion/"
+                  class="bd-links-link d-inline-block rounded ">
+                  5. 우선순위 역전과 커널 상속
                 </a>
               </li>
               
@@ -596,7 +659,7 @@
             class="bd-links-link bd-links-btn btn d-inline-flex align-items-center rounded border-0 collapsed w-100"
             data-bs-toggle="collapse" data-bs-target="#collapse-6"
             aria-expanded="false">
-            6주차: 현대 메모리 관리 (가상 메모리·mmap·ASLR)
+            6주차: 현대 메모리 관리와 가상 메모리 매핑 설계
             <svg class="bi ms-auto" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
               xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd"
@@ -614,23 +677,37 @@
               </li>
               
               <li>
-                <a href="/os/06_memory/#1-가상-메모리virtual-memory의-위대한-환상"
+                <a href="/os/06_memory/01_physical_mapping/"
                   class="bd-links-link d-inline-block rounded ">
-                  1. 가상 메모리(Virtual Memory)의 위대한 환상
+                  1. 물리 주소 맵핑과 메모 단편화
                 </a>
               </li>
               
               <li>
-                <a href="/os/06_memory/#2-페이지-폴트page-fault와-mmap"
+                <a href="/os/06_memory/02_paging_segmentation/"
                   class="bd-links-link d-inline-block rounded ">
-                  2. 페이지 폴트(Page Fault)와 mmap()
+                  2. 가상 메모리&#58; 페이징과 세그먼테이션
                 </a>
               </li>
               
               <li>
-                <a href="/os/06_memory/#3-oom-killer와-메모리-보안-aslr"
+                <a href="/os/06_memory/03_demand_paging/"
                   class="bd-links-link d-inline-block rounded ">
-                  3. OOM Killer와 메모리 보안 (ASLR)
+                  3. 요구 페이징과 mmap() 시스템 콜
+                </a>
+              </li>
+              
+              <li>
+                <a href="/os/06_memory/04_replacement_algo/"
+                  class="bd-links-link d-inline-block rounded ">
+                  4. 페이지 대치 (Replacement) 알고리즘
+                </a>
+              </li>
+              
+              <li>
+                <a href="/os/06_memory/05_working_set_oom/"
+                  class="bd-links-link d-inline-block rounded ">
+                  5. 스래싱과 워킹 셋, OOM Killer
                 </a>
               </li>
               
@@ -648,7 +725,7 @@
             class="bd-links-link bd-links-btn btn d-inline-flex align-items-center rounded border-0 collapsed w-100"
             data-bs-toggle="collapse" data-bs-target="#collapse-7"
             aria-expanded="false">
-            7주차: 파일 시스템 총정리 (ext4·ZFS·APFS)
+            7주차: 파일 시스템 아키텍처 (i-node, 블록 할당, CoW/ZFS)
             <svg class="bi ms-auto" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
               xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd"
@@ -666,23 +743,37 @@
               </li>
               
               <li>
-                <a href="/os/07_fs/#1-inode와-루트-폴더부터-타고-내려가기"
+                <a href="/os/07_fs/01_directory_link/"
                   class="bd-links-link d-inline-block rounded ">
-                  1. Inode와 루트 폴더부터 타고 내려가기
+                  1. 디렉터리 시스템과 링크 아키텍처
                 </a>
               </li>
               
               <li>
-                <a href="/os/07_fs/#2-하드-링크hard-link-vs-심볼릭-링크soft-link"
+                <a href="/os/07_fs/02_inode/"
                   class="bd-links-link d-inline-block rounded ">
-                  2. 하드 링크(Hard Link) vs 심볼릭 링크(Soft Link)
+                  2. UNIX 메타데이터&#58; i-node 색인
                 </a>
               </li>
               
               <li>
-                <a href="/os/07_fs/#3-저널링-cow-스냅샷-zfs-apfs-ext4"
+                <a href="/os/07_fs/03_allocation/"
                   class="bd-links-link d-inline-block rounded ">
-                  3. 저널링, CoW, 스냅샷 (ZFS, APFS, ext4)
+                  3. 디스크 블록 공간 할당 모델
+                </a>
+              </li>
+              
+              <li>
+                <a href="/os/07_fs/04_lseek/"
+                  class="bd-links-link d-inline-block rounded ">
+                  4. 포인터 제어 lseek 시스템 콜
+                </a>
+              </li>
+              
+              <li>
+                <a href="/os/07_fs/05_journal_cow/"
+                  class="bd-links-link d-inline-block rounded ">
+                  5. 저널링과 현대 CoW 스냅샷
                 </a>
               </li>
               
@@ -718,9 +809,23 @@
               </li>
               
               <li>
-                <a href="/os/08_midterm/#1-운영체제-전반기-아키텍처-복습"
+                <a href="/os/08_midterm/01_architecture_review/"
                   class="bd-links-link d-inline-block rounded ">
-                  1. 운영체제 전반기 아키텍처 복습
+                  1. 전반기 아키텍처 복습
+                </a>
+              </li>
+              
+              <li>
+                <a href="/os/08_midterm/02_assessment_guide/"
+                  class="bd-links-link d-inline-block rounded ">
+                  2. 중간고사 실기 평가 안내
+                </a>
+              </li>
+              
+              <li>
+                <a href="/os/08_midterm/03_case_study/"
+                  class="bd-links-link d-inline-block rounded ">
+                  3. 시스템 장애 디버깅 케이스
                 </a>
               </li>
               
@@ -738,7 +843,7 @@
             class="bd-links-link bd-links-btn btn d-inline-flex align-items-center rounded border-0 collapsed w-100"
             data-bs-toggle="collapse" data-bs-target="#collapse-9"
             aria-expanded="false">
-            9주차: 장치 관리와 I/O (현대 드라이버 모델과 io_uring)
+            9주차: I/O 디바이스 모델링 (DMA, 디스크 스케줄링, RAID 및 io_uring)
             <svg class="bi ms-auto" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
               xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd"
@@ -756,23 +861,37 @@
               </li>
               
               <li>
-                <a href="/os/09_io/#1-모든-것은-파일이다-everything-is-a-file"
+                <a href="/os/09_io/01_io_subsystem/"
                   class="bd-links-link d-inline-block rounded ">
-                  1. 모든 것은 파일이다 (Everything is a file)
+                  1. 하드웨어 혈관과 커널 추상화
                 </a>
               </li>
               
               <li>
-                <a href="/os/09_io/#2-dmadirect-memory-access와-인터럽트-전술"
+                <a href="/os/09_io/02_data_transfer/"
                   class="bd-links-link d-inline-block rounded ">
-                  2. DMA(Direct Memory Access)와 인터럽트 전술
+                  2. 전송 철학 (Polling ➔ DMA)
                 </a>
               </li>
               
               <li>
-                <a href="/os/09_io/#3-io_uring-괴물-같은-비동기-패러다임"
+                <a href="/os/09_io/03_disk_scheduling/"
                   class="bd-links-link d-inline-block rounded ">
-                  3. io_uring: 괴물 같은 비동기 패러다임
+                  3. 디스크와 탐색 스케줄링 (C-SCAN)
+                </a>
+              </li>
+              
+              <li>
+                <a href="/os/09_io/04_raid/"
+                  class="bd-links-link d-inline-block rounded ">
+                  4. 서버 파티션&#58; RAID 아키텍처
+                </a>
+              </li>
+              
+              <li>
+                <a href="/os/09_io/05_api_iouring/"
+                  class="bd-links-link d-inline-block rounded ">
+                  5. OS API 한계와 io_uring의 도래
                 </a>
               </li>
               
@@ -808,23 +927,23 @@
               </li>
               
               <li>
-                <a href="/os/10_container/#1-도커docker의-정체와-네임스페이스-격리"
+                <a href="/os/10_container/01_namespace_isolation/"
                   class="bd-links-link d-inline-block rounded ">
-                  1. 도커(Docker)의 정체와 네임스페이스 격리
+                  1. 도커의 정체와 네임스페이스 격리
                 </a>
               </li>
               
               <li>
-                <a href="/os/10_container/#2-cgroupcontrol-groups을-통한-하드웨어-통제"
+                <a href="/os/10_container/02_cgroup_control/"
                   class="bd-links-link d-inline-block rounded ">
-                  2. cgroup(Control Groups)을 통한 하드웨어 통제
+                  2. cgroup을 통한 하드웨어 통제
                 </a>
               </li>
               
               <li>
-                <a href="/os/10_container/#3-oci-규격과-이미지-레이어layered-fs"
+                <a href="/os/10_container/03_overlay_fs/"
                   class="bd-links-link d-inline-block rounded ">
-                  3. OCI 규격과 이미지 레이어(Layered FS)
+                  3. OCI 규격과 Layered FS
                 </a>
               </li>
               
@@ -860,23 +979,23 @@
               </li>
               
               <li>
-                <a href="/os/11_cloud/#1-하드웨어-가상화와-하이퍼바이저-링-레벨"
+                <a href="/os/11_cloud/01_hypervisor/"
                   class="bd-links-link d-inline-block rounded ">
-                  1. 하드웨어 가상화와 하이퍼바이저 링 레벨
+                  1. 가상화와 하이퍼바이저 링 레벨
                 </a>
               </li>
               
               <li>
-                <a href="/os/11_cloud/#2-쿠버네티스kubernetes-오케스트레이터의-철학"
+                <a href="/os/11_cloud/02_kubernetes/"
                   class="bd-links-link d-inline-block rounded ">
-                  2. 쿠버네티스(Kubernetes) 오케스트레이터의 철학
+                  2. 쿠버네티스 오케스트레이터
                 </a>
               </li>
               
               <li>
-                <a href="/os/11_cloud/#3-serverless와-마이크로-vm-아키텍처-firecracker"
+                <a href="/os/11_cloud/03_micro_vm/"
                   class="bd-links-link d-inline-block rounded ">
-                  3. Serverless와 마이크로-VM 아키텍처 (Firecracker)
+                  3. 서버리스와 마이크로-VM
                 </a>
               </li>
               
@@ -912,23 +1031,23 @@
               </li>
               
               <li>
-                <a href="/os/12_security/#1-심층-dac-권한과-setuid-비트"
+                <a href="/os/12_security/01_dac_setuid/"
                   class="bd-links-link d-inline-block rounded ">
-                  1. 심층 DAC 권한과 SetUID 비트
+                  1. DAC 통제와 SetUID
                 </a>
               </li>
               
               <li>
-                <a href="/os/12_security/#2-mac-강제-제어-selinux와-apparmor"
+                <a href="/os/12_security/02_mac_selinux/"
                   class="bd-links-link d-inline-block rounded ">
-                  2. MAC 강제 제어 (SELinux와 AppArmor)
+                  2. MAC 강제 제어 (SELinux)
                 </a>
               </li>
               
               <li>
-                <a href="/os/12_security/#3-ebpf-괴물-같은-관찰-및-보안-동맥-추적"
+                <a href="/os/12_security/03_ebpf_seccomp/"
                   class="bd-links-link d-inline-block rounded ">
-                  3. eBPF: 괴물 같은 관찰 및 보안 동맥 추적
+                  3. Seccomp와 eBPF 구조
                 </a>
               </li>
               
@@ -964,23 +1083,23 @@
               </li>
               
               <li>
-                <a href="/os/13_observability/#1-top-htop-strace-의-한계-돌파"
+                <a href="/os/13_observability/01_perf_profiling/"
                   class="bd-links-link d-inline-block rounded ">
-                  1. `top` / `htop` / `strace` 의 한계 돌파
+                  1. 탑(top)의 한계와 perf 프로파일링
                 </a>
               </li>
               
               <li>
-                <a href="/os/13_observability/#2-플레임-그래프flame-graph-분석-지형"
+                <a href="/os/13_observability/02_flame_graph/"
                   class="bd-links-link d-inline-block rounded ">
-                  2. 플레임 그래프(Flame Graph) 분석 지형
+                  2. 플레임 그래프(Flame Graph)
                 </a>
               </li>
               
               <li>
-                <a href="/os/13_observability/#3-마이크로서비스와-관찰성observability-분산-지표"
+                <a href="/os/13_observability/03_observability_trend/"
                   class="bd-links-link d-inline-block rounded ">
-                  3. 마이크로서비스와 관찰성(Observability) 분산 지표
+                  3. 마이크로서비스와 관찰성 지표
                 </a>
               </li>
               
@@ -1016,16 +1135,23 @@
               </li>
               
               <li>
-                <a href="/os/14_final/#1-운영체제-커리큘럼-아키텍처-대통합"
+                <a href="/os/14_final/01_curriculum_integration/"
                   class="bd-links-link d-inline-block rounded ">
-                  1. 운영체제 커리큘럼 아키텍처 대통합
+                  1. OS 커리큘럼 대통합
                 </a>
               </li>
               
               <li>
-                <a href="/os/14_final/#2-딥-드라이빙-설계-프로젝트와-평가"
+                <a href="/os/14_final/02_final_project_eval/"
                   class="bd-links-link d-inline-block rounded ">
-                  2. 딥 드라이빙 설계 프로젝트와 평가
+                  2. 딥 드라이빙 설계와 최종 검증
+                </a>
+              </li>
+              
+              <li>
+                <a href="/os/14_final/03_retro_sre/"
+                  class="bd-links-link d-inline-block rounded ">
+                  3. 인프라 방향성과 회고
                 </a>
               </li>
               
@@ -1062,7 +1188,7 @@
         
         
         
-        <li class="breadcrumb-item active" aria-current="page">5주차: 동기화와 공유 자원 (멀티코어 병렬 프로그래밍)</li>
+        <li class="breadcrumb-item active" aria-current="page">5주차: 프로세스 동기화와 교착 상태 (멀티코어 병렬 구조와 락 메커니즘)</li>
         
         
         
@@ -1070,50 +1196,71 @@
 </nav>
         <div class="bd-content ps-lg-2">
             <div align="center" style="margin: 30px 0;">
-  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10" /><rect x="200" y="80" width="200" height="40" fill="#E81123" rx="5" /><text x="300" y="105" fill="white" font-size="16" font-family="monospace" text-anchor="middle">Critical Section</text><rect x="150" y="60" width="100" height="20" fill="#00FF00" rx="5" /><rect x="350" y="120" width="100" height="20" fill="#0078D7" rx="5" /></svg>
+  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10" /><rect x="200" y="80" width="200" height="40" fill="#E81123" rx="5" /><text x="300" y="105" fill="white" font-size="16" font-family="monospace" text-anchor="middle">Critical Section Lock</text><rect x="150" y="60" width="100" height="20" fill="#00FF00" rx="5" /><rect x="350" y="120" width="100" height="20" fill="#0078D7" rx="5" /><circle cx="200" cy="180" r="10" fill="none" stroke="#E81123" stroke-width="4" /><circle cx="400" cy="180" r="10" fill="none" stroke="#0078D7" stroke-width="4" /><path d="M 230 180 L 370 180" stroke="#00FF00" stroke-width="2" marker-end="url(#a)" /><text x="300" y="195" fill="gray" font-size="12" font-family="monospace" text-anchor="middle">Deadlock Avoidance</text><defs><marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#00FF00" /></marker></defs></svg>
 </div>
 
-<h1 id="5주차-동기화와-공유-자원-멀티코어-병렬-프로그래밍">5주차: 동기화와 공유 자원 (멀티코어 병렬 프로그래밍)</h1>
+<h1 id="5주차-동기화와-교착-상태-멀티코어-병렬-구조와-락-메커니즘">5주차: 동기화와 교착 상태 (멀티코어 병렬 구조와 락 메커니즘)</h1>
 
-<p><img src="/Users/hojin/.gemini/antigravity/brain/28d2e8ff-2bf4-4b06-8f22-23880f1f7300/ai_os_05.png" alt="OS Core Architecture" />
-<br /></p>
-
-<h2 id="1-멀티스레드의-악몽-경쟁-조건race-condition">1. 멀티스레드의 악몽: 경쟁 조건(Race Condition)</h2>
-
-<p>[실전 심화 렉처]
-두 스레드가 <code class="language-plaintext highlighter-rouge">counter = counter + 1</code>을 동시에 수행했을 때, 1+1이 2가 아니라 1이 될 수 있다는 사실을 이해했다면 OS 심화 과정의 절반을 넘은 것입니다!
-어셈블리 레벨에서 이 코드는 메모리 읽기(Load) -&gt; 레지스터에서 더하기(Add) -&gt; 메모리에 쓰기(Store)의 3단계로 이루어집니다. A 스레드가 Load를 마친 찰나의 순간에 B 스레드가 파고들어서 Load를 해버리면 지옥문이 열립니다. 이를 방지하기 위한 OS의 핵심 보호 구역을 ‘임계 구역(Critical Section)’이라고 합니다.</p>
-
-<h2 id="2-락lock-뮤텍스mutex-그리고-페타슨의-알고리즘">2. 락(Lock), 뮤텍스(Mutex), 그리고 페타슨의 알고리즘</h2>
-
-<p>[실전 심화 렉처]
-임계 구역에 오직 한 놈만 들여보내기 위해 현대 OS는 Mutex(Mutual Exclusion) 오브젝트를 제공합니다. 스레드는 커널에 “문 잠그고 나 들어갈게”라고 요청합니다(<code class="language-plaintext highlighter-rouge">lock()</code>).
-하지만 성능에 민감한 C/C++ 게임 서버들은 OS에게 부탁하는 커널 호출 시간을 아까워합니다. 이 때문에 하드웨어 계층의 CAS(Compare-and-Swap) 명령어(Atomic Operation)를 이용한 Lock-Free 구조체나 락을 커널 레벨로 넘기기 전에 유저 레벨에서 짧게 뺑뺑이 도는 퓨텍스(Futex)를 혼합하여 지연을 극한으로 단축시킵니다.</p>
-
-<h2 id="3-교착-상태deadlock-추적과-해결-메커니즘">3. 교착 상태(Deadlock) 추적과 해결 메커니즘</h2>
-
-<p>[실전 심화 렉처]
-현업에서 만나는 가장 끔찍한 서버 다운 원인은 데드락입니다.
-A 스레드는 데이터베이스 연결 락을 쥔 채 로그 파일 락을 기다리고, B 스레드는 로그 파일 락을 쥔 채 데이터베이스 연결 락을 대기합니다. 영원히 풀리지 않는 교착 상태가 발생하죠.
-이를 추적하기 위해서는 프로세스 덤프(Core Dump)를 떠서 스레드 호출 스택 상태를 분석해야 하며, 근본적으로는 <strong>자원 할당 순서를 일관되게 고정(Lock Ordering)</strong> 하거나 현대적인 타임아웃 메커니즘(Timeout and Retry)으로 소프트웨어가 스스로 락 경합을 포기하게 만들어 아키텍처를 안전하게 수호해야 합니다.</p>
+<p>다중 스레드 환경에서 메모리와 힙(Heap)을 공유하는 것은 통신 속도 측정에 엄청난 축복이지만, 순서와 접근 권한 제어에 실패할 경우 모든 시스템을 다운시키는 파멸의 씨앗이 됩니다. 이번 강좌에서는 병렬 프로세싱에서 발생하는 <strong>경쟁 상태(Race Condition)</strong>의 어셈블리 측면 원리와 이를 방어하는 <strong>상호배제(Mutex, Semaphore)</strong>, 그리고 락의 남용이 가져오는 최악의 항구적 마비인 <strong>교착 상태(Deadlock)</strong>의 방어 아키텍처를 하나로 연결하여 딥-테크 레벨로 분석합니다.</p>
 
 <hr />
 
-<div align="center" style="margin: 30px 0;">
-  <svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10" /><circle cx="200" cy="100" r="50" fill="none" stroke="#E81123" stroke-width="4" /><circle cx="400" cy="100" r="50" fill="none" stroke="#0078D7" stroke-width="4" /><path d="M 250 80 L 350 80" stroke="#00FF00" stroke-width="4" marker-end="url(#a)" /><path d="M 350 120 L 250 120" stroke="#00FF00" stroke-width="4" marker-end="url(#a)" /><text x="300" y="195" fill="gray" font-size="16" font-family="monospace" text-anchor="middle">Deadlock (Circular Wait)</text><defs><marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#00FF00" /></marker></defs></svg>
-</div>
+<h2 id="-통합-핵심-학습-목표">🎯 통합 핵심 학습 목표</h2>
 
-<h2 id="전공-심화-경쟁-조건이-발생시키는-죗값">[전공 심화] 경쟁 조건이 발생시키는 죗값</h2>
+<ol>
+  <li><strong>병행성 오류 규명</strong>: 경쟁 상태에서 발생하는 데이터 유실 메커니즘을 어셈블리어 레벨에서 설명할 수 있다.</li>
+  <li><strong>임계 영역(Critical Section) 아키텍처</strong>: 안전한 동기화를 위한 진입/퇴출 구역 설계 및 상호배제, 진행, 한정 대기의 3조건을 검증한다.</li>
+  <li><strong>하드웨어 제어와 퓨텍스(Futex)</strong>: 원자적 연산(<code class="language-plaintext highlighter-rouge">TestAndSet</code>, CAS) 명령어의 스핀락 한계와 유저 모드 락 트위킹을 파악한다.</li>
+  <li><strong>고급 OS 동기화 객체</strong>: 세마포어(Semaphore) 카운팅과 모니터(Monitor) 객체의 내부 블로킹 파이프라인을 활용할 수 있다.</li>
+  <li><strong>데드락과 자원 회피</strong>: 교착 상태 4대 발생 조건을 이해하고, 은행원 알고리즘(Banker’s)과 락 오더링(Lock Ordering) 등 현대적 극복 방안을 체득한다.</li>
+</ol>
 
-<p>공동 은행 계좌에서 스레드 A와 스레드 B가 동시에 잔액을 조회하고 차감할 경우, 최악의 시나리오가 펼쳐집니다. 어셈블리어 단계에서 데이터를 가져오는(Load) 것과 빼는(Sub), 저장하는(Store) 행위 중간에 나이프처럼 스케줄러가 끼어들어 컨텍스트 스위칭을 발생시키면 정보가 분쇄되는 현상을 ‘경쟁 조건(Race Condition)’이라고 부릅니다.</p>
+<p><br /></p>
 
-<div align="center" style="margin: 30px 0;">
-  <svg width="100%" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#1E1E1E" rx="10" /><text x="300" y="65" fill="#E81123" font-size="18" font-family="monospace" text-anchor="middle">Mutex (1) vs Semaphore (N)</text></svg>
-</div>
+<hr />
 
-<h2 id="전공-심화-소프트웨어를-죽이는-데드락-모형">[전공 심화] 소프트웨어를 죽이는 데드락 모형</h2>
+<h2 id="-하위-문서-목차-sub-chapters">📚 하위 문서 목차 (Sub-Chapters)</h2>
 
-<p>경쟁을 피하기 위해 임계 구역(락)을 남용하면 모든 스레드가 잠금 장치에 매달려 정지해버리는 ‘교착 상태(Deadlock)’의 벽에 직면합니다. A가 B키를, B가 A키를 기다리며 영원히 무한 굴레에 빠지는 상황을 진단하고 예방하는 것은 현대 병렬 프로그래밍 수명 주기의 핵심입니다.</p>
+<p>다중 코어 레이스의 경쟁 붕괴를 막고, 안전하게 순서를 보장하기 위한 락(Lock) 알고리즘 진화 역사를 5개 모듈로 세분화했습니다. 아래 링크를 참조하세요.</p>
+
+<ol>
+  <li><strong><a href="./01_race_condition/index.md">동시성과 임계 영역 (Critical Section)</a></strong>
+    <blockquote>
+      <p>1+1 이 2가 아닌 1이 되는 어셈블리 라인 분쇄 과정과 이 오류를 회피하는 임계 영역 캡슐화 조건 3단계를 점검합니다.</p>
+    </blockquote>
+  </li>
+  <li><strong><a href="./02_sync_hardware/index.md">하드웨어 원자적 락 (Spinlock/Futex)</a></strong>
+    <blockquote>
+      <p>쪼개지지 않는 <code class="language-plaintext highlighter-rouge">CAS</code> 원자적 명령어를 통한 스핀락의 CPU 점유 낭비와 이를 회피하기 위한 퓨텍스 체계를 진단합니다.</p>
+    </blockquote>
+  </li>
+  <li><strong><a href="./03_sync_os/index.md">OS 동기화 객체 (세마포어/모니터)</a></strong>
+    <blockquote>
+      <p>큐 기반의 <code class="language-plaintext highlighter-rouge">wait()</code>/<code class="language-plaintext highlighter-rouge">signal()</code> 신호등 제어기 세마포어와 실수를 방지하는 고급 객체 지향 락인 모니터(Monitor)를 추적합니다.</p>
+    </blockquote>
+  </li>
+  <li><strong><a href="./04_deadlock/index.md">교착 상태(Deadlock) 회피와 아키텍처</a></strong>
+    <blockquote>
+      <p>동기화 락의 과용으로 인해 서로 무한 대기하는 교착 상태 4대 발생 조건 및 타조 알고리즘 등 회피 매버릭을 분석합니다.</p>
+    </blockquote>
+  </li>
+  <li><strong><a href="./05_priority_inversion/index.md">우선순위 역전과 커널 상속</a></strong>
+    <blockquote>
+      <p>(특수 심화) RTOS 등에서 낮은 권한의 스레드가 높은 권한 스레드의 길을 막는 우선순위 역전(Inversion) 버그와 OS 개입 해결책을 조망합니다.</p>
+    </blockquote>
+  </li>
+</ol>
+
+<hr style="margin: 40px 0;" />
+
+<blockquote>
+  <p><strong>📚 참고문헌</strong></p>
+  <ul>
+    <li>Abraham Silberschatz, 『Operating System Concepts』, J. Wiley &amp; Sons.</li>
+    <li>『Linux Kernel Source Tree』 (futex.c implementation)</li>
+    <li>에츠허르 다익스트라 논문 리뷰 시리즈 (임계 구역과 은행원 정리)</li>
+  </ul>
+</blockquote>
 
 
             <div class="mt-10">
